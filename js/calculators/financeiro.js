@@ -45,7 +45,7 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // JUROS SIMPLES
+    // CALCULADORA DE JUROS SIMPLES
     // ==========================================
     function jurosSimples() {
         return {
