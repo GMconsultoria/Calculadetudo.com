@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Hub de Calculadoras Online - Todas as calculadoras que você precisa em um só lugar. Financeira, investimentos, impostos, conversores e muito mais.">
+    <meta name="keywords"
+        content="calculadora online, juros compostos, IMC, conversor, impostos, investimentos, financeira">
+    <meta name="author" content="CalcHub">
+    <meta name="theme-color" content="#0a1f44">
+    <title>CalcHub — Todas as calculadoras que você precisa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+</head>
+
+<body>
+
+    <!-- ============ NAVBAR ============ -->
+    <header class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="#/" class="navbar-brand" id="navbar-brand">
+                <span class="brand-icon">🧮</span>
+                <span class="brand-text">Calc<span class="brand-accent">Hub</span></span>
+            </a>
+
+            <nav class="navbar-nav" id="navbar-nav">
+                <div class="nav-item dropdown" data-category="financeira">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                        </svg>
+                        Financeira
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/financeira/juros-simples" class="dropdown-item" role="menuitem">Juros Simples</a>
+                        <a href="#/financeira/juros-compostos" class="dropdown-item" role="menuitem">Juros Compostos</a>
+                        <a href="#/financeira/montante" class="dropdown-item" role="menuitem">Cálculo de Montante</a>
+                        <a href="#/financeira/taxas" class="dropdown-item" role="menuitem">Taxas (Nominal, Real,
+                            Efetiva)</a>
+                        <a href="#/financeira/valor-presente" class="dropdown-item" role="menuitem">Valor Presente</a>
+                        <a href="#/financeira/valor-futuro" class="dropdown-item" role="menuitem">Valor Futuro</a>
+                        <a href="#/financeira/vpl" class="dropdown-item" role="menuitem">VPL</a>
+                        <a href="#/financeira/tir" class="dropdown-item" role="menuitem">TIR</a>
+                        <a href="#/financeira/roi" class="dropdown-item" role="menuitem">ROI</a>
+                        <a href="#/financeira/financiamento" class="dropdown-item" role="menuitem">Financiamento
+                            (SAC/PRICE)</a>
+                        <a href="#/financeira/breakeven" class="dropdown-item" role="menuitem">Ponto de Equilíbrio</a>
+                        <a href="#/financeira/correcao" class="dropdown-item" role="menuitem">Correção Monetária</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="investimentos">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                        Investimentos
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/investimentos/renda-fixa" class="dropdown-item" role="menuitem">Renda Fixa (CDB,
+                            Selic, Poupança)</a>
+                        <a href="#/investimentos/primeiro-milhao" class="dropdown-item" role="menuitem">Calculadora do
+                            Primeiro Milhão</a>
+                        <a href="#/investimentos/selic-vs-poupanca" class="dropdown-item" role="menuitem">Selic vs
+                            Poupança</a>
+                        <a href="#/investimentos/reserva-emergencia" class="dropdown-item" role="menuitem">Reserva de
+                            Emergência</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="impostos">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="18" rx="2" />
+                            <path d="M8 7h8M8 11h8M8 15h5" />
+                        </svg>
+                        Impostos
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/impostos/irpf" class="dropdown-item" role="menuitem">Imposto de Renda (IRPF)</a>
+                        <a href="#/impostos/simples-nacional" class="dropdown-item" role="menuitem">Simples Nacional</a>
+                        <a href="#/impostos/lucro-presumido" class="dropdown-item" role="menuitem">Lucro Presumido</a>
+                        <a href="#/impostos/lucro-real" class="dropdown-item" role="menuitem">Lucro Real</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="conversores">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 1l4 4-4 4" />
+                            <path d="M3 11V9a4 4 0 014-4h14" />
+                            <path d="M7 23l-4-4 4-4" />
+                            <path d="M21 13v2a4 4 0 01-4 4H3" />
+                        </svg>
+                        Conversores
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/conversores/moedas" class="dropdown-item" role="menuitem">Conversor de Moedas</a>
+                        <a href="#/conversores/medidas" class="dropdown-item" role="menuitem">Conversor de Medidas</a>
+                        <a href="#/conversores/temperatura" class="dropdown-item" role="menuitem">Conversor de
+                            Temperatura</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="datas">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                            <path d="M16 2v4M8 2v4M3 10h18" />
+                        </svg>
+                        Datas
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/datas/somar-subtrair" class="dropdown-item" role="menuitem">Somar/Subtrair Datas</a>
+                        <a href="#/datas/tempo-restante" class="dropdown-item" role="menuitem">Tempo Restante</a>
+                        <a href="#/datas/tempo-vivido" class="dropdown-item" role="menuitem">Tempo Vivido</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="saude">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                        </svg>
+                        Saúde
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/saude/imc" class="dropdown-item" role="menuitem">IMC</a>
+                        <a href="#/saude/agua" class="dropdown-item" role="menuitem">Consumo de Água</a>
+                        <a href="#/saude/proteina" class="dropdown-item" role="menuitem">Necessidade de Proteína</a>
+                    </div>
+                </div>
+
+                <div class="nav-item dropdown" data-category="cientifica">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 3h6v6l3 8H6l3-8V3z" />
+                            <path d="M6 21h12" />
+                        </svg>
+                        Científica
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/cientifica/fisica" class="dropdown-item" role="menuitem">Física</a>
+                        <a href="#/cientifica/quimica" class="dropdown-item" role="menuitem">Química</a>
+                        <a href="#/cientifica/progressoes" class="dropdown-item" role="menuitem">Progressões (PA/PG)</a>
+                        <a href="#/cientifica/trigonometria" class="dropdown-item" role="menuitem">Trigonometria</a>
+                        <a href="#/cientifica/matrizes" class="dropdown-item" role="menuitem">Matrizes e
+                            Determinantes</a>
+                        <a href="#/cientifica/fatoracao" class="dropdown-item" role="menuitem">Fatoração</a>
+                        <a href="#/cientifica/complexos" class="dropdown-item" role="menuitem">Números Complexos</a>
+                        <a href="#/cientifica/derivadas" class="dropdown-item" role="menuitem">Derivadas</a>
+                        <a href="#/cientifica/integrais" class="dropdown-item" role="menuitem">Integrais</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Dark Mode Toggle -->
+            <button class="theme-toggle" id="theme-toggle" title="Alternar tema"
+                aria-label="Alternar tema claro/escuro">
+                <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                </svg>
+                <svg class="theme-icon moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                </svg>
+            </button>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============ MOBILE OVERLAY ============ -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content" id="main-content">
+        <!-- Content is dynamically loaded here -->
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 class="footer-title">CalcHub</h3>
+                    <p class="footer-text">Todas as calculadoras que você precisa, em um só lugar. Rápido, gratuito e
+                        sem complicação.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-subtitle">Categorias</h4>
+                    <ul class="footer-links">
+                        <li><a href="#/categoria/financeira">Financeira</a></li>
+                        <li><a href="#/categoria/investimentos">Investimentos</a></li>
+                        <li><a href="#/categoria/impostos">Impostos</a></li>
+                        <li><a href="#/categoria/conversores">Conversores</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-subtitle">Mais</h4>
+                    <ul class="footer-links">
+                        <li><a href="#/categoria/datas">Datas</a></li>
+                        <li><a href="#/categoria/saude">Saúde</a></li>
+                        <li><a href="#/categoria/cientifica">Científica</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 class="footer-subtitle">Sobre</h4>
+                    <p class="footer-text">Desenvolvido com ❤️ para simplificar seus cálculos do dia a dia.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CalcHub. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script src="js/components.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/calculators/financeiro.js"></script>
+    <script src="js/calculators/investimentos.js"></script>
+    <script src="js/calculators/impostos.js"></script>
+    <script src="js/calculators/conversores.js"></script>
+    <script src="js/calculators/datas.js"></script>
+    <script src="js/calculators/saude.js"></script>
+    <script src="js/calculators/cientifica.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

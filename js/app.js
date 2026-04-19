@@ -1,0 +1,232 @@
+/**
+ * CalcHub - Main Application
+ * 
+ * SPA Router, Home Page, Inicialização de Navbar e Dark Mode
+ */
+
+const App = (() => {
+    const mainContent = document.getElementById('main-content');
+
+    // ---- Merge all routes from modules ----
+    const allRoutes = {
+        ...FinanceiroModule.routes,
+        ...InvestimentosModule.routes,
+        ...ImpostosModule.routes,
+        ...ConversoresModule.routes,
+        ...DatasModule.routes,
+        ...SaudeModule.routes,
+        ...CientificaModule.routes,
+    };
+
+    // Category renderers
+    const categoryRenderers = {
+        financeira: FinanceiroModule.renderCategory,
+        investimentos: InvestimentosModule.renderCategory,
+        impostos: ImpostosModule.renderCategory,
+        conversores: ConversoresModule.renderCategory,
+        datas: DatasModule.renderCategory,
+        saude: SaudeModule.renderCategory,
+        cientifica: CientificaModule.renderCategory,
+    };
+
+    // ---- Home Page ----
+    function renderHome() {
+        return `
+            <section class="hero">
+                <div class="hero-badge">🧮 100% gratuito e aberto</div>
+                <h1>Todas as calculadoras que você precisa em um só lugar</h1>
+                <p>Financeira, investimentos, impostos, conversores, datas, saúde e científica. Rápido, simples e sem complicação.</p>
+
+                <div class="search-container">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Buscar calculadora... (ex: juros, IMC, IRPF)" autocomplete="off">
+                    <div class="search-results" id="search-results"></div>
+                </div>
+            </section>
+
+            <section class="categories-section" aria-label="Categorias">
+                <div class="section-header">
+                    <h2 class="section-title">Categorias</h2>
+                </div>
+                <div class="categories-grid">
+                    ${renderCategoryCard('financeira', '💰', 'Financeira', 'Juros, financiamentos, taxas, VPL, TIR e mais.', 12, '--cat-financeira', '#dbeafe')}
+                    ${renderCategoryCard('investimentos', '📈', 'Investimentos', 'Renda fixa, poupança, simuladores e reserva.', 4, '--cat-investimentos', '#d1fae5')}
+                    ${renderCategoryCard('impostos', '🧾', 'Impostos', 'IRPF, Simples Nacional, Lucro Presumido e Real.', 4, '--cat-impostos', '#fef3c7')}
+                    ${renderCategoryCard('conversores', '🔄', 'Conversores', 'Moedas, medidas, volume e temperatura.', 3, '--cat-conversores', '#ede9fe')}
+                    ${renderCategoryCard('datas', '📅', 'Datas', 'Diferenças, contagens e tempo vivido.', 3, '--cat-datas', '#fee2e2')}
+                    ${renderCategoryCard('saude', '❤️', 'Saúde', 'IMC, hidratação e necessidade proteica.', 3, '--cat-saude', '#fce7f3')}
+                    ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e mais.', 9, '--cat-cientifica', '#cffafe')}
+                </div>
+            </section>
+
+            <section class="popular-section" aria-label="Calculadoras populares">
+                <div class="section-header">
+                    <h2 class="section-title">Populares</h2>
+                </div>
+                <div class="popular-grid">
+                    ${renderPopularItem('/financeira/juros-compostos', '💰', 'Juros Compostos', '#dbeafe', 'var(--cat-financeira)')}
+                    ${renderPopularItem('/saude/imc', '❤️', 'IMC', '#fce7f3', 'var(--cat-saude)')}
+                    ${renderPopularItem('/impostos/irpf', '🧾', 'IRPF', '#fef3c7', 'var(--cat-impostos)')}
+                    ${renderPopularItem('/conversores/moedas', '🔄', 'Conversor de Moedas', '#ede9fe', 'var(--cat-conversores)')}
+                    ${renderPopularItem('/investimentos/primeiro-milhao', '📈', 'Primeiro Milhão', '#d1fae5', 'var(--cat-investimentos)')}
+                    ${renderPopularItem('/financeira/financiamento', '🏠', 'Financiamento', '#dbeafe', 'var(--cat-financeira)')}
+                    ${renderPopularItem('/datas/tempo-vivido', '⏰', 'Tempo Vivido', '#fee2e2', 'var(--cat-datas)')}
+                    ${renderPopularItem('/cientifica/progressoes', '🔬', 'PA e PG', '#cffafe', 'var(--cat-cientifica)')}
+                </div>
+            </section>
+        `;
+    }
+
+    function renderCategoryCard(slug, icon, title, desc, count, colorVar, bgColor) {
+        return `
+            <a href="#/categoria/${slug}" class="category-card" style="--card-color: var(${colorVar}); --card-color-light: ${bgColor}">
+                <div class="card-icon">${icon}</div>
+                <h3 class="card-title">${title}</h3>
+                <p class="card-desc">${desc}</p>
+                <span class="card-count">${count} calculadoras</span>
+            </a>
+        `;
+    }
+
+    function renderPopularItem(route, icon, name, bgColor, color) {
+        return `
+            <a href="#${route}" class="popular-item">
+                <span class="popular-icon" style="background: ${bgColor}; color: ${color}">${icon}</span>
+                <span class="popular-name">${name}</span>
+            </a>
+        `;
+    }
+
+    // ---- Router ----
+    function route() {
+        let hash = window.location.hash.replace('#', '') || '/';
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+        // Home
+        if (hash === '/' || hash === '') {
+            mainContent.innerHTML = renderHome();
+            CalcSearch.initSearchBar();
+            document.title = 'CalcHub — Todas as calculadoras que você precisa';
+            return;
+        }
+
+        // Category page
+        if (hash.startsWith('/categoria/')) {
+            const cat = hash.replace('/categoria/', '');
+            if (categoryRenderers[cat]) {
+                mainContent.innerHTML = categoryRenderers[cat]();
+                document.title = `${cat.charAt(0).toUpperCase() + cat.slice(1)} | CalcHub`;
+                return;
+            }
+        }
+
+        // Calculator page
+        if (allRoutes[hash]) {
+            const calc = allRoutes[hash]();
+            mainContent.innerHTML = calc.html;
+            document.title = `${mainContent.querySelector('.calc-title')?.textContent || 'Calculadora'} | CalcHub`;
+            // Init calculator after DOM is updated
+            requestAnimationFrame(() => {
+                if (calc.init) calc.init();
+            });
+            return;
+        }
+
+        // 404
+        mainContent.innerHTML = `
+            <div class="calc-page" style="text-align: center; padding-top: 80px;">
+                <h1 class="calc-title">Página não encontrada</h1>
+                <p class="calc-description">A calculadora que você procura não existe.</p>
+                <a href="#/" class="btn btn-primary" style="margin-top: 24px; display: inline-flex;">Voltar ao Início</a>
+            </div>
+        `;
+    }
+
+    // ---- Navbar ----
+    function initNavbar() {
+        const nav = document.getElementById('navbar-nav');
+        const toggle = document.getElementById('mobile-toggle');
+        const overlay = document.getElementById('mobile-overlay');
+
+        // Dropdowns
+        document.querySelectorAll('.dropdown-toggle').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const item = btn.closest('.nav-item');
+                const isActive = item.classList.contains('active');
+                // Close all
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+        });
+
+        // Close dropdown and mobile nav on link click
+        document.querySelectorAll('.dropdown-item').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+                nav.classList.remove('active');
+                toggle.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Mobile toggle
+        toggle.addEventListener('click', () => {
+            const isActive = nav.classList.toggle('active');
+            toggle.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+
+        // Overlay click
+        overlay.addEventListener('click', () => {
+            nav.classList.remove('active');
+            toggle.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+
+    // ---- Dark Mode ----
+    function initTheme() {
+        const toggle = document.getElementById('theme-toggle');
+        const saved = localStorage.getItem('calchub-theme');
+
+        if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        toggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('calchub-theme', isDark ? 'light' : 'dark');
+        });
+    }
+
+    // ---- Init ----
+    function init() {
+        initNavbar();
+        initTheme();
+        route();
+        window.addEventListener('hashchange', route);
+    }
+
+    // Start when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+    return { route };
+})();
