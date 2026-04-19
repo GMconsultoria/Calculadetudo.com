@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Impostos
+ * CalculaDeTudo - Módulo Impostos
  * 
  * Calculadoras: IRPF, Simples Nacional, Lucro Presumido, Lucro Real
  */
