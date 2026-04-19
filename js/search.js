@@ -1,5 +1,5 @@
 /**
- * CalcHub - Sistema de Busca
+ * CalculaDeTudo - Sistema de Busca
  * 
  * Implementa busca em tempo real por todas as calculadoras disponíveis.
  */
