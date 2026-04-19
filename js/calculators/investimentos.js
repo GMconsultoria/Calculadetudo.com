@@ -20,8 +20,8 @@ const InvestimentosModule = (() => {
 
     function renderCategory() {
         return createCategoryPage({
-            title: 'Investimentos',
-            description: 'Simule investimentos, compare rentabilidades e planeje seu futuro financeiro.',
+            title: 'Calculadora de Investimentos',
+            description: 'Calcule e simule investimentos, compare rentabilidades e planeje seu futuro financeiro.',
             icon: '📈',
             color: 'var(--cat-investimentos)',
             colorLight: '#d1fae5',
@@ -34,13 +34,13 @@ const InvestimentosModule = (() => {
     }
 
     // ==========================================
-    // RENDA FIXA
+    // CALCULADORA DE RENDA FIXA
     // ==========================================
     function rendaFixa() {
         return {
             html: createCalculatorPage({
-                title: 'Simulador de Renda Fixa',
-                description: 'Simule investimentos em CDB, Tesouro Selic e Poupança. Compare rendimentos líquidos.',
+                title: 'Calculadora e Simulador de Renda Fixa',
+                description: 'Calcule e simule investimentos em CDB, Tesouro Selic e Poupança. Compare rendimentos líquidos.',
                 category: 'Investimentos',
                 categorySlug: 'investimentos',
                 fields: [
@@ -127,7 +127,7 @@ const InvestimentosModule = (() => {
     }
 
     // ==========================================
-    // PRIMEIRO MILHÃO
+    // CALCULADORA DO PRIMEIRO MILHÃO
     // ==========================================
     function primeiroMilhao() {
         return {
@@ -188,13 +188,13 @@ const InvestimentosModule = (() => {
     }
 
     // ==========================================
-    // SELIC VS POUPANÇA
+    // CALCULADORA DE SELIC VS POUPANÇA
     // ==========================================
     function selicVsPoupanca() {
         return {
             html: createCalculatorPage({
-                title: 'Selic vs Poupança',
-                description: 'Compare o rendimento do Tesouro Selic com a Poupança e descubra a melhor opção.',
+                title: 'Comparador de Selic vs Poupança',
+                description: 'Calcule e compare o rendimento do Tesouro Selic com a Poupança e descubra a melhor opção.',
                 category: 'Investimentos',
                 categorySlug: 'investimentos',
                 fields: [
@@ -255,12 +255,12 @@ const InvestimentosModule = (() => {
     }
 
     // ==========================================
-    // RESERVA DE EMERGÊNCIA
+    // CALCULADORA DE RESERVA DE EMERGÊNCIA
     // ==========================================
     function reservaEmergencia() {
         return {
             html: createCalculatorPage({
-                title: 'Reserva de Emergência',
+                title: 'Calculadora de Reserva de Emergência',
                 description: 'Calcule quanto você precisa ter guardado para sua reserva de emergência.',
                 category: 'Investimentos',
                 categorySlug: 'investimentos',
