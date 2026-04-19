@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Científica
+ * CalculaDeTudo - Módulo Científica
  * 
  * Calculadoras: Física, Química, Progressões (PA/PG), Trigonometria,
  * Matrizes, Fatoração, Números Complexos, Derivadas, Integrais
