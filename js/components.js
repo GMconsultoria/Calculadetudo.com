@@ -1,5 +1,5 @@
 /**
- * CalcHub - Sistema de Componentes Reutilizáveis
+ * CalculaDeTudo - Sistema de Componentes Reutilizáveis
  * 
  * Factory functions para criar calculadoras de forma padronizada
  * com validação, feedback visual e resultados formatados.

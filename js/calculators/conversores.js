@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Conversores
+ * CalculaDeTudo - Módulo Conversores
  * 
  * Calculadoras: Moedas, Medidas, Temperatura
  */
@@ -20,7 +20,7 @@ const ConversoresModule = (() => {
     function renderCategory() {
         return createCategoryPage({
             title: 'Conversores',
-            description: 'Converta moedas, medidas e temperaturas de forma rápida e precisa.',
+            description: 'Conversores de moedas, medidas e temperaturas de forma rápida e precisa.',
             icon: '🔄',
             color: 'var(--cat-conversores)',
             colorLight: '#ede9fe',
@@ -33,13 +33,13 @@ const ConversoresModule = (() => {
     }
 
     // ==========================================
-    // MOEDAS
+    // CONVERSOR DE MOEDAS
     // ==========================================
     function moedas() {
         return {
             html: createCalculatorPage({
                 title: 'Conversor de Moedas',
-                description: 'Converta entre moedas usando taxas de câmbio aproximadas. BRL, USD, EUR, GBP e mais.',
+                description: 'Converta moedas usando taxas de câmbio aproximadas. BRL, USD, EUR, GBP e mais.',
                 category: 'Conversores',
                 categorySlug: 'conversores',
                 fields: [
@@ -118,13 +118,13 @@ const ConversoresModule = (() => {
     }
 
     // ==========================================
-    // MEDIDAS
+    // CONVERSOR DE MEDIDAS
     // ==========================================
     function medidas() {
         return {
             html: createCalculatorPage({
                 title: 'Conversor de Medidas',
-                description: 'Converta entre diferentes unidades de peso, distância e volume.',
+                description: 'Conversor de diferentes unidades de peso, distância e volume.',
                 category: 'Conversores',
                 categorySlug: 'conversores',
                 fields: [
@@ -230,13 +230,13 @@ const ConversoresModule = (() => {
     }
 
     // ==========================================
-    // TEMPERATURA
+    // CONVERSOR DE TEMPERATURA
     // ==========================================
     function temperatura() {
         return {
             html: createCalculatorPage({
                 title: 'Conversor de Temperatura',
-                description: 'Converta temperaturas entre Celsius, Fahrenheit e Kelvin.',
+                description: 'Conversor de temperaturas entre Celsius, Fahrenheit e Kelvin.',
                 category: 'Conversores',
                 categorySlug: 'conversores',
                 fields: [

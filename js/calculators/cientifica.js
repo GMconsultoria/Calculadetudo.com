@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Científica
+ * CalculaDeTudo - Módulo Científica
  * 
  * Calculadoras: Física, Química, Progressões (PA/PG), Trigonometria,
  * Matrizes, Fatoração, Números Complexos, Derivadas, Integrais
@@ -45,7 +45,7 @@ const CientificaModule = (() => {
     function fisica() {
         return {
             html: createCalculatorPage({
-                title: 'Física — Cinemática',
+                title: 'Calculadora de Física — Cinemática',
                 description: 'Calcule velocidade, distância, aceleração e tempo usando as equações da cinemática.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -115,12 +115,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // QUÍMICA
+    // CALCULADORA DE QUÍMICA
     // ==========================================
     function quimica() {
         return {
             html: createCalculatorPage({
-                title: 'Química — Mol e Massa',
+                title: 'Calculadora de Química — Mol e Massa',
                 description: 'Calcule número de mols, massa molar e concentração de soluções.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -176,12 +176,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // PROGRESSÕES (PA E PG)
+    // CALCULADORA DE PROGRESSÕES (PA E PG)
     // ==========================================
     function progressoes() {
         return {
             html: createCalculatorPage({
-                title: 'Progressões Aritméticas e Geométricas',
+                title: 'Calculadora de Progressões Aritméticas e Geométricas',
                 description: 'Calcule termos, razão e soma de PA e PG.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -243,12 +243,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // TRIGONOMETRIA
+    // CALCULADORA DE TRIGONOMETRIA
     // ==========================================
     function trigonometria() {
         return {
             html: createCalculatorPage({
-                title: 'Trigonometria',
+                title: 'Calculadora de Trigonometria',
                 description: 'Calcule seno, cosseno, tangente e conversões entre graus e radianos.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -297,12 +297,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // MATRIZES E DETERMINANTES
+    // CALCULADORA DE MATRIZES E DETERMINANTES
     // ==========================================
     function matrizes() {
         return {
             html: createCalculatorPage({
-                title: 'Matrizes e Determinantes',
+                title: 'Calculadora de Matrizes e Determinantes',
                 description: 'Calcule determinantes de matrizes 2×2 e 3×3.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -357,12 +357,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // FATORAÇÃO
+    // CALCULADORA DE FATORAÇÃO
     // ==========================================
     function fatoracao() {
         return {
             html: createCalculatorPage({
-                title: 'Fatoração em Primos',
+                title: 'Calculadora de Fatoração em Primos',
                 description: 'Decomponha um número inteiro em seus fatores primos.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -423,12 +423,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // NÚMEROS COMPLEXOS
+    // CALCULADORA DE NÚMEROS COMPLEXOS
     // ==========================================
     function complexos() {
         return {
             html: createCalculatorPage({
-                title: 'Números Complexos',
+                title: 'Calculadora de Números Complexos',
                 description: 'Calcule operações com números complexos: módulo, argumento, soma e multiplicação.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -511,12 +511,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // DERIVADAS
+    // CALCULADORA DE DERIVADAS
     // ==========================================
     function derivadas() {
         return {
             html: createCalculatorPage({
-                title: 'Derivadas — Regras Básicas',
+                title: 'Calculadora de Derivadas — Regras Básicas',
                 description: 'Calcule derivadas usando regras básicas: potência, exponencial e trigonométrica.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
@@ -577,12 +577,12 @@ const CientificaModule = (() => {
     }
 
     // ==========================================
-    // INTEGRAIS
+    // CALCULADORA DE INTEGRAIS
     // ==========================================
     function integrais() {
         return {
             html: createCalculatorPage({
-                title: 'Integrais — Regras Básicas',
+                title: 'Calculadora de Integrais — Regras Básicas',
                 description: 'Calcule integrais indefinidas usando regras básicas de integração.',
                 category: 'Científica',
                 categorySlug: 'cientifica',

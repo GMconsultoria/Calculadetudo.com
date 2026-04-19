@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Saúde
+ * CalculaDeTudo - Módulo Saúde
  * 
  * Calculadoras: IMC, Consumo de Água, Necessidade de Proteína
  */
@@ -33,12 +33,12 @@ const SaudeModule = (() => {
     }
 
     // ==========================================
-    // IMC
+    // CALCULADORA DE IMC
     // ==========================================
     function imc() {
         return {
             html: createCalculatorPage({
-                title: 'IMC — Índice de Massa Corporal',
+                title: 'Calculadora de IMC — Índice de Massa Corporal',
                 description: 'Calcule seu Índice de Massa Corporal e descubra sua classificação.',
                 category: 'Saúde',
                 categorySlug: 'saude',
@@ -86,12 +86,12 @@ const SaudeModule = (() => {
     }
 
     // ==========================================
-    // CONSUMO DE ÁGUA
+    // CALCULADORA DE CONSUMO DE ÁGUA
     // ==========================================
     function agua() {
         return {
             html: createCalculatorPage({
-                title: 'Consumo de Água Diário',
+                title: 'Calculadora de Consumo de Água Diário',
                 description: 'Calcule a quantidade ideal de água que você deve beber por dia.',
                 category: 'Saúde',
                 categorySlug: 'saude',
@@ -134,12 +134,12 @@ const SaudeModule = (() => {
     }
 
     // ==========================================
-    // PROTEÍNA
+    // CALCULADORA DE PROTEÍNA
     // ==========================================
     function proteina() {
         return {
             html: createCalculatorPage({
-                title: 'Necessidade Diária de Proteína',
+                title: 'Calculadora de Necessidade Diária de Proteína',
                 description: 'Calcule a quantidade ideal de proteína diária com base no seu peso e objetivo.',
                 category: 'Saúde',
                 categorySlug: 'saude',

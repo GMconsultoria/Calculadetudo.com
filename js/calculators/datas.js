@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Datas
+ * CalculaDeTudo - Módulo Datas
  * 
  * Calculadoras: Somar/Subtrair Datas, Tempo Restante, Tempo Vivido
  */
@@ -33,12 +33,12 @@ const DatasModule = (() => {
     }
 
     // ==========================================
-    // SOMAR/SUBTRAIR DATAS
+    // CALCULADORA DE SOMAR/SUBTRAIR DATAS
     // ==========================================
     function somarSubtrair() {
         return {
             html: createCalculatorPage({
-                title: 'Somar/Subtrair Datas',
+                title: 'Calculadora para Somar/Subtrair Datas',
                 description: 'Adicione ou subtraia dias, meses e anos a partir de uma data.',
                 category: 'Datas',
                 categorySlug: 'datas',
@@ -99,12 +99,12 @@ const DatasModule = (() => {
     }
 
     // ==========================================
-    // TEMPO RESTANTE
+    // CALCULADORA DE TEMPO RESTANTE
     // ==========================================
     function tempoRestante() {
         return {
             html: createCalculatorPage({
-                title: 'Tempo Restante',
+                title: 'Calculadora - Tempo Restante',
                 description: 'Calcule quanto tempo falta para uma data futura.',
                 category: 'Datas',
                 categorySlug: 'datas',
