@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Financeiro
+ * CalculaDeTudo - Módulo Financeiro
  * 
  * Calculadoras: Juros Simples, Juros Compostos, Montante, Taxas,
  * Valor Presente, Valor Futuro, VPL, TIR, ROI, Financiamento, Breakeven, Correção Monetária
