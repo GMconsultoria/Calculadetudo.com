@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Datas
+ * CalculaDeTudo - Módulo Datas
  * 
  * Calculadoras: Somar/Subtrair Datas, Tempo Restante, Tempo Vivido
  */
