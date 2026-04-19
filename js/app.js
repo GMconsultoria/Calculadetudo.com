@@ -1,5 +1,5 @@
 /**
- * CalcHub - Main Application
+ * CalculaDeTudo - Main Application
  * 
  * SPA Router, Home Page, Inicialização de Navbar e Dark Mode
  */
@@ -110,7 +110,7 @@ const App = (() => {
         if (hash === '/' || hash === '') {
             mainContent.innerHTML = renderHome();
             CalcSearch.initSearchBar();
-            document.title = 'CalcHub — Todas as calculadoras que você precisa';
+            document.title = 'CalculaDeTudo — Todas as calculadoras que você precisa';
             return;
         }
 
@@ -119,7 +119,7 @@ const App = (() => {
             const cat = hash.replace('/categoria/', '');
             if (categoryRenderers[cat]) {
                 mainContent.innerHTML = categoryRenderers[cat]();
-                document.title = `${cat.charAt(0).toUpperCase() + cat.slice(1)} | CalcHub`;
+                document.title = `${cat.charAt(0).toUpperCase() + cat.slice(1)} | CalculaDeTudo`;
                 return;
             }
         }
@@ -128,7 +128,7 @@ const App = (() => {
         if (allRoutes[hash]) {
             const calc = allRoutes[hash]();
             mainContent.innerHTML = calc.html;
-            document.title = `${mainContent.querySelector('.calc-title')?.textContent || 'Calculadora'} | CalcHub`;
+            document.title = `${mainContent.querySelector('.calc-title')?.textContent || 'Calculadora'} | CalculaDeTudo`;
             // Init calculator after DOM is updated
             requestAnimationFrame(() => {
                 if (calc.init) calc.init();
@@ -200,7 +200,7 @@ const App = (() => {
     // ---- Dark Mode ----
     function initTheme() {
         const toggle = document.getElementById('theme-toggle');
-        const saved = localStorage.getItem('calchub-theme');
+        const saved = localStorage.getItem('CalculaDeTudo-theme');
 
         if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -209,7 +209,7 @@ const App = (() => {
         toggle.addEventListener('click', () => {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('calchub-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('CalculaDeTudo-theme', isDark ? 'light' : 'dark');
         });
     }
 
