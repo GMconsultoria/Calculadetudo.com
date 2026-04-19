@@ -50,7 +50,7 @@ const FinanceiroModule = (() => {
     function jurosSimples() {
         return {
             html: createCalculatorPage({
-                title: 'Juros Simples',
+                title: 'Calculadora de Juros Simples',
                 description: 'Calcule juros simples a partir do capital, taxa e período. Fórmula: J = C × i × t',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -88,12 +88,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // JUROS COMPOSTOS
+    // CALCULADORA DE JUROS COMPOSTOS
     // ==========================================
     function jurosCompostos() {
         return {
             html: createCalculatorPage({
-                title: 'Juros Compostos',
+                title: 'Calculadora de Juros Compostos',
                 description: 'Calcule juros compostos. Fórmula: M = C × (1 + i)^t. Veja como seu dinheiro cresce exponencialmente.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -139,12 +139,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // MONTANTE
+    // CALCULADORA DE MONTANTE
     // ==========================================
     function montante() {
         return {
             html: createCalculatorPage({
-                title: 'Cálculo de Montante',
+                title: 'Calculadora de Montante',
                 description: 'Calcule o montante final considerando capital, juros e tipo de capitalização.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -191,12 +191,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // TAXAS
+    // CALCULADORA DE TAXAS
     // ==========================================
     function taxas() {
         return {
             html: createCalculatorPage({
-                title: 'Conversão de Taxas',
+                title: 'Calculadora de Conversão de Taxas',
                 description: 'Converta taxas de juros entre nominal, efetiva e equivalente. Calcule taxas mensais a partir de anuais e vice-versa.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -246,12 +246,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // VALOR PRESENTE
+    // CALCULADORA DE VALOR PRESENTE
     // ==========================================
     function valorPresente() {
         return {
             html: createCalculatorPage({
-                title: 'Valor Presente',
+                title: 'Calculadora de Valor Presente',
                 description: 'Calcule o valor presente de um montante futuro, descontando a taxa de juros.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -282,12 +282,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // VALOR FUTURO
+    // CALCULADORA DE VALOR FUTURO
     // ==========================================
     function valorFuturo() {
         return {
             html: createCalculatorPage({
-                title: 'Valor Futuro',
+                title: 'Calculadora de Valor Futuro',
                 description: 'Calcule o valor futuro de um capital aplicado a juros compostos.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -318,12 +318,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // VPL
+    // CALCULADORA DE VPL - VALOR PRESENTE LÍQUIDO
     // ==========================================
     function vpl() {
         return {
             html: createCalculatorPage({
-                title: 'VPL — Valor Presente Líquido',
+                title: 'Calculadora de VPL — Valor Presente Líquido',
                 description: 'Calcule o VPL (Valor Presente Líquido) para análise de viabilidade de investimentos.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -378,12 +378,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // TIR
+    // CALCULADORA DE TIR
     // ==========================================
     function tir() {
         return {
             html: createCalculatorPage({
-                title: 'TIR — Taxa Interna de Retorno',
+                title: 'Calculadora de TIR — Taxa Interna de Retorno',
                 description: 'Calcule a TIR (Taxa Interna de Retorno) para avaliar a rentabilidade de um investimento.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -440,12 +440,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // ROI
+    // CALCULADORA DE ROI
     // ==========================================
     function roi() {
         return {
             html: createCalculatorPage({
-                title: 'ROI — Retorno sobre Investimento',
+                title: 'Calculadora de ROI — Retorno sobre Investimento',
                 description: 'Calcule o ROI (Return on Investment) para medir a eficiência de um investimento.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -476,12 +476,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // FINANCIAMENTO (SAC / PRICE)
+    // CALCULADORA DE FINANCIAMENTO (SAC / PRICE)
     // ==========================================
     function financiamento() {
         return {
             html: createCalculatorPage({
-                title: 'Simulador de Financiamento',
+                title: 'Calculadora de Simulador de Financiamento',
                 description: 'Simule financiamentos nos sistemas SAC e PRICE. Compare parcelas e juros totais.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -568,12 +568,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // BREAKEVEN
+    // CALCULADORA DE BREAKEVEN
     // ==========================================
     function breakeven() {
         return {
             html: createCalculatorPage({
-                title: 'Ponto de Equilíbrio (Breakeven)',
+                title: 'Calculadora de Ponto de Equilíbrio (Breakeven)',
                 description: 'Calcule o ponto de equilíbrio do seu negócio — quando receitas igualam custos.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
@@ -608,12 +608,12 @@ const FinanceiroModule = (() => {
     }
 
     // ==========================================
-    // CORREÇÃO MONETÁRIA
+    // CALCULADORA DE CORREÇÃO MONETÁRIA
     // ==========================================
     function correcao() {
         return {
             html: createCalculatorPage({
-                title: 'Correção Monetária',
+                title: 'Calculadora de Correção Monetária',
                 description: 'Corrija valores monetários usando índices como IPCA, IGP-M, INPC e outros.',
                 category: 'Financeira',
                 categorySlug: 'financeira',
