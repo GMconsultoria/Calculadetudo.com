@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Investimentos
+ * CalculaDeTudo - Módulo Investimentos
  * 
  * Calculadoras: Renda Fixa, Primeiro Milhão, Selic vs Poupança, Reserva de Emergência
  */
