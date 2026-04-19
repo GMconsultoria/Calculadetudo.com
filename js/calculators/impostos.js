@@ -34,7 +34,7 @@ const ImpostosModule = (() => {
     }
 
     // ==========================================
-    // IRPF
+    // CALCULADORA DE IRPF
     // ==========================================
     function irpf() {
         // Tabela IRPF 2024/2025
@@ -48,8 +48,8 @@ const ImpostosModule = (() => {
 
         return {
             html: createCalculatorPage({
-                title: 'Imposto de Renda (IRPF)',
-                description: 'Calcule o Imposto de Renda Pessoa Física com as faixas progressivas atualizadas.',
+                title: 'Calculadora de Imposto de Renda (IRPF)',
+                description: 'Calcule e simule o Imposto de Renda Pessoa Física com as faixas progressivas atualizadas.',
                 category: 'Impostos',
                 categorySlug: 'impostos',
                 fields: [
@@ -127,7 +127,7 @@ const ImpostosModule = (() => {
     }
 
     // ==========================================
-    // SIMPLES NACIONAL
+    // CALCULADORA DE SIMPLES NACIONAL
     // ==========================================
     function simplesNacional() {
         // Tabelas do Simples Nacional (Anexos 1 a 5)
@@ -176,8 +176,8 @@ const ImpostosModule = (() => {
 
         return {
             html: createCalculatorPage({
-                title: 'Simples Nacional',
-                description: 'Calcule o imposto do Simples Nacional com base no RBT12 e anexo correspondente.',
+                title: 'Calculadora de Simples Nacional',
+                description: 'Calcule e simule o imposto do Simples Nacional com base no RBT12 e anexo correspondente.',
                 category: 'Impostos',
                 categorySlug: 'impostos',
                 fields: [
@@ -249,13 +249,13 @@ const ImpostosModule = (() => {
     }
 
     // ==========================================
-    // LUCRO PRESUMIDO
+    // CALCULADORA DE LUCRO PRESUMIDO
     // ==========================================
     function lucroPresumido() {
         return {
             html: createCalculatorPage({
-                title: 'Lucro Presumido',
-                description: 'Calcule os impostos pelo regime de Lucro Presumido: PIS, COFINS, IRPJ, CSLL e ISS.',
+                title: 'Calculadora de Lucro Presumido',
+                description: 'Calcule e simule os impostos pelo regime de Lucro Presumido: PIS, COFINS, IRPJ, CSLL e ISS.',
                 category: 'Impostos',
                 categorySlug: 'impostos',
                 fields: [
@@ -315,13 +315,13 @@ const ImpostosModule = (() => {
     }
 
     // ==========================================
-    // LUCRO REAL
+    // CALCULADORA DE LUCRO REAL
     // ==========================================
     function lucroReal() {
         return {
             html: createCalculatorPage({
-                title: 'Lucro Real',
-                description: 'Calcule impostos pelo regime de Lucro Real com base no lucro efetivo da empresa.',
+                title: 'Calculadora de Lucro Real',
+                description: 'Calcule e simule impostos pelo regime de Lucro Real com base no lucro efetivo da empresa.',
                 category: 'Impostos',
                 categorySlug: 'impostos',
                 fields: [
