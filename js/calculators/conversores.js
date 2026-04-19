@@ -1,5 +1,5 @@
 /**
- * CalcHub - Módulo Conversores
+ * CalculaDeTudo - Módulo Conversores
  * 
  * Calculadoras: Moedas, Medidas, Temperatura
  */
