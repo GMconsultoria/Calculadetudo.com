@@ -87,6 +87,138 @@ const TranslateSystem = (() => {
             'Derivadas': 'Derivatives',
             'Integrais': 'Integrals',
             'Tempo entre Fatos Históricos': 'Time Between Historical Events',
+            // Home page
+            'Financeira, investimentos, impostos, conversores, datas, saúde e científica. Rápido, simples e sem complicação.': 'Financial, investments, taxes, converters, dates, health and scientific. Fast, simple and hassle-free.',
+            'Juros, financiamentos, taxas, VPL, TIR e mais.': 'Interest, financing, rates, NPV, IRR and more.',
+            'Renda fixa, poupança, simuladores e reserva.': 'Fixed income, savings, simulators and reserve.',
+            'IRPF, Simples Nacional, Lucro Presumido e Real.': 'IRPF, Simples Nacional, Presumed and Actual Profit.',
+            'Moedas, medidas, volume e temperatura.': 'Currencies, measures, volume and temperature.',
+            'Diferenças, contagens e tempo vivido.': 'Differences, counts and time lived.',
+            'IMC, hidratação e necessidade proteica.': 'BMI, hydration and protein needs.',
+            'Física, química, trigonometria, matrizes e mais.': 'Physics, chemistry, trigonometry, matrices and more.',
+            'Tempo entre fatos históricos e muito mais.': 'Time between historical events and more.',
+            'calculadoras': 'calculators',
+            '12 calculadoras': '12 calculators',
+            '4 calculadoras': '4 calculators',
+            '3 calculadoras': '3 calculators',
+            '9 calculadoras': '9 calculators',
+            '1 calculadoras': '1 calculator',
+            'Primeiro Milhão': 'First Million',
+            'Financiamento': 'Financing',
+            'PA e PG': 'AP and GP',
+            // Footer
+            'Mais': 'More',
+            'Sobre': 'About',
+            'Todas as calculadoras que você precisa, em um só lugar. Rápido, gratuito e sem complicação.': 'All the calculators you need, in one place. Fast, free and hassle-free.',
+            'Desenvolvido com ❤️ para simplificar seus cálculos do dia a dia.': 'Developed with ❤️ to simplify your everyday calculations.',
+            '© 2026 CalculaDeTudo. Todos os direitos reservados.': '© 2026 CalculaDeTudo. All rights reserved.',
+            // Calculators - common
+            'Capital Inicial (R$)': 'Initial Capital (R$)',
+            'Taxa de Juros (% ao mês)': 'Interest Rate (% per month)',
+            'Período (meses)': 'Period (months)',
+            'Aporte Mensal (R$)': 'Monthly Contribution (R$)',
+            'Capital Inicial': 'Initial Capital',
+            'Juros Acumulados': 'Accumulated Interest',
+            'Taxa Mensal': 'Monthly Rate',
+            'Período': 'Period',
+            'Montante Final': 'Final Amount',
+            'Total Investido': 'Total Invested',
+            'Rendimento': 'Yield',
+            'Montante': 'Amount',
+            'Capital': 'Capital',
+            'Juros': 'Interest',
+            'Tipo': 'Type',
+            'Taxa Equivalente': 'Equivalent Rate',
+            'Taxa Original': 'Original Rate',
+            'Período convertido': 'Converted Period',
+            'Valor Futuro (R$)': 'Future Value (R$)',
+            'Taxa de Desconto (% ao mês)': 'Discount Rate (% per month)',
+            'Desconto': 'Discount',
+            'Valor Presente (R$)': 'Present Value (R$)',
+            'Taxa (% ao mês)': 'Rate (% per month)',
+            'Rendimento Total': 'Total Yield',
+            'Investimento Inicial (R$)': 'Initial Investment (R$)',
+            'Investimento': 'Investment',
+            'Fluxos considerados': 'Considered cash flows',
+            '✅ Projeto Viável': '✅ Viable Project',
+            '❌ Projeto Inviável': '❌ Unviable Project',
+            'Taxa Interna de Retorno': 'Internal Rate of Return',
+            'TIR mensal': 'Monthly IRR',
+            'TIR anual (equivalente)': 'Annual IRR (equivalent)',
+            'Períodos': 'Periods',
+            'Ganho obtido (R$)': 'Gain obtained (R$)',
+            'Ganho Total': 'Total Gain',
+            'Lucro Líquido': 'Net Profit',
+            'Valor Financiado (R$)': 'Financed Value (R$)',
+            'Prazo (meses)': 'Term (months)',
+            'Sistema de Amortização': 'Amortization System',
+            'Total de Juros': 'Total Interest',
+            'Total Pago': 'Total Paid',
+            'Mês': 'Month',
+            'Parcela': 'Installment',
+            'Amortização': 'Amortization',
+            'Saldo': 'Balance',
+            'Custo Fixo Mensal (R$)': 'Monthly Fixed Cost (R$)',
+            'Preço de Venda Unitário (R$)': 'Unit Selling Price (R$)',
+            'Custo Variável Unitário (R$)': 'Unit Variable Cost (R$)',
+            'Receita no Breakeven': 'Breakeven Revenue',
+            'Margem de Contribuição': 'Contribution Margin',
+            'Custo Fixo': 'Fixed Cost',
+            'Valor Original (R$)': 'Original Value (R$)',
+            'Índice de Correção': 'Correction Index',
+            'Período (anos)': 'Period (years)',
+            'Valor Corrigido': 'Corrected Value',
+            'Correção': 'Correction',
+            'Taxa anual usada': 'Annual rate used',
+            // Saude
+            'Peso (kg)': 'Weight (kg)',
+            'Altura (m)': 'Height (m)',
+            'Índice de Massa Corporal': 'Body Mass Index',
+            'Peso ideal': 'Ideal weight',
+            'Abaixo do peso': 'Underweight',
+            'Peso normal': 'Normal weight',
+            'Sobrepeso': 'Overweight',
+            'Obesidade Grau I': 'Obesity Grade I',
+            'Obesidade Grau II': 'Obesity Grade II',
+            'Obesidade Grau III': 'Obesity Grade III',
+            'Nível de Atividade Física': 'Physical Activity Level',
+            'Consumo Recomendado': 'Recommended Intake',
+            'Em mililitros': 'In milliliters',
+            'Objetivo': 'Goal',
+            'Proteína Diária': 'Daily Protein',
+            'Média Recomendada': 'Recommended Average',
+            // Datas
+            'Data Inicial': 'Start Date',
+            'Data Final': 'End Date',
+            'Quantidade': 'Quantity',
+            'Unidade': 'Unit',
+            'Operação': 'Operation',
+            // Breadcrumbs
+            'Calculadoras financeiras para juros, investimentos, financiamentos e mais.': 'Financial calculators for interest, investments, financing and more.',
+            'Calculadoras para saúde e bem-estar: IMC, hidratação e nutrição.': 'Health and wellness calculators: BMI, hydration and nutrition.',
+            // Curiosidades
+            'Tempo entre Fatos Históricos': 'Time Between Historical Events',
+            'Selecione dois marcos históricos e descubra exatamente quanto tempo se passou entre eles.': 'Select two historical milestones and find out exactly how much time has passed between them.',
+            'Fato Histórico Inicial': 'Initial Historical Event',
+            'Fato Histórico Final': 'Final Historical Event',
+            'Selecione...': 'Select...',
+            'Data Inicial Personalizada': 'Custom Start Date',
+            'Data Final Personalizada': 'Custom End Date',
+            'Total de dias': 'Total days',
+            'Total de semanas': 'Total weeks',
+            'Total de horas': 'Total hours',
+            'Total de minutos': 'Total minutes',
+            'Total de segundos': 'Total seconds',
+            '📜 Linha do Tempo': '📜 Timeline',
+            '🤓 Curiosidades': '🤓 Fun Facts',
+            'séculos': 'centuries',
+            'gerações humanas': 'human generations',
+            'Olimpíadas': 'Olympics',
+            'batimentos cardíacos': 'heartbeats',
+            'A calculadora que você procura não existe.': 'The calculator you are looking for does not exist.',
+            'Selecione': 'Select',
+            'Este campo é obrigatório': 'This field is required',
+            'Preencha todos os campos obrigatórios': 'Fill in all required fields',
         },
         es: {
             'Financeira': 'Financiera',
@@ -316,38 +448,53 @@ const TranslateSystem = (() => {
         return (dict && dict[key]) || key;
     }
 
+    function walkTextNodes(root, callback) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+            acceptNode(node) {
+                const tag = node.parentElement ? node.parentElement.tagName : '';
+                if (['SCRIPT','STYLE','NOSCRIPT'].includes(tag)) return NodeFilter.FILTER_REJECT;
+                if (node.textContent.trim().length === 0) return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+        while (walker.nextNode()) callback(walker.currentNode);
+    }
+
     function translatePage(lang) {
         currentLang = lang;
         localStorage.setItem('CalculaDeTudo-lang', lang);
-
-        // Update dir for Arabic
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-        // Translate navigation items (data-translate attribute)
-        document.querySelectorAll('[data-translate]').forEach(el => {
-            const key = el.getAttribute('data-translate');
-            el.textContent = translate(key);
+        const dict = translations[lang];
+
+        // Walk all text nodes in body
+        walkTextNodes(document.body, node => {
+            const txt = node.textContent.trim();
+            if (!txt) return;
+            // Store original PT text
+            if (!originalTexts.has(node)) originalTexts.set(node, txt);
+            const original = originalTexts.get(node);
+            if (lang === 'pt') {
+                node.textContent = node.textContent.replace(txt, original);
+            } else if (dict && dict[original]) {
+                node.textContent = node.textContent.replace(txt, dict[original]);
+            }
         });
 
-        // Translate search placeholder
-        const searchBar = document.getElementById('search-bar');
-        if (searchBar) {
-            searchBar.placeholder = translate('Buscar calculadora... (ex: juros, IMC, IRPF)');
-        }
-
-        // Translate buttons with data-translate
-        document.querySelectorAll('.btn[data-translate]').forEach(btn => {
-            const key = btn.getAttribute('data-translate');
-            btn.textContent = translate(key);
+        // Translate placeholders on inputs
+        document.querySelectorAll('input[placeholder]').forEach(el => {
+            const key = 'ph_' + el.id;
+            if (!originalTexts.has(key)) originalTexts.set(key, el.placeholder);
+            const orig = originalTexts.get(key);
+            if (lang === 'pt') { el.placeholder = orig; }
+            else if (dict && dict[orig]) { el.placeholder = dict[orig]; }
         });
 
-        // Update the active language indicator
+        // Update language flag
         const langBtn = document.getElementById('lang-current');
         if (langBtn) {
             const langInfo = languages.find(l => l.code === lang);
-            if (langInfo) {
-                langBtn.textContent = langInfo.flag;
-            }
+            if (langInfo) langBtn.textContent = langInfo.flag;
         }
 
         // Close dropdown

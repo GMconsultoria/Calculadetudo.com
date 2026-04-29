@@ -114,6 +114,7 @@ const App = (() => {
             mainContent.innerHTML = renderHome();
             CalcSearch.initSearchBar();
             document.title = 'CalculaDeTudo — Todas as calculadoras que você precisa';
+            applyTranslation();
             return;
         }
 
@@ -123,6 +124,7 @@ const App = (() => {
             if (categoryRenderers[cat]) {
                 mainContent.innerHTML = categoryRenderers[cat]();
                 document.title = `${cat.charAt(0).toUpperCase() + cat.slice(1)} | CalculaDeTudo`;
+                applyTranslation();
                 return;
             }
         }
@@ -135,6 +137,7 @@ const App = (() => {
             // Init calculator after DOM is updated
             requestAnimationFrame(() => {
                 if (calc.init) calc.init();
+                applyTranslation();
             });
             return;
         }
@@ -147,6 +150,14 @@ const App = (() => {
                 <a href="#/" class="btn btn-primary" style="margin-top: 24px; display: inline-flex;">Voltar ao Início</a>
             </div>
         `;
+        applyTranslation();
+    }
+
+    function applyTranslation() {
+        const lang = TranslateSystem.getCurrentLang();
+        if (lang && lang !== 'pt') {
+            TranslateSystem.translatePage(lang);
+        }
     }
 
     // ---- Navbar ----
