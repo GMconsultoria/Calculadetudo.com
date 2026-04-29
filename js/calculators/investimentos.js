@@ -2,11 +2,125 @@
  * CalculaDeTudo - Módulo Investimentos
  * 
  * Calculadoras: Renda Fixa, Primeiro Milhão, Selic vs Poupança, Reserva de Emergência
+ * Inclui: Painel de Cotações (Ticker) e Taxa SELIC em tempo real
  */
 
 const InvestimentosModule = (() => {
     const { fmt, createCalculatorPage, initCalculator, renderSimpleResult, renderTableResult, createCategoryPage } = CalcComponents;
 
+    // ---- Variáveis globais de cotações ----
+    let cotacoesData = null;
+    let selicAtual = null;
+
+    // ---- Buscar Cotações ----
+    async function fetchCotacoes() {
+        try {
+            // Buscar ações gratuitas da brapi.dev
+            const [brapiRes, awesomeRes] = await Promise.allSettled([
+                fetch('https://brapi.dev/api/quote/PETR4,VALE3,MGLU3,ITUB4').then(r => r.json()),
+                fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL').then(r => r.json()),
+            ]);
+
+            const data = { acoes: [], moedas: [] };
+
+            if (brapiRes.status === 'fulfilled' && brapiRes.value.results) {
+                data.acoes = brapiRes.value.results.map(a => ({
+                    symbol: a.symbol,
+                    price: a.regularMarketPrice,
+                    change: a.regularMarketChangePercent,
+                    name: a.shortName || a.symbol,
+                }));
+            }
+
+            if (awesomeRes.status === 'fulfilled') {
+                const aw = awesomeRes.value;
+                if (aw.USDBRL) {
+                    data.moedas.push({
+                        symbol: 'USD/BRL',
+                        price: parseFloat(aw.USDBRL.bid),
+                        change: parseFloat(aw.USDBRL.pctChange),
+                        name: 'Dólar',
+                    });
+                }
+                if (aw.EURBRL) {
+                    data.moedas.push({
+                        symbol: 'EUR/BRL',
+                        price: parseFloat(aw.EURBRL.bid),
+                        change: parseFloat(aw.EURBRL.pctChange),
+                        name: 'Euro',
+                    });
+                }
+            }
+
+            cotacoesData = data;
+            return data;
+        } catch (e) {
+            console.warn('Erro ao buscar cotações:', e);
+            return null;
+        }
+    }
+
+    // ---- Buscar Taxa SELIC ----
+    async function fetchSelic() {
+        try {
+            const res = await fetch('https://api.bcb.gov.br/dados/serie/bcdata.sgs.432/dados/ultimos/1?formato=json');
+            const data = await res.json();
+            if (data && data.length > 0) {
+                selicAtual = parseFloat(data[0].valor);
+                return selicAtual;
+            }
+        } catch (e) {
+            console.warn('Erro ao buscar SELIC:', e);
+        }
+        return null;
+    }
+
+    // ---- Renderizar Ticker ----
+    function renderTicker() {
+        if (!cotacoesData) return '';
+
+        const items = [...cotacoesData.acoes, ...cotacoesData.moedas];
+        if (items.length === 0) return '';
+
+        const tickerItems = items.map(item => {
+            const isUp = item.change >= 0;
+            const arrow = isUp ? '▲' : '▼';
+            const cls = isUp ? 'ticker-up' : 'ticker-down';
+            const changeStr = (isUp ? '+' : '') + item.change.toFixed(2) + '%';
+            const priceStr = item.price.toFixed(2);
+            return `<span class="ticker-item ${cls}">
+                <strong>${item.symbol}</strong> R$ ${priceStr} 
+                <span class="ticker-change">${arrow} ${changeStr}</span>
+            </span>`;
+        }).join('<span class="ticker-sep">|</span>');
+
+        // Duplicate for seamless loop
+        return `
+            <div class="stock-ticker" id="stock-ticker">
+                <div class="ticker-track">
+                    <div class="ticker-content">${tickerItems}</div>
+                    <div class="ticker-content">${tickerItems}</div>
+                </div>
+                <div class="ticker-live-badge">
+                    <span class="live-dot"></span> AO VIVO
+                </div>
+            </div>
+        `;
+    }
+
+    // ---- Renderizar badge da SELIC ----
+    function renderSelicBadge() {
+        if (!selicAtual) return '';
+        return `
+            <div class="selic-badge">
+                <span class="selic-badge-icon">📊</span>
+                <span class="selic-badge-text">Taxa SELIC atual: <strong>${selicAtual.toFixed(2)}% a.a.</strong></span>
+                <span class="selic-badge-live"><span class="live-dot"></span> Tempo real (BCB)</span>
+            </div>
+        `;
+    }
+
+    // ---- Registrar calculadoras ----
     const calculadoras = [
         { name: 'Renda Fixa (CDB, Selic, Poupança)', route: '/investimentos/renda-fixa', keywords: ['cdb', 'selic', 'poupança', 'renda fixa', 'tesouro'] },
         { name: 'Calculadora do Primeiro Milhão', route: '/investimentos/primeiro-milhao', keywords: ['milhão', 'milhao', 'aporte', 'aposentadoria'] },
@@ -19,7 +133,17 @@ const InvestimentosModule = (() => {
     });
 
     function renderCategory() {
-        return createCategoryPage({
+        // Start fetching data
+        fetchCotacoes().then(() => {
+            const tickerContainer = document.getElementById('investimentos-ticker');
+            if (tickerContainer) tickerContainer.innerHTML = renderTicker();
+        });
+        fetchSelic().then(() => {
+            const selicContainer = document.getElementById('investimentos-selic');
+            if (selicContainer) selicContainer.innerHTML = renderSelicBadge();
+        });
+
+        const baseHTML = createCategoryPage({
             title: 'Calculadora de Investimentos',
             description: 'Calcule e simule investimentos, compare rentabilidades e planeje seu futuro financeiro.',
             icon: '📈',
@@ -31,14 +155,28 @@ const InvestimentosModule = (() => {
                 route: c.route
             }))
         });
+
+        // Inject ticker and selic badge at the top of the page
+        return `
+            <div id="investimentos-ticker"></div>
+            <div id="investimentos-selic" style="max-width:1000px;margin:0 auto;padding:0 24px;"></div>
+            ${baseHTML}
+        `;
     }
 
     // ==========================================
     // CALCULADORA DE RENDA FIXA
     // ==========================================
     function rendaFixa() {
+        // Fetch SELIC for auto-fill
+        fetchSelic();
+        fetchCotacoes().then(() => {
+            const tc = document.getElementById('page-ticker');
+            if (tc) tc.innerHTML = renderTicker();
+        });
+
         return {
-            html: createCalculatorPage({
+            html: `<div id="page-ticker"></div>` + createCalculatorPage({
                 title: 'Calculadora e Simulador de Renda Fixa',
                 description: 'Calcule e simule investimentos em CDB, Tesouro Selic e Poupança. Compare rendimentos líquidos.',
                 category: 'Investimentos',
@@ -58,12 +196,31 @@ const InvestimentosModule = (() => {
                 renderResult: v => v,
             }),
             init: () => {
+                // Auto-fill SELIC
+                fetchSelic().then(selic => {
+                    if (selic) {
+                        const taxaField = document.getElementById('field-taxa');
+                        const selicInfo = document.getElementById('selic-realtime-info');
+                        if (taxaField && !taxaField.value) {
+                            taxaField.placeholder = `Ex: ${selic.toFixed(2)} (SELIC atual)`;
+                        }
+                        // Add info badge after the form
+                        const form = document.getElementById('calc-form');
+                        if (form && !document.getElementById('selic-realtime-badge')) {
+                            const badge = document.createElement('div');
+                            badge.id = 'selic-realtime-badge';
+                            badge.innerHTML = renderSelicBadge();
+                            form.parentNode.insertBefore(badge, form);
+                        }
+                    }
+                });
+
                 initCalculator({
                     fields: [
                         { id: 'valor' }, { id: 'aporte' }, { id: 'prazo' }, { id: 'tipo', type: 'select' }, { id: 'taxa' },
                     ],
                     calculate(v) {
-                        const selic = 13.25; // Taxa Selic referência
+                        const selic = selicAtual || 13.25; // Use real SELIC or fallback
                         let taxaAnual;
                         
                         if (v.tipo === 'cdb') {
@@ -108,7 +265,8 @@ const InvestimentosModule = (() => {
                             aliquotaIR,
                             totalInvestido,
                             taxaAnual,
-                            tipo: v.tipo.toUpperCase()
+                            tipo: v.tipo.toUpperCase(),
+                            selicUsada: selic,
                         };
                     },
                     renderResult(r) {
@@ -119,6 +277,7 @@ const InvestimentosModule = (() => {
                             { label: 'IR (' + fmt.percent(r.aliquotaIR) + ')', value: '- ' + fmt.currency(r.ir) },
                             { label: 'Rendimento Líquido', value: fmt.currency(r.rendimentoLiquido) },
                             { label: 'Taxa equivalente anual', value: fmt.percent(r.taxaAnual) },
+                            { label: 'SELIC utilizada', value: fmt.percent(r.selicUsada) },
                         ]);
                     }
                 });
@@ -130,8 +289,13 @@ const InvestimentosModule = (() => {
     // CALCULADORA DO PRIMEIRO MILHÃO
     // ==========================================
     function primeiroMilhao() {
+        fetchCotacoes().then(() => {
+            const tc = document.getElementById('page-ticker');
+            if (tc) tc.innerHTML = renderTicker();
+        });
+
         return {
-            html: createCalculatorPage({
+            html: `<div id="page-ticker"></div>` + createCalculatorPage({
                 title: 'Calculadora do Primeiro Milhão',
                 description: 'Descubra quanto tempo você precisa para acumular R$ 1.000.000 com aportes mensais e juros compostos.',
                 category: 'Investimentos',
@@ -191,8 +355,13 @@ const InvestimentosModule = (() => {
     // CALCULADORA DE SELIC VS POUPANÇA
     // ==========================================
     function selicVsPoupanca() {
+        fetchCotacoes().then(() => {
+            const tc = document.getElementById('page-ticker');
+            if (tc) tc.innerHTML = renderTicker();
+        });
+
         return {
-            html: createCalculatorPage({
+            html: `<div id="page-ticker"></div>` + createCalculatorPage({
                 title: 'Comparador de Selic vs Poupança',
                 description: 'Calcule e compare o rendimento do Tesouro Selic com a Poupança e descubra a melhor opção.',
                 category: 'Investimentos',
@@ -200,12 +369,31 @@ const InvestimentosModule = (() => {
                 fields: [
                     { id: 'valor', label: 'Valor a Investir (R$)', placeholder: 'Ex: 10000', min: 0 },
                     { id: 'prazo', label: 'Prazo (meses)', placeholder: 'Ex: 12', min: 1 },
-                    { id: 'selic', label: 'Taxa Selic (% ao ano)', placeholder: 'Ex: 13.25', min: 0, hint: 'Taxa Selic atual' },
+                    { id: 'selic', label: 'Taxa Selic (% ao ano)', placeholder: 'Carregando...', min: 0, hint: 'Taxa Selic atual — preenchida automaticamente via BCB' },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
             }),
             init: () => {
+                // Auto-fill SELIC value
+                fetchSelic().then(selic => {
+                    if (selic) {
+                        const selicField = document.getElementById('field-selic');
+                        if (selicField && !selicField.value) {
+                            selicField.value = selic.toFixed(2);
+                            selicField.placeholder = `${selic.toFixed(2)} (atualizada)`;
+                        }
+                        // Add badge
+                        const form = document.getElementById('calc-form');
+                        if (form && !document.getElementById('selic-realtime-badge')) {
+                            const badge = document.createElement('div');
+                            badge.id = 'selic-realtime-badge';
+                            badge.innerHTML = renderSelicBadge();
+                            form.parentNode.insertBefore(badge, form);
+                        }
+                    }
+                });
+
                 initCalculator({
                     fields: [{ id: 'valor' }, { id: 'prazo' }, { id: 'selic' }],
                     calculate(v) {
@@ -258,8 +446,13 @@ const InvestimentosModule = (() => {
     // CALCULADORA DE RESERVA DE EMERGÊNCIA
     // ==========================================
     function reservaEmergencia() {
+        fetchCotacoes().then(() => {
+            const tc = document.getElementById('page-ticker');
+            if (tc) tc.innerHTML = renderTicker();
+        });
+
         return {
-            html: createCalculatorPage({
+            html: `<div id="page-ticker"></div>` + createCalculatorPage({
                 title: 'Calculadora de Reserva de Emergência',
                 description: 'Calcule quanto você precisa ter guardado para sua reserva de emergência.',
                 category: 'Investimentos',

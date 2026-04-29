@@ -174,7 +174,7 @@
                             <path d="M9 3h6v6l3 8H6l3-8V3z" />
                             <path d="M6 21h12" />
                         </svg>
-                        Científica
+                        <span data-translate="Científica">Científica</span>
                         <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M6 9l6 6 6-6" />
                         </svg>
@@ -192,7 +192,46 @@
                         <a href="#/cientifica/integrais" class="dropdown-item" role="menuitem">Integrais</a>
                     </div>
                 </div>
+
+                <div class="nav-item dropdown" data-category="curiosidades">
+                    <button class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                            <path d="M12 16v-4M12 8h.01" />
+                        </svg>
+                        <span data-translate="Curiosidades">Curiosidades</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <a href="#/curiosidades/fatos-historicos" class="dropdown-item" role="menuitem">Tempo entre Fatos Históricos</a>
+                    </div>
+                </div>
             </nav>
+
+            <!-- Language Selector -->
+            <div class="lang-selector" id="lang-selector">
+                <button class="lang-toggle" id="lang-toggle" title="Traduzir" aria-label="Selecionar idioma">
+                    <span id="lang-current">🇧🇷</span>
+                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </button>
+                <div class="lang-dropdown" id="lang-dropdown">
+                    <div class="lang-option" data-lang="pt">🇧🇷 Português</div>
+                    <div class="lang-option" data-lang="en">🇺🇸 English</div>
+                    <div class="lang-option" data-lang="es">🇪🇸 Español</div>
+                    <div class="lang-option" data-lang="fr">🇫🇷 Français</div>
+                    <div class="lang-option" data-lang="it">🇮🇹 Italiano</div>
+                    <div class="lang-option" data-lang="de">🇩🇪 Deutsch</div>
+                    <div class="lang-option" data-lang="zh">🇨🇳 中文</div>
+                    <div class="lang-option" data-lang="hi">🇮🇳 हिन्दी</div>
+                    <div class="lang-option" data-lang="ja">🇯🇵 日本語</div>
+                    <div class="lang-option" data-lang="ko">🇰🇷 한국어</div>
+                    <div class="lang-option" data-lang="ar">🇸🇦 العربية</div>
+                </div>
+            </div>
 
             <!-- Dark Mode Toggle -->
             <button class="theme-toggle" id="theme-toggle" title="Alternar tema"
@@ -246,6 +285,7 @@
                         <li><a href="#/categoria/datas">Datas</a></li>
                         <li><a href="#/categoria/saude">Saúde</a></li>
                         <li><a href="#/categoria/cientifica">Científica</a></li>
+                        <li><a href="#/categoria/curiosidades">Curiosidades</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -262,6 +302,7 @@
     <!-- ============ SCRIPTS ============ -->
     <script src="js/components.js"></script>
     <script src="js/search.js"></script>
+    <script src="js/translate.js"></script>
     <script src="js/calculators/financeiro.js"></script>
     <script src="js/calculators/investimentos.js"></script>
     <script src="js/calculators/impostos.js"></script>
@@ -269,6 +310,7 @@
     <script src="js/calculators/datas.js"></script>
     <script src="js/calculators/saude.js"></script>
     <script src="js/calculators/cientifica.js"></script>
+    <script src="js/calculators/curiosidades.js"></script>
     <script src="js/app.js"></script>
 </body>
 

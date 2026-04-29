@@ -182,7 +182,8 @@ const ImpostosModule = (() => {
                 categorySlug: 'impostos',
                 fields: [
                     { id: 'rbt12', label: 'Receita Bruta 12 meses (R$)', placeholder: 'Ex: 500000', min: 0, hint: 'RBT12 - Soma do faturamento dos últimos 12 meses' },
-                    { id: 'faturamento', label: 'Faturamento do Mês (R$)', placeholder: 'Ex: 50000', min: 0 },
+                    { id: 'fatIsento', label: 'Faturamento do Mês — Isento de ISS (R$)', placeholder: 'Ex: 30000', min: 0, required: false, hint: 'Receita de atividades não sujeitas ao ISS' },
+                    { id: 'fatComISS', label: 'Faturamento do Mês — Com ISS (R$)', placeholder: 'Ex: 20000', min: 0, required: false, hint: 'Receita de atividades sujeitas ao ISS' },
                     { id: 'anexo', label: 'Anexo', type: 'select', options: [
                         { value: '1', label: 'Anexo I - Comércio' },
                         { value: '2', label: 'Anexo II - Indústria' },
@@ -198,23 +199,23 @@ const ImpostosModule = (() => {
             init: () => {
                 initCalculator({
                     fields: [
-                        { id: 'rbt12' }, { id: 'faturamento' }, { id: 'anexo', type: 'select' }, { id: 'folha' },
+                        { id: 'rbt12' }, { id: 'fatIsento' }, { id: 'fatComISS' }, { id: 'anexo', type: 'select' }, { id: 'folha' },
                     ],
                     calculate(v) {
+                        const fatIsento = v.fatIsento || 0;
+                        const fatComISS = v.fatComISS || 0;
+                        const faturamentoTotal = fatIsento + fatComISS;
+                        if (faturamentoTotal <= 0) throw new Error('Informe ao menos um campo de faturamento');
                         if (v.rbt12 > 4800000) throw new Error('RBT12 excede o limite do Simples Nacional');
 
                         let anexoUsado = v.anexo;
-                        // Fator R - Se a folha > 28% do RBT12, Anexo V migra para III
                         if (v.anexo === '5' && v.folha) {
                             const fatorR = (v.folha * 12) / v.rbt12;
-                            if (fatorR >= 0.28) {
-                                anexoUsado = '3';
-                            }
+                            if (fatorR >= 0.28) anexoUsado = '3';
                         }
 
                         const faixasAnexo = anexos[anexoUsado].faixas;
                         let aliquotaNominal, deducao;
-
                         for (const faixa of faixasAnexo) {
                             if (v.rbt12 <= faixa.limite) {
                                 aliquotaNominal = faixa.aliquota;
@@ -224,20 +225,26 @@ const ImpostosModule = (() => {
                         }
 
                         const aliquotaEfetiva = ((v.rbt12 * (aliquotaNominal / 100)) - deducao) / v.rbt12;
-                        const imposto = v.faturamento * aliquotaEfetiva;
+                        const impostoIsento = fatIsento * aliquotaEfetiva;
+                        const impostoComISS = fatComISS * aliquotaEfetiva;
+                        const impostoTotal = impostoIsento + impostoComISS;
 
                         return {
-                            imposto,
+                            impostoTotal, impostoIsento, impostoComISS,
                             aliquotaEfetiva: aliquotaEfetiva * 100,
                             aliquotaNominal,
                             anexo: anexos[v.anexo].nome,
                             anexoUsado: anexos[anexoUsado].nome,
-                            faturamento: v.faturamento,
+                            faturamentoTotal, fatIsento, fatComISS,
                         };
                     },
                     renderResult(r) {
-                        return renderSimpleResult('Imposto do Mês', fmt.currency(r.imposto), [
-                            { label: 'Faturamento', value: fmt.currency(r.faturamento) },
+                        return renderSimpleResult('Imposto do Mês', fmt.currency(r.impostoTotal), [
+                            { label: 'Faturamento Total', value: fmt.currency(r.faturamentoTotal) },
+                            { label: '  ↳ Isento de ISS', value: fmt.currency(r.fatIsento) },
+                            { label: '  ↳ Com ISS', value: fmt.currency(r.fatComISS) },
+                            { label: 'Imposto s/ Isento', value: fmt.currency(r.impostoIsento) },
+                            { label: 'Imposto s/ Com ISS', value: fmt.currency(r.impostoComISS) },
                             { label: 'Anexo', value: r.anexoUsado },
                             { label: 'Alíquota Nominal', value: fmt.percent(r.aliquotaNominal) },
                             { label: 'Alíquota Efetiva', value: fmt.percent(r.aliquotaEfetiva) },
@@ -255,11 +262,15 @@ const ImpostosModule = (() => {
         return {
             html: createCalculatorPage({
                 title: 'Calculadora de Lucro Presumido',
-                description: 'Calcule e simule os impostos pelo regime de Lucro Presumido: PIS, COFINS, IRPJ, CSLL e ISS.',
+                description: 'Calcule os impostos pelo Lucro Presumido. Mensal: PIS e COFINS. Trimestral: IRPJ e CSLL.',
                 category: 'Impostos',
                 categorySlug: 'impostos',
                 fields: [
-                    { id: 'faturamento', label: 'Faturamento Trimestral (R$)', placeholder: 'Ex: 300000', min: 0 },
+                    { id: 'periodo', label: 'Período de Apuração', type: 'select', options: [
+                        { value: 'mensal', label: 'Mensal (PIS e COFINS)' },
+                        { value: 'trimestral', label: 'Trimestral (IRPJ e CSLL)' },
+                    ]},
+                    { id: 'faturamento', label: 'Faturamento do Período (R$)', placeholder: 'Ex: 100000', min: 0 },
                     { id: 'atividade', label: 'Tipo de Atividade', type: 'select', options: [
                         { value: 'comercio', label: 'Comércio (presunção 8%)' },
                         { value: 'servicos', label: 'Serviços (presunção 32%)' },
@@ -273,7 +284,7 @@ const ImpostosModule = (() => {
             }),
             init: () => {
                 initCalculator({
-                    fields: [{ id: 'faturamento' }, { id: 'atividade', type: 'select' }, { id: 'iss' }],
+                    fields: [{ id: 'periodo', type: 'select' }, { id: 'faturamento' }, { id: 'atividade', type: 'select' }, { id: 'iss' }],
                     calculate(v) {
                         const presuncoes = {
                             comercio: { irpj: 8, csll: 12 },
@@ -281,33 +292,39 @@ const ImpostosModule = (() => {
                             industria: { irpj: 8, csll: 12 },
                             transporte: { irpj: 16, csll: 12 },
                         };
-
                         const p = presuncoes[v.atividade];
-                        const baseIRPJ = v.faturamento * (p.irpj / 100);
-                        const baseCSLL = v.faturamento * (p.csll / 100);
-
-                        const irpj = baseIRPJ * 0.15;
-                        const adicionalIR = baseIRPJ > 60000 ? (baseIRPJ - 60000) * 0.10 : 0;
-                        const csll = baseCSLL * 0.09;
-                        const pis = v.faturamento * 0.0065;
-                        const cofins = v.faturamento * 0.03;
                         const issVal = v.atividade === 'servicos' ? v.faturamento * ((v.iss || 5) / 100) : 0;
 
-                        const total = irpj + adicionalIR + csll + pis + cofins + issVal;
-                        const cargaEfetiva = (total / v.faturamento) * 100;
-
-                        return { irpj, adicionalIR, csll, pis, cofins, iss: issVal, total, cargaEfetiva, faturamento: v.faturamento };
+                        if (v.periodo === 'mensal') {
+                            const pis = v.faturamento * 0.0065;
+                            const cofins = v.faturamento * 0.03;
+                            const total = pis + cofins + issVal;
+                            const carga = (total / v.faturamento) * 100;
+                            return { periodo: 'Mensal', pis, cofins, iss: issVal, total, carga, faturamento: v.faturamento, isMensal: true };
+                        } else {
+                            const baseIRPJ = v.faturamento * (p.irpj / 100);
+                            const baseCSLL = v.faturamento * (p.csll / 100);
+                            const irpj = baseIRPJ * 0.15;
+                            const adicionalIR = baseIRPJ > 60000 ? (baseIRPJ - 60000) * 0.10 : 0;
+                            const csll = baseCSLL * 0.09;
+                            const total = irpj + adicionalIR + csll + issVal;
+                            const carga = (total / v.faturamento) * 100;
+                            return { periodo: 'Trimestral', irpj, adicionalIR, csll, iss: issVal, total, carga, faturamento: v.faturamento, isMensal: false };
+                        }
                     },
                     renderResult(r) {
-                        return renderSimpleResult('Total de Impostos', fmt.currency(r.total), [
-                            { label: 'IRPJ (15%)', value: fmt.currency(r.irpj) },
-                            { label: 'Adicional IR', value: fmt.currency(r.adicionalIR) },
-                            { label: 'CSLL (9%)', value: fmt.currency(r.csll) },
-                            { label: 'PIS (0,65%)', value: fmt.currency(r.pis) },
-                            { label: 'COFINS (3%)', value: fmt.currency(r.cofins) },
-                            { label: 'ISS', value: fmt.currency(r.iss) },
-                            { label: 'Carga Tributária Efetiva', value: fmt.percent(r.cargaEfetiva) },
-                        ]);
+                        const details = [{ label: 'Período', value: r.periodo }, { label: 'Faturamento', value: fmt.currency(r.faturamento) }];
+                        if (r.isMensal) {
+                            details.push({ label: 'PIS (0,65%)', value: fmt.currency(r.pis) });
+                            details.push({ label: 'COFINS (3%)', value: fmt.currency(r.cofins) });
+                        } else {
+                            details.push({ label: 'IRPJ (15%)', value: fmt.currency(r.irpj) });
+                            details.push({ label: 'Adicional IR (10%)', value: fmt.currency(r.adicionalIR) });
+                            details.push({ label: 'CSLL (9%)', value: fmt.currency(r.csll) });
+                        }
+                        details.push({ label: 'ISS', value: fmt.currency(r.iss) });
+                        details.push({ label: 'Carga Tributária Efetiva', value: fmt.percent(r.carga) });
+                        return renderSimpleResult('Total de Impostos', fmt.currency(r.total), details);
                     }
                 });
             }

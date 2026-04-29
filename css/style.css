@@ -1337,3 +1337,357 @@ img { max-width: 100%; display: block; }
     width: 16px;
     height: 16px;
 }
+
+/* ============================================
+   CATEGORY: CURIOSIDADES
+   ============================================ */
+:root { --cat-curiosidades: #ca8a04; }
+
+/* ============================================
+   STOCK TICKER (Marquee)
+   ============================================ */
+.stock-ticker {
+    background: linear-gradient(135deg, #0b1020 0%, #1a1f2e 100%);
+    color: #e4e7ed;
+    overflow: hidden;
+    position: relative;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ticker-track {
+    display: flex;
+    animation: ticker-scroll 30s linear infinite;
+    width: max-content;
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    padding: 0 16px;
+}
+
+.ticker-item {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: 4px 12px;
+}
+
+.ticker-item strong { margin-right: 6px; }
+
+.ticker-change {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.ticker-up { color: #10b981; }
+.ticker-up .ticker-change { color: #34d399; }
+.ticker-down { color: #ef4444; }
+.ticker-down .ticker-change { color: #f87171; }
+
+.ticker-sep {
+    color: rgba(255,255,255,0.15);
+    margin: 0 4px;
+}
+
+.ticker-live-badge {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    display: inline-block;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+    50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+}
+
+/* ============================================
+   SELIC BADGE
+   ============================================ */
+.selic-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    border: 1px solid #6ee7b7;
+}
+
+[data-theme="dark"] .selic-badge {
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    border-color: #059669;
+}
+
+.selic-badge-icon { font-size: 1.5rem; }
+.selic-badge-text { font-size: var(--font-size-sm); color: #065f46; flex: 1; }
+[data-theme="dark"] .selic-badge-text { color: #a7f3d0; }
+.selic-badge-text strong { font-size: var(--font-size-lg); }
+
+.selic-badge-live {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ============================================
+   MOEDAS LIVE BANNER
+   ============================================ */
+.moedas-live-banner {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.moedas-loading {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.moedas-live-header {
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+}
+
+.moedas-live-rates {
+    display: flex;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-sm);
+}
+
+.moedas-rate-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.moedas-rate-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.moedas-rate-value {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.moedas-rate-change {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+}
+
+.moedas-live-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* ============================================
+   CURIOSIDADES - TIMELINE & FUN FACTS
+   ============================================ */
+.curiosidades-timeline {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border-light);
+}
+
+.timeline-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+}
+
+.timeline-items {
+    position: relative;
+    padding-left: 24px;
+    border-left: 2px solid var(--color-border);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 8px 0 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -29px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    border: 2px solid var(--color-surface);
+}
+
+.timeline-year {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 70px;
+}
+
+.timeline-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.curiosidades-fun-facts {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--color-border-light);
+}
+
+.curiosidades-fun-facts h4 {
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+}
+
+.fun-fact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-md);
+}
+
+.fun-fact-item {
+    text-align: center;
+    padding: var(--space-md);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+}
+
+.fun-fact-value {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.fun-fact-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.lang-selector {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    color: var(--navbar-text);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.lang-toggle:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: var(--dropdown-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--dropdown-shadow);
+    border: 1px solid var(--color-border-light);
+    padding: var(--space-sm);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: all var(--transition-normal);
+    z-index: 1001;
+}
+
+.lang-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.lang-option {
+    display: block;
+    padding: 8px 12px;
+    font-size: var(--font-size-sm);
+    color: var(--dropdown-text);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.lang-option:hover {
+    background: var(--dropdown-hover);
+    color: var(--color-primary);
+}
+

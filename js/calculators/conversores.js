@@ -77,6 +77,18 @@ const ConversoresModule = (() => {
                     ARS: 1050,
                     BTC: 0.0000145,
                 };
+                let cotacoesOnline = false;
+                let ultimaAtualizacao = null;
+
+                // Insert live rate banner before the form
+                const form = document.getElementById('calc-form');
+                if (form) {
+                    const banner = document.createElement('div');
+                    banner.id = 'moedas-live-banner';
+                    banner.className = 'moedas-live-banner';
+                    banner.innerHTML = '<div class="moedas-loading"><span class="loading-spinner"></span> Carregando cotações em tempo real...</div>';
+                    form.parentNode.insertBefore(banner, form);
+                }
 
                 initCalculator({
                     fields: [{ id: 'valor' }, { id: 'de', type: 'select' }, { id: 'para', type: 'select' }],
@@ -84,23 +96,25 @@ const ConversoresModule = (() => {
                         const valorUSD = v.valor / taxas[v.de];
                         const resultado = valorUSD * taxas[v.para];
                         const taxa = taxas[v.para] / taxas[v.de];
-                        return { resultado, taxa, de: v.de, para: v.para, valor: v.valor };
+                        return { resultado, taxa, de: v.de, para: v.para, valor: v.valor, online: cotacoesOnline, atualizacao: ultimaAtualizacao };
                     },
                     renderResult(r) {
                         const decimals = r.para === 'BTC' ? 8 : 2;
+                        const statusLabel = r.online ? '✅ Cotação em tempo real' : '⚠️ Valores aproximados (offline)';
+                        const timeStr = r.atualizacao ? ` — Atualizado: ${r.atualizacao}` : '';
                         return renderSimpleResult(
                             `${r.de} → ${r.para}`,
                             `${fmt.number(r.resultado, decimals)} ${r.para}`,
                             [
                                 { label: 'Valor Original', value: `${fmt.number(r.valor, 2)} ${r.de}` },
                                 { label: 'Taxa', value: `1 ${r.de} = ${fmt.number(r.taxa, decimals < 4 ? 4 : 8)} ${r.para}` },
-                                { label: '⚠️ Taxas', value: 'Valores aproximados (offline)' },
+                                { label: 'Status', value: statusLabel + timeStr },
                             ]
                         );
                     }
                 });
 
-                // Tentar buscar cotação real via API
+                // Buscar cotação real via API
                 fetch('https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL,BTC-BRL,ARS-BRL,JPY-BRL')
                     .then(r => r.json())
                     .then(data => {
@@ -110,9 +124,39 @@ const ConversoresModule = (() => {
                         if (data.BTCBRL) taxas.BTC = 1 / parseFloat(data.BTCBRL.bid) * taxas.BRL;
                         if (data.JPYBRL) taxas.JPY = 1 / parseFloat(data.JPYBRL.bid) * taxas.BRL;
                         if (data.ARSBRL) taxas.ARS = 1 / parseFloat(data.ARSBRL.bid) * taxas.BRL;
+                        cotacoesOnline = true;
+                        ultimaAtualizacao = new Date().toLocaleString('pt-BR');
+
+                        // Update banner
+                        const banner = document.getElementById('moedas-live-banner');
+                        if (banner) {
+                            const usdBrl = data.USDBRL ? parseFloat(data.USDBRL.bid).toFixed(4) : '—';
+                            const eurBrl = data.EURBRL ? parseFloat(data.EURBRL.bid).toFixed(4) : '—';
+                            const usdChange = data.USDBRL ? parseFloat(data.USDBRL.pctChange) : 0;
+                            const eurChange = data.EURBRL ? parseFloat(data.EURBRL.pctChange) : 0;
+                            banner.innerHTML = `
+                                <div class="moedas-live-header"><span class="live-dot"></span> Cotações em Tempo Real</div>
+                                <div class="moedas-live-rates">
+                                    <div class="moedas-rate-item">
+                                        <span class="moedas-rate-label">🇺🇸 USD/BRL</span>
+                                        <span class="moedas-rate-value">R$ ${usdBrl}</span>
+                                        <span class="moedas-rate-change ${usdChange >= 0 ? 'ticker-up' : 'ticker-down'}">${usdChange >= 0 ? '▲' : '▼'} ${usdChange.toFixed(2)}%</span>
+                                    </div>
+                                    <div class="moedas-rate-item">
+                                        <span class="moedas-rate-label">🇪🇺 EUR/BRL</span>
+                                        <span class="moedas-rate-value">R$ ${eurBrl}</span>
+                                        <span class="moedas-rate-change ${eurChange >= 0 ? 'ticker-up' : 'ticker-down'}">${eurChange >= 0 ? '▲' : '▼'} ${eurChange.toFixed(2)}%</span>
+                                    </div>
+                                </div>
+                                <div class="moedas-live-time">Atualizado em: ${ultimaAtualizacao}</div>
+                            `;
+                        }
                         CalcComponents.showToast('Cotações atualizadas em tempo real!', 'success');
                     })
-                    .catch(() => {});
+                    .catch(() => {
+                        const banner = document.getElementById('moedas-live-banner');
+                        if (banner) banner.innerHTML = '<div class="moedas-loading">⚠️ Não foi possível carregar cotações em tempo real. Usando valores aproximados.</div>';
+                    });
             }
         };
     }

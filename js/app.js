@@ -16,6 +16,7 @@ const App = (() => {
         ...DatasModule.routes,
         ...SaudeModule.routes,
         ...CientificaModule.routes,
+        ...CuriosidadesModule.routes,
     };
 
     // Category renderers
@@ -27,6 +28,7 @@ const App = (() => {
         datas: DatasModule.renderCategory,
         saude: SaudeModule.renderCategory,
         cientifica: CientificaModule.renderCategory,
+        curiosidades: CuriosidadesModule.renderCategory,
     };
 
     // ---- Home Page ----
@@ -58,6 +60,7 @@ const App = (() => {
                     ${renderCategoryCard('datas', '📅', 'Datas', 'Diferenças, contagens e tempo vivido.', 3, '--cat-datas', '#fee2e2')}
                     ${renderCategoryCard('saude', '❤️', 'Saúde', 'IMC, hidratação e necessidade proteica.', 3, '--cat-saude', '#fce7f3')}
                     ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e mais.', 9, '--cat-cientifica', '#cffafe')}
+                    ${renderCategoryCard('curiosidades', '🏛️', 'Curiosidades', 'Tempo entre fatos históricos e muito mais.', 1, '--cat-curiosidades', '#fef9c3')}
                 </div>
             </section>
 
@@ -217,6 +220,7 @@ const App = (() => {
     function init() {
         initNavbar();
         initTheme();
+        TranslateSystem.init();
         route();
         window.addEventListener('hashchange', route);
     }
