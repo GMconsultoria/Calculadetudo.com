@@ -172,11 +172,18 @@ const CuriosidadesModule = (() => {
 
                     // Handle ancient dates
                     if (fato.ano < 100) {
-                        const d = new Date(0);
-                        const parts = fato.date.split('-');
-                        let year = parseInt(parts[0]);
-                        if (year < 0) year = year; // negative year
-                        d.setFullYear(year, parseInt(parts[1]) - 1, parseInt(parts[2]));
+                        const d = new Date();
+                        let dateStr = fato.date;
+                        let isBCE = false;
+                        if (dateStr.startsWith('-')) {
+                            isBCE = true;
+                            dateStr = dateStr.substring(1);
+                        }
+                        const parts = dateStr.split('-');
+                        let year = parseInt(parts[0], 10);
+                        if (isBCE) year = -year;
+                        d.setFullYear(year, parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                        d.setHours(0, 0, 0, 0);
                         return d;
                     }
                     return new Date(fato.date + 'T00:00:00');

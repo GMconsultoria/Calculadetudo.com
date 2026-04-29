@@ -43,7 +43,7 @@ const ImpostosModule = (() => {
             { limite: 2826.65, aliquota: 7.5, deducao: 169.44 },
             { limite: 3751.05, aliquota: 15, deducao: 381.44 },
             { limite: 4664.68, aliquota: 22.5, deducao: 662.77 },
-            { limite: Infinity, aliquota: 27.5, deducao: 896.00 },
+            { limite: Infinity, aliquota: 27.5, deducao: 884.96 },
         ];
 
         return {

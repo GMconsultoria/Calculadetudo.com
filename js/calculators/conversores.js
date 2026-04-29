@@ -250,6 +250,45 @@ const ConversoresModule = (() => {
                     mm2: 0.000001, cm2: 0.0001, m2: 1, km2: 1000000, ha: 10000, ac: 4046.86,
                 };
 
+                const categoriaSelect = document.getElementById('field-categoria');
+                const deSelect = document.getElementById('field-de');
+                const paraSelect = document.getElementById('field-para');
+
+                if (categoriaSelect && deSelect && paraSelect) {
+                    const grupos = {
+                        peso: ['mg', 'g', 'kg', 'ton', 'lb', 'oz'],
+                        comprimento: ['mm', 'cm', 'm', 'km', 'in', 'ft', 'mi'],
+                        volume: ['ml', 'l', 'm3', 'gal'],
+                        area: ['mm2', 'cm2', 'm2', 'km2', 'ha', 'ac']
+                    };
+
+                    const todasOptionsDe = Array.from(deSelect.options);
+                    const todasOptionsPara = Array.from(paraSelect.options);
+
+                    const updateOptions = () => {
+                        const cat = categoriaSelect.value;
+                        const permitidos = grupos[cat];
+                        
+                        const currDe = deSelect.value;
+                        const currPara = paraSelect.value;
+
+                        deSelect.innerHTML = '';
+                        todasOptionsDe.forEach(opt => {
+                            if (permitidos.includes(opt.value)) deSelect.appendChild(opt.cloneNode(true));
+                        });
+                        if (permitidos.includes(currDe)) deSelect.value = currDe;
+
+                        paraSelect.innerHTML = '';
+                        todasOptionsPara.forEach(opt => {
+                            if (permitidos.includes(opt.value)) paraSelect.appendChild(opt.cloneNode(true));
+                        });
+                        if (permitidos.includes(currPara)) paraSelect.value = currPara;
+                    };
+
+                    categoriaSelect.addEventListener('change', updateOptions);
+                    updateOptions();
+                }
+
                 initCalculator({
                     fields: [{ id: 'valor' }, { id: 'categoria', type: 'select' }, { id: 'de', type: 'select' }, { id: 'para', type: 'select' }],
                     calculate(v) {

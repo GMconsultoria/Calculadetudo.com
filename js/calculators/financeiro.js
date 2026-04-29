@@ -354,7 +354,12 @@ const FinanceiroModule = (() => {
                     ],
                     calculate(v) {
                         const i = v.taxa / 100;
-                        const fluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6].filter(f => !isNaN(f) && f > 0);
+                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6];
+                        const fluxos = [];
+                        for (let f of rawFluxos) {
+                            if (f !== undefined && f !== null && !isNaN(f)) fluxos.push(f);
+                            else break;
+                        }
                         let vplVal = -v.investimento;
                         fluxos.forEach((f, idx) => {
                             vplVal += f / Math.pow(1 + i, idx + 1);
@@ -408,21 +413,33 @@ const FinanceiroModule = (() => {
                     ],
                     calculate(v) {
                         const fluxos = [-v.investimento];
-                        [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6].forEach(f => {
-                            if (!isNaN(f) && f > 0) fluxos.push(f);
-                        });
+                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6];
+                        for (let f of rawFluxos) {
+                            if (f !== undefined && f !== null && !isNaN(f)) fluxos.push(f);
+                            else break;
+                        }
 
                         // Newton-Raphson para encontrar TIR
                         let taxa = 0.1;
+                        let encontrada = false;
                         for (let iter = 0; iter < 1000; iter++) {
                             let vplVal = 0, dvpl = 0;
                             fluxos.forEach((f, t) => {
                                 vplVal += f / Math.pow(1 + taxa, t);
                                 dvpl -= t * f / Math.pow(1 + taxa, t + 1);
                             });
+                            if (Math.abs(dvpl) < 1e-12) break; // evita divisão por zero
                             const novaTaxa = taxa - vplVal / dvpl;
-                            if (Math.abs(novaTaxa - taxa) < 1e-10) break;
+                            if (Math.abs(novaTaxa - taxa) < 1e-10) {
+                                encontrada = true;
+                                taxa = novaTaxa;
+                                break;
+                            }
                             taxa = novaTaxa;
+                        }
+
+                        if (!encontrada || isNaN(taxa)) {
+                            throw new Error('Não foi possível calcular a TIR (fluxos irregulares).');
                         }
 
                         return { tir: taxa * 100, fluxos };

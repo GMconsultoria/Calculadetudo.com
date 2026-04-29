@@ -58,18 +58,57 @@ const CientificaModule = (() => {
                         { value: 'energia', label: 'Energia Cinética (Ec = ½mv²)' },
                         { value: 'potencial', label: 'Energia Potencial (Ep = mgh)' },
                     ]},
-                    { id: 'v1', label: 'Valor 1', placeholder: 'Veja descrição da fórmula', hint: 'Distância(m), Velocidade inicial(m/s), Posição inicial(m), v₀(m/s), Massa(kg)' },
-                    { id: 'v2', label: 'Valor 2', placeholder: '', hint: 'Tempo(s), Aceleração(m/s²), v₀(m/s), Aceleração(m/s²), Velocidade(m/s)' },
-                    { id: 'v3', label: 'Valor 3', placeholder: '', required: false, hint: 'Usado pelas fórmulas MRUV - Tempo(s), Aceleração(m/s²), ΔS(m), Altura(m)' },
+                    { id: 'v1', label: 'Valor 1', placeholder: '' },
+                    { id: 'v2', label: 'Valor 2', placeholder: '' },
+                    { id: 'v3', label: 'Valor 3', placeholder: '', required: false },
+                    { id: 'v4', label: 'Valor 4', placeholder: '', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
             }),
             init: () => {
+                const updateLabels = () => {
+                    const f = document.getElementById('field-formula')?.value;
+                    if (!f) return;
+                    const l1 = document.querySelector('label[for="field-v1"]');
+                    const l2 = document.querySelector('label[for="field-v2"]');
+                    const l3 = document.querySelector('label[for="field-v3"]');
+                    const l4 = document.querySelector('label[for="field-v4"]');
+                    const g3 = document.getElementById('field-v3')?.parentElement;
+                    const g4 = document.getElementById('field-v4')?.parentElement;
+                    
+                    if (g3) g3.style.display = 'block';
+                    if (g4) g4.style.display = 'none';
+
+                    if (f === 'velocidade') {
+                        if (l1) l1.textContent = 'Distância d (m)'; if (l2) l2.textContent = 'Tempo t (s)';
+                        if (g3) g3.style.display = 'none';
+                    } else if (f === 'mruv_vel') {
+                        if (l1) l1.textContent = 'Velocidade Inicial v₀ (m/s)'; if (l2) l2.textContent = 'Aceleração a (m/s²)'; if (l3) l3.textContent = 'Tempo t (s)';
+                    } else if (f === 'mruv_pos') {
+                        if (l1) l1.textContent = 'Posição Inicial S₀ (m)'; if (l2) l2.textContent = 'Velocidade Inicial v₀ (m/s)'; if (l3) l3.textContent = 'Aceleração a (m/s²)'; 
+                        if (l4) l4.textContent = 'Tempo t (s)'; if (g4) g4.style.display = 'block';
+                    } else if (f === 'torricelli') {
+                        if (l1) l1.textContent = 'Velocidade Inicial v₀ (m/s)'; if (l2) l2.textContent = 'Aceleração a (m/s²)'; if (l3) l3.textContent = 'Variação de Espaço ΔS (m)';
+                    } else if (f === 'energia') {
+                        if (l1) l1.textContent = 'Massa m (kg)'; if (l2) l2.textContent = 'Velocidade v (m/s)';
+                        if (g3) g3.style.display = 'none';
+                    } else if (f === 'potencial') {
+                        if (l1) l1.textContent = 'Massa m (kg)'; if (l2) l2.textContent = 'Altura h (m)';
+                        if (g3) g3.style.display = 'none';
+                    }
+                };
+
+                const formSelect = document.getElementById('field-formula');
+                if (formSelect) {
+                    formSelect.addEventListener('change', updateLabels);
+                    updateLabels();
+                }
+
                 initCalculator({
                     fields: [
                         { id: 'formula', type: 'select' },
-                        { id: 'v1' }, { id: 'v2' }, { id: 'v3' },
+                        { id: 'v1' }, { id: 'v2' }, { id: 'v3' }, { id: 'v4' }
                     ],
                     calculate(v) {
                         let resultado, descricao;
@@ -83,11 +122,9 @@ const CientificaModule = (() => {
                                 descricao = `v = ${v.v1} + ${v.v2} × ${v.v3 || 0} = ${fmt.number(resultado, 4)} m/s`;
                                 break;
                             case 'mruv_pos':
-                                resultado = v.v1 + v.v2 * (v.v3 || 0) + 0.5 * (v.v3 || 0) * (v.v3 || 0) * (v.v2 || 0);
-                                // S = S0 + v0*t + 0.5*a*t^2 → v1=S0, v2=v0, v3=t; need a separate a
-                                // Simplified: v1=position, v2=v0*t, v3=0.5*a*t^2
-                                resultado = v.v1 + v.v2 * (v.v3 || 0);
-                                descricao = `S = ${v.v1} + ${v.v2} × ${v.v3 || 0} = ${fmt.number(resultado, 4)} m`;
+                                // Fórmula correta: S = S₀ + v₀t + ½at²
+                                resultado = v.v1 + v.v2 * (v.v4 || 0) + 0.5 * (v.v3 || 0) * (v.v4 || 0) * (v.v4 || 0);
+                                descricao = `S = ${v.v1} + ${v.v2}×${v.v4 || 0} + ½×${v.v3 || 0}×(${v.v4 || 0}²) = ${fmt.number(resultado, 4)} m`;
                                 break;
                             case 'torricelli':
                                 resultado = Math.sqrt(v.v1 * v.v1 + 2 * v.v2 * (v.v3 || 0));
@@ -128,16 +165,43 @@ const CientificaModule = (() => {
                     { id: 'formula', label: 'Cálculo', type: 'select', options: [
                         { value: 'mols', label: 'Número de Mols (n = m / M)' },
                         { value: 'concentracao', label: 'Concentração Molar (C = n / V)' },
-                        { value: 'diluicao', label: 'Diluição (C1V1 = C2V2)' },
+                        { value: 'diluicao', label: 'Diluição (C₁V₁ = C₂V₂)' },
                     ]},
-                    { id: 'v1', label: 'Valor 1', placeholder: 'Massa(g) / Mols / C1', hint: 'Massa em gramas, número de mols, ou concentração 1' },
-                    { id: 'v2', label: 'Valor 2', placeholder: 'Massa Molar(g/mol) / Volume(L) / V1', hint: 'Massa molar, volume em litros, ou volume 1' },
-                    { id: 'v3', label: 'Valor 3 (se necessário)', placeholder: 'C2 ou V2', required: false },
+                    { id: 'v1', label: 'Valor 1', placeholder: '' },
+                    { id: 'v2', label: 'Valor 2', placeholder: '' },
+                    { id: 'v3', label: 'Valor 3', placeholder: '', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
             }),
             init: () => {
+                const updateLabels = () => {
+                    const f = document.getElementById('field-formula')?.value;
+                    if (!f) return;
+                    const l1 = document.querySelector('label[for="field-v1"]');
+                    const l2 = document.querySelector('label[for="field-v2"]');
+                    const l3 = document.querySelector('label[for="field-v3"]');
+                    const g3 = document.getElementById('field-v3')?.parentElement;
+                    
+                    if (g3) g3.style.display = 'block';
+
+                    if (f === 'mols') {
+                        if (l1) l1.textContent = 'Massa m (g)'; if (l2) l2.textContent = 'Massa Molar M (g/mol)';
+                        if (g3) g3.style.display = 'none';
+                    } else if (f === 'concentracao') {
+                        if (l1) l1.textContent = 'Número de mols n (mol)'; if (l2) l2.textContent = 'Volume V (L)';
+                        if (g3) g3.style.display = 'none';
+                    } else if (f === 'diluicao') {
+                        if (l1) l1.textContent = 'Concentração Inicial C₁'; if (l2) l2.textContent = 'Volume Inicial V₁'; if (l3) l3.textContent = 'Concentração Final C₂';
+                    }
+                };
+
+                const formSelect = document.getElementById('field-formula');
+                if (formSelect) {
+                    formSelect.addEventListener('change', updateLabels);
+                    updateLabels();
+                }
+
                 initCalculator({
                     fields: [
                         { id: 'formula', type: 'select' },
@@ -159,7 +223,8 @@ const CientificaModule = (() => {
                             case 'diluicao':
                                 if (!v.v3) throw new Error('Informe o valor 3');
                                 resultado = (v.v1 * v.v2) / v.v3;
-                                descricao = `V2 = (${v.v1} × ${v.v2}) ÷ ${v.v3}`;
+                                // C1V1 = C2V2 -> V2 = (C1 * V1) / C2
+                                descricao = `V₂ = (${v.v1} × ${v.v2}) ÷ ${v.v3}`;
                                 unidade = 'L';
                                 break;
                         }

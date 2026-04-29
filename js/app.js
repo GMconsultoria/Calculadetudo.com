@@ -33,6 +33,7 @@ const App = (() => {
 
     // ---- Home Page ----
     function renderHome() {
+        const getCount = slug => window.CalcSearch ? window.CalcSearch.calculadoras.filter(c => c.categorySlug === slug).length : 0;
         return `
             <section class="hero">
                 <div class="hero-badge">🧮 100% gratuito e aberto</div>
@@ -53,14 +54,14 @@ const App = (() => {
                     <h2 class="section-title">Categorias</h2>
                 </div>
                 <div class="categories-grid">
-                    ${renderCategoryCard('financeira', '💰', 'Financeira', 'Juros, financiamentos, taxas, VPL, TIR e mais.', 12, '--cat-financeira', '#dbeafe')}
-                    ${renderCategoryCard('investimentos', '📈', 'Investimentos', 'Renda fixa, poupança, simuladores e reserva.', 4, '--cat-investimentos', '#d1fae5')}
-                    ${renderCategoryCard('impostos', '🧾', 'Impostos', 'IRPF, Simples Nacional, Lucro Presumido e Real.', 4, '--cat-impostos', '#fef3c7')}
-                    ${renderCategoryCard('conversores', '🔄', 'Conversores', 'Moedas, medidas, volume e temperatura.', 3, '--cat-conversores', '#ede9fe')}
-                    ${renderCategoryCard('datas', '📅', 'Datas', 'Diferenças, contagens e tempo vivido.', 3, '--cat-datas', '#fee2e2')}
-                    ${renderCategoryCard('saude', '❤️', 'Saúde', 'IMC, hidratação e necessidade proteica.', 3, '--cat-saude', '#fce7f3')}
-                    ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e mais.', 9, '--cat-cientifica', '#cffafe')}
-                    ${renderCategoryCard('curiosidades', '🏛️', 'Curiosidades', 'Tempo entre fatos históricos e muito mais.', 1, '--cat-curiosidades', '#fef9c3')}
+                    ${renderCategoryCard('financeira', '💰', 'Financeira', 'Juros, financiamentos, taxas, VPL, TIR e mais.', getCount('financeira'), '--cat-financeira', '#dbeafe')}
+                    ${renderCategoryCard('investimentos', '📈', 'Investimentos', 'Renda fixa, poupança, simuladores e reserva.', getCount('investimentos'), '--cat-investimentos', '#d1fae5')}
+                    ${renderCategoryCard('impostos', '🧾', 'Impostos', 'IRPF, Simples Nacional, Lucro Presumido e Real.', getCount('impostos'), '--cat-impostos', '#fef3c7')}
+                    ${renderCategoryCard('conversores', '🔄', 'Conversores', 'Moedas, medidas, volume e temperatura.', getCount('conversores'), '--cat-conversores', '#ede9fe')}
+                    ${renderCategoryCard('datas', '📅', 'Datas', 'Diferenças, contagens e tempo vivido.', getCount('datas'), '--cat-datas', '#fee2e2')}
+                    ${renderCategoryCard('saude', '❤️', 'Saúde', 'IMC, hidratação e necessidade proteica.', getCount('saude'), '--cat-saude', '#fce7f3')}
+                    ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e mais.', getCount('cientifica'), '--cat-cientifica', '#cffafe')}
+                    ${renderCategoryCard('curiosidades', '🏛️', 'Curiosidades', 'Tempo entre fatos históricos e muito mais.', getCount('curiosidades'), '--cat-curiosidades', '#fef9c3')}
                 </div>
             </section>
 
@@ -162,20 +163,48 @@ const App = (() => {
                 const item = btn.closest('.nav-item');
                 const isActive = item.classList.contains('active');
                 // Close all
-                document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                    const t = d.querySelector('.dropdown-toggle');
+                    if (t) t.setAttribute('aria-expanded', 'false');
+                });
+                if (!isActive) {
+                    item.classList.add('active');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
             });
         });
 
         // Close dropdowns on outside click
         document.addEventListener('click', () => {
-            document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.nav-item.dropdown').forEach(d => {
+                d.classList.remove('active');
+                const t = d.querySelector('.dropdown-toggle');
+                if (t) t.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close dropdowns on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                    const t = d.querySelector('.dropdown-toggle');
+                    if (t) t.setAttribute('aria-expanded', 'false');
+                });
+                const langDropdown = document.getElementById('lang-dropdown');
+                if (langDropdown) langDropdown.classList.remove('active');
+            }
         });
 
         // Close dropdown and mobile nav on link click
         document.querySelectorAll('.dropdown-item').forEach(link => {
             link.addEventListener('click', () => {
-                document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
+                    d.classList.remove('active');
+                    const t = d.querySelector('.dropdown-toggle');
+                    if (t) t.setAttribute('aria-expanded', 'false');
+                });
                 nav.classList.remove('active');
                 toggle.classList.remove('active');
                 overlay.classList.remove('active');
