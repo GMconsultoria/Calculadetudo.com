@@ -33,7 +33,7 @@ const App = (() => {
 
     // ---- Home Page ----
     function renderHome() {
-        const getCount = slug => window.CalcSearch ? window.CalcSearch.calculadoras.filter(c => c.categorySlug === slug).length : 0;
+        const getCount = slug => typeof CalcSearch !== 'undefined' ? CalcSearch.calculadoras.filter(c => c.categorySlug === slug).length : 0;
         return `
             <section class="hero">
                 <div class="hero-badge">🧮 100% gratuito e aberto</div>
