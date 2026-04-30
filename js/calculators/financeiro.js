@@ -336,6 +336,12 @@ const FinanceiroModule = (() => {
                     { id: 'fluxo4', label: 'Fluxo Mês 4 (R$)', placeholder: 'Ex: 15000', required: false },
                     { id: 'fluxo5', label: 'Fluxo Mês 5 (R$)', placeholder: 'Ex: 15000', required: false },
                     { id: 'fluxo6', label: 'Fluxo Mês 6 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo7', label: 'Fluxo Mês 7 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo8', label: 'Fluxo Mês 8 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo9', label: 'Fluxo Mês 9 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo10', label: 'Fluxo Mês 10 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo11', label: 'Fluxo Mês 11 (R$)', placeholder: 'Ex: 15000', required: false },
+                    { id: 'fluxo12', label: 'Fluxo Mês 12 (R$)', placeholder: 'Ex: 15000', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
@@ -345,20 +351,22 @@ const FinanceiroModule = (() => {
                     fields: [
                         { id: 'investimento' },
                         { id: 'taxa' },
-                        { id: 'fluxo1' },
-                        { id: 'fluxo2' },
-                        { id: 'fluxo3' },
-                        { id: 'fluxo4' },
-                        { id: 'fluxo5' },
-                        { id: 'fluxo6' },
+                        { id: 'fluxo1' }, { id: 'fluxo2' }, { id: 'fluxo3' }, { id: 'fluxo4' },
+                        { id: 'fluxo5' }, { id: 'fluxo6' }, { id: 'fluxo7' }, { id: 'fluxo8' },
+                        { id: 'fluxo9' }, { id: 'fluxo10' }, { id: 'fluxo11' }, { id: 'fluxo12' },
                     ],
                     calculate(v) {
                         const i = v.taxa / 100;
-                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6];
+                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6, v.fluxo7, v.fluxo8, v.fluxo9, v.fluxo10, v.fluxo11, v.fluxo12];
                         const fluxos = [];
+                        let encontrouVazio = false;
                         for (let f of rawFluxos) {
-                            if (f !== undefined && f !== null && !isNaN(f)) fluxos.push(f);
-                            else break;
+                            if (f !== undefined && f !== null && !isNaN(f) && f !== '') {
+                                if (encontrouVazio) throw new Error('Não deixe campos de fluxo em branco no meio da sequência.');
+                                fluxos.push(f);
+                            } else {
+                                encontrouVazio = true;
+                            }
                         }
                         let vplVal = -v.investimento;
                         fluxos.forEach((f, idx) => {
@@ -400,6 +408,12 @@ const FinanceiroModule = (() => {
                     { id: 'fluxo4', label: 'Fluxo Mês 4 (R$)', placeholder: 'Ex: 30000', required: false },
                     { id: 'fluxo5', label: 'Fluxo Mês 5 (R$)', placeholder: 'Ex: 30000', required: false },
                     { id: 'fluxo6', label: 'Fluxo Mês 6 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo7', label: 'Fluxo Mês 7 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo8', label: 'Fluxo Mês 8 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo9', label: 'Fluxo Mês 9 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo10', label: 'Fluxo Mês 10 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo11', label: 'Fluxo Mês 11 (R$)', placeholder: 'Ex: 30000', required: false },
+                    { id: 'fluxo12', label: 'Fluxo Mês 12 (R$)', placeholder: 'Ex: 30000', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
@@ -408,15 +422,21 @@ const FinanceiroModule = (() => {
                 initCalculator({
                     fields: [
                         { id: 'investimento' },
-                        { id: 'fluxo1' }, { id: 'fluxo2' }, { id: 'fluxo3' },
-                        { id: 'fluxo4' }, { id: 'fluxo5' }, { id: 'fluxo6' },
+                        { id: 'fluxo1' }, { id: 'fluxo2' }, { id: 'fluxo3' }, { id: 'fluxo4' },
+                        { id: 'fluxo5' }, { id: 'fluxo6' }, { id: 'fluxo7' }, { id: 'fluxo8' },
+                        { id: 'fluxo9' }, { id: 'fluxo10' }, { id: 'fluxo11' }, { id: 'fluxo12' },
                     ],
                     calculate(v) {
                         const fluxos = [-v.investimento];
-                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6];
+                        const rawFluxos = [v.fluxo1, v.fluxo2, v.fluxo3, v.fluxo4, v.fluxo5, v.fluxo6, v.fluxo7, v.fluxo8, v.fluxo9, v.fluxo10, v.fluxo11, v.fluxo12];
+                        let encontrouVazio = false;
                         for (let f of rawFluxos) {
-                            if (f !== undefined && f !== null && !isNaN(f)) fluxos.push(f);
-                            else break;
+                            if (f !== undefined && f !== null && !isNaN(f) && f !== '') {
+                                if (encontrouVazio) throw new Error('Não deixe campos de fluxo em branco no meio da sequência.');
+                                fluxos.push(f);
+                            } else {
+                                encontrouVazio = true;
+                            }
                         }
 
                         // Newton-Raphson para encontrar TIR
@@ -631,24 +651,24 @@ const FinanceiroModule = (() => {
         return {
             html: createCalculatorPage({
                 title: 'Calculadora de Correção Monetária',
-                description: 'Corrija valores monetários usando índices como IPCA, IGP-M, INPC e outros.',
+                description: 'Corrija valores monetários usando índices como IPCA, IGP-M, INPC e outros. (Valores históricos aproximados referentes a 2023)',
                 category: 'Financeira',
                 categorySlug: 'financeira',
                 fields: [
                     { id: 'valor', label: 'Valor Original (R$)', placeholder: 'Ex: 1000', min: 0 },
                     { id: 'indice', label: 'Índice de Correção', type: 'select', options: [
-                        { value: '4.62', label: 'IPCA (aprox. 4,62% a.a.)' },
-                        { value: '3.50', label: 'IGP-M (aprox. 3,50% a.a.)' },
-                        { value: '4.77', label: 'INPC (aprox. 4,77% a.a.)' },
-                        { value: '4.10', label: 'IPC-Br (aprox. 4,10% a.a.)' },
-                        { value: '7.41', label: 'INCC (aprox. 7,41% a.a.)' },
-                        { value: '3.80', label: 'IGP-DI (aprox. 3,80% a.a.)' },
-                        { value: '3.22', label: 'IPA-M (aprox. 3,22% a.a.)' },
-                        { value: '4.71', label: 'IPCA-E (aprox. 4,71% a.a.)' },
-                        { value: '3.90', label: 'IPC-Fipe (aprox. 3,90% a.a.)' },
-                        { value: '3.60', label: 'IGP-10 (aprox. 3,60% a.a.)' },
-                        { value: '4.54', label: 'IPCA-15 (aprox. 4,54% a.a.)' },
-                        { value: '4.30', label: 'IPC-C1 (aprox. 4,30% a.a.)' },
+                        { value: '4.62', label: 'IPCA 2023 (aprox. 4,62% a.a.)' },
+                        { value: '3.50', label: 'IGP-M 2023 (aprox. 3,50% a.a.)' },
+                        { value: '4.77', label: 'INPC 2023 (aprox. 4,77% a.a.)' },
+                        { value: '4.10', label: 'IPC-Br 2023 (aprox. 4,10% a.a.)' },
+                        { value: '7.41', label: 'INCC 2023 (aprox. 7,41% a.a.)' },
+                        { value: '3.80', label: 'IGP-DI 2023 (aprox. 3,80% a.a.)' },
+                        { value: '3.22', label: 'IPA-M 2023 (aprox. 3,22% a.a.)' },
+                        { value: '4.71', label: 'IPCA-E 2023 (aprox. 4,71% a.a.)' },
+                        { value: '3.90', label: 'IPC-Fipe 2023 (aprox. 3,90% a.a.)' },
+                        { value: '3.60', label: 'IGP-10 2023 (aprox. 3,60% a.a.)' },
+                        { value: '4.54', label: 'IPCA-15 2023 (aprox. 4,54% a.a.)' },
+                        { value: '4.30', label: 'IPC-C1 2023 (aprox. 4,30% a.a.)' },
                     ]},
                     { id: 'anos', label: 'Período (anos)', placeholder: 'Ex: 5', min: 1 },
                 ],

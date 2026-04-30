@@ -90,5 +90,5 @@ const CalcSearch = (() => {
         });
     }
 
-    return { register, search, initSearchBar };
+    return { register, search, initSearchBar, calculadoras: registry };
 })();

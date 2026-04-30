@@ -66,10 +66,29 @@ const TranslateSystem = (() => {
 
     function init() {
         const saved = localStorage.getItem('CalculaDeTudo-lang');
-        if (saved) {
+        if (saved && saved !== 'pt') {
             currentLang = saved;
-            // Apply saved language after a short delay to ensure Google script is ready
-            setTimeout(() => translatePage(saved), 1000);
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            translatePage(saved);
+
+            const checkTranslate = setInterval(() => {
+                const html = document.documentElement;
+                if (html.classList.contains('translated-ltr') || html.classList.contains('translated-rtl')) {
+                    document.body.style.opacity = '1';
+                    clearInterval(checkTranslate);
+                }
+            }, 100);
+
+            // Failsafe
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+                clearInterval(checkTranslate);
+            }, 2000);
+        } else if (saved === 'pt') {
+            currentLang = saved;
+            translatePage(saved);
         }
 
         // Language button click handler for our custom UI

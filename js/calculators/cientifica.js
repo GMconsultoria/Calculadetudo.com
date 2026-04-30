@@ -594,38 +594,52 @@ const CientificaModule = (() => {
                         { value: 'ln', label: 'Logarítmica: f(x) = a·ln(bx)' },
                     ]},
                     { id: 'a', label: 'Coeficiente a', placeholder: 'Ex: 3' },
-                    { id: 'b', label: 'Expoente n / Coeficiente b', placeholder: 'Ex: 2' },
+                    { id: 'b', label: 'Expoente n / Coeficiente b', placeholder: 'Ex: 2', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
             }),
             init: () => {
+                const tipoSelect = document.getElementById('field-tipo');
+                const grupoB = document.getElementById('field-b')?.parentElement;
+                if (tipoSelect && grupoB) {
+                    const updateB = () => {
+                        grupoB.style.display = tipoSelect.value === 'ln' ? 'none' : 'block';
+                    };
+                    tipoSelect.addEventListener('change', updateB);
+                    updateB();
+                }
+
                 initCalculator({
                     fields: [
                         { id: 'tipo', type: 'select' },
                         { id: 'a' }, { id: 'b' },
                     ],
                     calculate(v) {
+                        if (v.tipo !== 'ln' && (v.b === undefined || v.b === null || isNaN(v.b))) {
+                            throw new Error('Informe o coeficiente b.');
+                        }
+                        const fmtCoef = n => Number.isInteger(n) ? String(n) : fmt.number(n, 4);
                         let funcao, derivada;
                         switch (v.tipo) {
                             case 'potencia':
                                 funcao = `f(x) = ${v.a}x^${v.b}`;
-                                derivada = `f'(x) = ${fmt.number(v.a * v.b, 4)}x^${fmt.number(v.b - 1, 4)}`;
+                                derivada = `f'(x) = ${fmtCoef(v.a * v.b)}x^${fmtCoef(v.b - 1)}`;
                                 break;
                             case 'exponencial':
                                 funcao = `f(x) = ${v.a}e^(${v.b}x)`;
-                                derivada = `f'(x) = ${fmt.number(v.a * v.b, 4)}e^(${v.b}x)`;
+                                derivada = `f'(x) = ${fmtCoef(v.a * v.b)}e^(${v.b}x)`;
                                 break;
                             case 'seno':
                                 funcao = `f(x) = ${v.a}·sen(${v.b}x)`;
-                                derivada = `f'(x) = ${fmt.number(v.a * v.b, 4)}·cos(${v.b}x)`;
+                                derivada = `f'(x) = ${fmtCoef(v.a * v.b)}·cos(${v.b}x)`;
                                 break;
                             case 'cosseno':
                                 funcao = `f(x) = ${v.a}·cos(${v.b}x)`;
-                                derivada = `f'(x) = ${fmt.number(-v.a * v.b, 4)}·sen(${v.b}x)`;
+                                derivada = `f'(x) = ${fmtCoef(-v.a * v.b)}·sen(${v.b}x)`;
                                 break;
                             case 'ln':
-                                funcao = `f(x) = ${v.a}·ln(${v.b}x)`;
+                                funcao = `f(x) = ${v.a}·ln(x)`;
                                 derivada = `f'(x) = ${v.a}/x`;
                                 break;
                         }
@@ -660,18 +674,35 @@ const CientificaModule = (() => {
                         { value: 'inverso', label: 'Inverso: ∫ a/x dx' },
                     ]},
                     { id: 'a', label: 'Coeficiente a', placeholder: 'Ex: 3' },
-                    { id: 'b', label: 'Expoente n / Coeficiente b', placeholder: 'Ex: 2' },
+                    { id: 'b', label: 'Expoente n / Coeficiente b', placeholder: 'Ex: 2', required: false },
                 ],
                 calculate: v => v,
                 renderResult: v => v,
             }),
             init: () => {
+                const tipoSelect = document.getElementById('field-tipo');
+                const grupoB = document.getElementById('field-b')?.parentElement;
+                if (tipoSelect && grupoB) {
+                    const updateB = () => {
+                        grupoB.style.display = tipoSelect.value === 'inverso' ? 'none' : 'block';
+                    };
+                    tipoSelect.addEventListener('change', updateB);
+                    updateB();
+                }
+
                 initCalculator({
                     fields: [
                         { id: 'tipo', type: 'select' },
                         { id: 'a' }, { id: 'b' },
                     ],
                     calculate(v) {
+                        if (v.tipo !== 'inverso' && (v.b === undefined || v.b === null || isNaN(v.b))) {
+                            throw new Error('Informe o coeficiente b.');
+                        }
+                        if ((v.tipo === 'exponencial' || v.tipo === 'seno' || v.tipo === 'cosseno') && v.b === 0) {
+                            throw new Error('O coeficiente b não pode ser zero para esta função.');
+                        }
+                        const fmtCoef = n => Number.isInteger(n) ? String(n) : fmt.number(n, 4);
                         let funcao, integral;
                         switch (v.tipo) {
                             case 'potencia':
@@ -681,20 +712,20 @@ const CientificaModule = (() => {
                                 } else {
                                     const novoExp = v.b + 1;
                                     funcao = `∫ ${v.a}x^${v.b} dx`;
-                                    integral = `${fmt.number(v.a / novoExp, 4)}x^${novoExp} + C`;
+                                    integral = `${fmtCoef(v.a / novoExp)}x^${novoExp} + C`;
                                 }
                                 break;
                             case 'exponencial':
                                 funcao = `∫ ${v.a}e^(${v.b}x) dx`;
-                                integral = `${fmt.number(v.a / v.b, 4)}e^(${v.b}x) + C`;
+                                integral = `${fmtCoef(v.a / v.b)}e^(${v.b}x) + C`;
                                 break;
                             case 'seno':
                                 funcao = `∫ ${v.a}·sen(${v.b}x) dx`;
-                                integral = `${fmt.number(-v.a / v.b, 4)}·cos(${v.b}x) + C`;
+                                integral = `${fmtCoef(-v.a / v.b)}·cos(${v.b}x) + C`;
                                 break;
                             case 'cosseno':
                                 funcao = `∫ ${v.a}·cos(${v.b}x) dx`;
-                                integral = `${fmt.number(v.a / v.b, 4)}·sen(${v.b}x) + C`;
+                                integral = `${fmtCoef(v.a / v.b)}·sen(${v.b}x) + C`;
                                 break;
                             case 'inverso':
                                 funcao = `∫ ${v.a}/x dx`;

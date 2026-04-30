@@ -15,7 +15,7 @@ const CuriosidadesModule = (() => {
         { id: 'independencia-brasil', label: '🇧🇷 Independência do Brasil', date: '1822-09-07', ano: 1822 },
         { id: 'abolicao-escravatura', label: '🇧🇷 Abolição da Escravatura', date: '1888-05-13', ano: 1888 },
         { id: 'proclamacao-republica', label: '🇧🇷 Proclamação da República', date: '1889-11-15', ano: 1889 },
-        { id: 'inconfidencia-mineira', label: '🇧🇷 Inconfidência Mineira', date: '1789-01-01', ano: 1789 },
+        { id: 'inconfidencia-mineira', label: '🇧🇷 Inconfidência Mineira', date: '1789-03-15', ano: 1789 },
         { id: 'morte-tiradentes', label: '🇧🇷 Morte de Tiradentes', date: '1792-04-21', ano: 1792 },
         { id: 'copa-brasil-2014', label: '🇧🇷 Copa do Mundo no Brasil', date: '2014-06-12', ano: 2014 },
         { id: 'nascimento-jesus', label: '✝️ Nascimento de Jesus Cristo', date: '0001-12-25', ano: 1 },

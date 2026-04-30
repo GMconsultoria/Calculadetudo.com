@@ -67,18 +67,18 @@ const ConversoresModule = (() => {
                 renderResult: v => v,
             }),
             init: () => {
-                // Taxas aproximadas em relação ao USD
+                // Taxas aproximadas em relação ao USD (Ref: Maio/2024)
                 const taxas = {
                     USD: 1,
                     BRL: 5.75,
                     EUR: 0.92,
                     GBP: 0.79,
                     JPY: 154.5,
-                    ARS: 1050,
-                    BTC: 0.0000145,
+                    ARS: 1200,
+                    BTC: 0.0000105,
                 };
                 let cotacoesOnline = false;
-                let ultimaAtualizacao = null;
+                let ultimaAtualizacao = 'Valores fixos (Maio/2024)';
 
                 // Insert live rate banner before the form
                 const form = document.getElementById('calc-form');
@@ -101,7 +101,7 @@ const ConversoresModule = (() => {
                     renderResult(r) {
                         const decimals = r.para === 'BTC' ? 8 : 2;
                         const statusLabel = r.online ? '✅ Cotação em tempo real' : '⚠️ Valores aproximados (offline)';
-                        const timeStr = r.atualizacao ? ` — Atualizado: ${r.atualizacao}` : '';
+                        const timeStr = r.atualizacao && r.online ? ` — Atualizado: ${r.atualizacao}` : (r.atualizacao ? ` — ${r.atualizacao}` : '');
                         return renderSimpleResult(
                             `${r.de} → ${r.para}`,
                             `${fmt.number(r.resultado, decimals)} ${r.para}`,

@@ -57,6 +57,11 @@ const ImpostosModule = (() => {
                     { id: 'dependentes', label: 'Número de Dependentes', placeholder: 'Ex: 2', min: 0, required: false },
                     { id: 'inss', label: 'Desconto INSS (R$)', placeholder: 'Ex: 700', min: 0, required: false, hint: 'Deixe em branco para cálculo automático' },
                     { id: 'outrasDeducoes', label: 'Outras Deduções (R$)', placeholder: 'Ex: 500', min: 0, required: false },
+                    { id: 'tipoDesconto', label: 'Tipo de Desconto', type: 'select', options: [
+                        { value: 'automatico', label: 'Automático (Mais vantajoso)' },
+                        { value: 'legal', label: 'Deduções Legais (Completa)' },
+                        { value: 'simplificado', label: 'Desconto Simplificado (R$ 528,00)' },
+                    ]},
                 ],
                 calculate: v => v,
                 renderResult: v => v,
@@ -64,7 +69,7 @@ const ImpostosModule = (() => {
             init: () => {
                 initCalculator({
                     fields: [
-                        { id: 'salario' }, { id: 'dependentes' }, { id: 'inss' }, { id: 'outrasDeducoes' },
+                        { id: 'salario' }, { id: 'dependentes' }, { id: 'inss' }, { id: 'outrasDeducoes' }, { id: 'tipoDesconto', type: 'select' },
                     ],
                     calculate(v) {
                         // INSS automático se não informado
@@ -90,7 +95,28 @@ const ImpostosModule = (() => {
                         }
 
                         const dedDependentes = (v.dependentes || 0) * 189.59;
-                        const baseCalculo = v.salario - inss - dedDependentes - (v.outrasDeducoes || 0);
+                        const totalDeducoesLegais = inss + dedDependentes + (v.outrasDeducoes || 0);
+                        
+                        let deducoesUsadas = 0;
+                        let tipoAplicado = '';
+                        
+                        if (v.tipoDesconto === 'simplificado') {
+                            deducoesUsadas = 528;
+                            tipoAplicado = 'Simplificado (R$ 528,00)';
+                        } else if (v.tipoDesconto === 'legal') {
+                            deducoesUsadas = totalDeducoesLegais;
+                            tipoAplicado = 'Deduções Legais';
+                        } else {
+                            if (528 > totalDeducoesLegais) {
+                                deducoesUsadas = 528;
+                                tipoAplicado = 'Simplificado (Automático)';
+                            } else {
+                                deducoesUsadas = totalDeducoesLegais;
+                                tipoAplicado = 'Deduções Legais (Automático)';
+                            }
+                        }
+
+                        const baseCalculo = v.salario - deducoesUsadas;
 
                         let irpfVal = 0;
                         let aliquotaEfetiva = 0;
@@ -109,12 +135,13 @@ const ImpostosModule = (() => {
                         const salarioLiquido = v.salario - inss - irpfVal;
                         const aliquotaReal = (irpfVal / v.salario) * 100;
 
-                        return { irpf: irpfVal, inss, baseCalculo: Math.max(0, baseCalculo), salarioLiquido, aliquotaReal, faixaUsada, salarioBruto: v.salario };
+                        return { irpf: irpfVal, inss, baseCalculo: Math.max(0, baseCalculo), salarioLiquido, aliquotaReal, faixaUsada, salarioBruto: v.salario, tipoAplicado, deducoesUsadas };
                     },
                     renderResult(r) {
                         return renderSimpleResult('IRPF a Pagar', fmt.currency(r.irpf), [
                             { label: 'Salário Bruto', value: fmt.currency(r.salarioBruto) },
                             { label: 'INSS', value: '- ' + fmt.currency(r.inss) },
+                            { label: 'Desconto Aplicado', value: r.tipoAplicado },
                             { label: 'Base de Cálculo', value: fmt.currency(r.baseCalculo) },
                             { label: 'Faixa', value: r.faixaUsada },
                             { label: 'Alíquota Efetiva', value: fmt.percent(r.aliquotaReal) },
@@ -182,8 +209,8 @@ const ImpostosModule = (() => {
                 categorySlug: 'impostos',
                 fields: [
                     { id: 'rbt12', label: 'Receita Bruta 12 meses (R$)', placeholder: 'Ex: 500000', min: 0, hint: 'RBT12 - Soma do faturamento dos últimos 12 meses' },
-                    { id: 'fatIsento', label: 'Faturamento do Mês — Isento de ISS (R$)', placeholder: 'Ex: 30000', min: 0, required: false, hint: 'Receita de atividades não sujeitas ao ISS' },
-                    { id: 'fatComISS', label: 'Faturamento do Mês — Com ISS (R$)', placeholder: 'Ex: 20000', min: 0, required: false, hint: 'Receita de atividades sujeitas ao ISS' },
+                    { id: 'fatIsento', label: 'Faturamento do Mês — Isento de ISS (R$)', placeholder: 'Ex: 30000', min: 0, required: false, hint: 'Pelo menos um dos faturamentos do mês é obrigatório. Receita de atividades não sujeitas ao ISS' },
+                    { id: 'fatComISS', label: 'Faturamento do Mês — Com ISS (R$)', placeholder: 'Ex: 20000', min: 0, required: false, hint: 'Pelo menos um dos faturamentos do mês é obrigatório. Receita de atividades sujeitas ao ISS' },
                     { id: 'anexo', label: 'Anexo', type: 'select', options: [
                         { value: '1', label: 'Anexo I - Comércio' },
                         { value: '2', label: 'Anexo II - Indústria' },
@@ -197,6 +224,23 @@ const ImpostosModule = (() => {
                 renderResult: v => v,
             }),
             init: () => {
+                const fatIsento = document.getElementById('field-fatIsento');
+                const fatComISS = document.getElementById('field-fatComISS');
+                if (fatIsento && fatComISS) {
+                    const validateReq = () => {
+                        if (fatIsento.value || fatComISS.value) {
+                            fatIsento.removeAttribute('required');
+                            fatComISS.removeAttribute('required');
+                        } else {
+                            fatIsento.setAttribute('required', 'required');
+                            fatComISS.setAttribute('required', 'required');
+                        }
+                    };
+                    fatIsento.addEventListener('input', validateReq);
+                    fatComISS.addEventListener('input', validateReq);
+                    validateReq();
+                }
+
                 initCalculator({
                     fields: [
                         { id: 'rbt12' }, { id: 'fatIsento' }, { id: 'fatComISS' }, { id: 'anexo', type: 'select' }, { id: 'folha' },
