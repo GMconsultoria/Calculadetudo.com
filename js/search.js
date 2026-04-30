@@ -91,4 +91,5 @@ const CalcSearch = (() => {
     }
 
     return { register, search, initSearchBar, calculadoras: registry };
+window.CalcSearch = CalcSearch;
 })();

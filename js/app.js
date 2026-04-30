@@ -34,6 +34,7 @@ const App = (() => {
     // ---- Home Page ----
     function renderHome() {
         const getCount = slug => typeof CalcSearch !== 'undefined' ? CalcSearch.calculadoras.filter(c => c.categorySlug === slug).length : 0;
+        console.log('Rendering home. Total calculators:', typeof CalcSearch !== 'undefined' ? CalcSearch.calculadoras.length : 'undefined');
         return `
             <section class="hero">
                 <div class="hero-badge">🧮 100% gratuito e aberto</div>
