@@ -371,6 +371,7 @@ const CientificaModule = (() => {
                 description: 'Calcule determinantes de matrizes 2×2 e 3×3.',
                 category: 'Científica',
                 categorySlug: 'cientifica',
+                formClass: 'form-grid-matrix',
                 fields: [
                     { id: 'tamanho', label: 'Tamanho da Matriz', type: 'select', options: [
                         { value: '2', label: '2×2' },

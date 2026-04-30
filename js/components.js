@@ -40,10 +40,28 @@ const CalcComponents = (() => {
 
         inputs.forEach(input => {
             const error = input.parentElement.querySelector('.form-error-message');
-            if (!input.value || (input.type === 'number' && isNaN(parseFloat(input.value)))) {
+            const val = parseFloat(input.value);
+            const min = parseFloat(input.getAttribute('min'));
+            const max = parseFloat(input.getAttribute('max'));
+
+            if (!input.value || (input.type === 'number' && isNaN(val))) {
                 input.classList.add('error');
                 if (error) {
                     error.textContent = 'Este campo é obrigatório';
+                    error.classList.add('visible');
+                }
+                valid = false;
+            } else if (!isNaN(min) && val < min) {
+                input.classList.add('error');
+                if (error) {
+                    error.textContent = `Valor mínimo: ${min}`;
+                    error.classList.add('visible');
+                }
+                valid = false;
+            } else if (!isNaN(max) && val > max) {
+                input.classList.add('error');
+                if (error) {
+                    error.textContent = `Valor máximo: ${max}`;
                     error.classList.add('visible');
                 }
                 valid = false;
@@ -119,7 +137,7 @@ const CalcComponents = (() => {
                     <p class="calc-description">${config.description}</p>
                 </header>
 
-                <div class="calc-form" id="calc-form">
+                <div class="calc-form ${config.formClass || ''}" id="calc-form">
                     ${fieldsHTML}
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary" id="btn-calculate">
