@@ -1,11 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://calculadetudo.com/</loc>
-    <lastmod>2026-04-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/financeira</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/investimentos</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/impostos</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/conversores</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/datas</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/saude</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/categoria/cientifica</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/privacidade</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://calculadetudo.com/#/termos</loc>
+    <lastmod>2026-05-03</lastmod>
+    <priority>0.3</priority>
+  </url>
 </urlset>

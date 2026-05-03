@@ -15,19 +15,50 @@ const CalcSearch = (() => {
         registry.push(item);
     }
 
-    /** Busca nas calculadoras registradas */
+    /** Busca nas calculadoras registradas com algoritmo de relevância */
     function search(query) {
         if (!query || query.length < 2) return [];
 
         const normalized = query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const words = normalized.split(/\s+/).filter(w => w.length > 0);
 
-        return registry.filter(item => {
-            const searchable = `${item.name} ${item.category} ${(item.keywords || []).join(' ')}`
-                .toLowerCase()
-                .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '');
-            return searchable.includes(normalized);
-        }).slice(0, 10);
+        return registry
+            .map(item => {
+                const name = item.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const category = item.category.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                const keywords = (item.keywords || []).map(k => k.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
+                
+                let score = 0;
+
+                // 1. Exact name match
+                if (name === normalized) score += 100;
+                
+                // 2. Name starts with query
+                if (name.startsWith(normalized)) score += 50;
+                
+                // 3. Name contains query
+                if (name.includes(normalized)) score += 30;
+                
+                // 4. Word matches in name
+                words.forEach(word => {
+                    if (name.includes(word)) score += 10;
+                });
+
+                // 5. Category match
+                if (category.includes(normalized)) score += 5;
+
+                // 6. Keywords match
+                keywords.forEach(kw => {
+                    if (kw === normalized) score += 20;
+                    else if (kw.includes(normalized)) score += 10;
+                });
+
+                return { item, score };
+            })
+            .filter(res => res.score > 0)
+            .sort((a, b) => b.score - a.score || a.item.name.localeCompare(b.item.name))
+            .map(res => res.item)
+            .slice(0, 15);
     }
 
     /** Inicializa handlers da barra de busca no DOM */

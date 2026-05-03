@@ -15,21 +15,60 @@
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Hub de Calculadoras Online - Todas as calculadoras que você precisa em um só lugar. Financeira, investimentos, impostos, conversores e muito mais.">
-    <meta name="keywords"
-        content="calculadora online, juros compostos, IMC, conversor, impostos, investimentos, financeira">
-    <meta name="author" content="CalculaDeTudo">
-    <meta name="theme-color" content="#0a1f44">
+    
+    <!-- SEO Meta Tags -->
     <title>CalculaDeTudo — Todas as calculadoras que você precisa</title>
+    <meta name="description"
+        content="Hub de Calculadoras Online - Todas as calculadoras que você precisa em um só lugar. Financeira, investimentos, impostos, conversores e muito mais. 100% gratuito e rápido.">
+    <meta name="keywords"
+        content="calculadora online, juros compostos, IMC, conversor, impostos, investimentos, financeira, calculo de vpl, tir, irpf 2024">
+    <meta name="author" content="CalculaDeTudo">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://calculadetudo.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://calculadetudo.com/">
+    <meta property="og:title" content="CalculaDeTudo — Todas as calculadoras que você precisa">
+    <meta property="og:description" content="Hub de Calculadoras Online - Todas as calculadoras que você precisa em um só lugar. Financeira, investimentos, impostos, conversores e muito mais.">
+    <meta property="og:image" content="https://calculadetudo.com/assets/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://calculadetudo.com/">
+    <meta property="twitter:title" content="CalculaDeTudo — Todas as calculadoras que você precisa">
+    <meta property="twitter:description" content="Hub de Calculadoras Online - Todas as calculadoras que você precisa em um só lugar. Financeira, investimentos, impostos, conversores e muito mais.">
+    <meta property="twitter:image" content="https://calculadetudo.com/assets/og-image.png">
+
+    <meta name="theme-color" content="#0a1f44">
+    
+    <!-- Performance Hints -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
     
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CalculaDeTudo",
+      "url": "https://calculadetudo.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://calculadetudo.com/#/busca?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
     <!-- Google Translate Script and Styles -->
     <style>
         /* Ocultar barra superior e tooltips nativos do Google Translate */
@@ -49,7 +88,7 @@
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 </head>
 
 <body>
@@ -314,13 +353,27 @@
                 <div class="footer-col">
                     <h4 class="footer-subtitle">Sobre</h4>
                     <p class="footer-text">Desenvolvido com ❤️ para simplificar seus cálculos do dia a dia.</p>
+                    <ul class="footer-links" style="margin-top: 12px;">
+                        <li><a href="#/privacidade">Política de Privacidade</a></li>
+                        <li><a href="#/termos">Termos de Uso</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 CalculaDeTudo. Todos os direitos reservados.</p>
+                <p>&copy; 2026 CalculaDeTudo. Todos os direitos reservados. Em conformidade com a LGPD.</p>
             </div>
         </div>
     </footer>
+
+    <!-- ============ COOKIE BANNER ============ -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>Nós usamos cookies para melhorar sua experiência e analisar nosso tráfego. Ao continuar navegando, você concorda com nossa <a href="#/privacidade">Política de Privacidade</a>.</p>
+            <div class="cookie-actions">
+                <button id="cookie-accept" class="btn btn-primary btn-sm">Aceitar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ============ SCRIPTS ============ -->
     <script src="js/components.js"></script>

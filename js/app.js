@@ -103,6 +103,79 @@ const App = (() => {
         `;
     }
 
+    // ---- Legal Pages ----
+    function renderPrivacy() {
+        return `
+            <div class="legal-page">
+                <div class="legal-content">
+                    <h1>Política de Privacidade</h1>
+                    <p>Última atualização: Maio de 2026</p>
+                    <p>Esta Política de Privacidade descreve como o CalculaDeTudo ("nós", "nosso") coleta, usa e protege suas informações ao usar nosso site.</p>
+                    
+                    <h2>1. Coleta de Dados</h2>
+                    <p>O CalculaDeTudo é uma ferramenta de utilidade pública. Não solicitamos cadastro nem coletamos dados pessoais identificáveis (como nome, e-mail ou endereço) para a maioria das funcionalidades.</p>
+                    
+                    <h2>2. Cookies e Tecnologias de Rastreamento</h2>
+                    <p>Usamos cookies para:</p>
+                    <ul>
+                        <li>Lembrar suas preferências de idioma e tema (claro/escuro).</li>
+                        <li>Analisar o tráfego do site através do Google Analytics.</li>
+                        <li>Exibir anúncios relevantes através do Google AdSense.</li>
+                    </ul>
+                    
+                    <h2>3. LGPD (Lei Geral de Proteção de Dados)</h2>
+                    <p>Respeitamos integralmente a LGPD. Você tem o direito de:</p>
+                    <ul>
+                        <li>Saber quais dados são coletados.</li>
+                        <li>Solicitar a exclusão de dados de navegação armazenados em cookies (limpando o cache do seu navegador).</li>
+                        <li>Navegar de forma anônima.</li>
+                    </ul>
+                    
+                    <h2>4. Segurança</h2>
+                    <p>Empregamos medidas de segurança técnicas para proteger a integridade do site e evitar acessos não autorizados.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderTerms() {
+        return `
+            <div class="legal-page">
+                <div class="legal-content">
+                    <h1>Termos de Uso</h1>
+                    <p>Ao acessar o CalculaDeTudo, você concorda com os seguintes termos:</p>
+                    
+                    <h2>1. Uso do Serviço</h2>
+                    <p>O site fornece calculadoras para fins informativos e educacionais. Embora busquemos a máxima precisão, não nos responsabilizamos por decisões financeiras ou legais tomadas com base nos resultados apresentados.</p>
+                    
+                    <h2>2. Propriedade Intelectual</h2>
+                    <p>Todo o conteúdo, design e código fonte são de propriedade do CalculaDeTudo ou licenciados. O uso comercial sem autorização é proibido.</p>
+                    
+                    <h2>3. Isenção de Responsabilidade</h2>
+                    <p>Os cálculos são aproximações baseadas em fórmulas matemáticas padrão e índices de mercado que podem sofrer variações.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    // ---- Cookie Banner ----
+    function initCookieBanner() {
+        const banner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('cookie-accept');
+        const cookieSeen = localStorage.getItem('CalculaDeTudo-cookies-accepted');
+
+        if (!cookieSeen && banner) {
+            banner.classList.add('active');
+        }
+
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                localStorage.setItem('CalculaDeTudo-cookies-accepted', 'true');
+                banner.classList.remove('active');
+            });
+        }
+    }
+
     // ---- Router ----
     function route() {
         let hash = window.location.hash.replace('#', '') || '/';
@@ -115,6 +188,18 @@ const App = (() => {
             mainContent.innerHTML = renderHome();
             CalcSearch.initSearchBar();
             document.title = 'CalculaDeTudo — Todas as calculadoras que você precisa';
+            return;
+        }
+
+        // Legal
+        if (hash === '/privacidade') {
+            mainContent.innerHTML = renderPrivacy();
+            document.title = 'Política de Privacidade | CalculaDeTudo';
+            return;
+        }
+        if (hash === '/termos') {
+            mainContent.innerHTML = renderTerms();
+            document.title = 'Termos de Uso | CalculaDeTudo';
             return;
         }
 
@@ -198,8 +283,8 @@ const App = (() => {
         });
 
         // Close dropdown and mobile nav on link click
-        document.querySelectorAll('.dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.dropdown-item') || e.target.closest('.footer-links a')) {
                 document.querySelectorAll('.nav-item.dropdown').forEach(d => {
                     d.classList.remove('active');
                     const t = d.querySelector('.dropdown-toggle');
@@ -209,7 +294,7 @@ const App = (() => {
                 toggle.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
-            });
+            }
         });
 
         // Mobile toggle
@@ -249,6 +334,7 @@ const App = (() => {
     function init() {
         initNavbar();
         initTheme();
+        initCookieBanner();
         TranslateSystem.init();
         route();
         window.addEventListener('hashchange', route);

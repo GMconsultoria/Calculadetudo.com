@@ -250,38 +250,32 @@ const CalcComponents = (() => {
     // ---- Renderizadores de resultado ----
 
     /** Resultado simples com valor principal e detalhes */
-    function renderSimpleResult(mainLabel, mainValue, details = []) {
-        const detailsHTML = details.map(d => `
-            <div class="result-row">
-                <span class="result-row-label">${d.label}</span>
-                <span class="result-row-value">${d.value}</span>
-            </div>
-        `).join('');
-
         return `
-            <div class="result-title">${mainLabel}</div>
+            <div class="result-header">
+                <div class="result-title">${mainLabel}</div>
+                <button class="btn-copy-result" title="Copiar resultados" onclick="CalcComponents.copyResult(this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
             <div class="result-value">${mainValue}</div>
             ${details.length ? `<div class="result-details">${detailsHTML}</div>` : ''}
         `;
     }
 
     /** Resultado com tabela */
-    function renderTableResult(mainLabel, mainValue, columns, rows, details = []) {
-        const headerHTML = columns.map(c => `<th>${c}</th>`).join('');
-        const rowsHTML = rows.map(row => {
-            const cells = row.map(cell => `<td>${cell}</td>`).join('');
-            return `<tr>${cells}</tr>`;
-        }).join('');
-
-        const detailsHTML = details.map(d => `
-            <div class="result-row">
-                <span class="result-row-label">${d.label}</span>
-                <span class="result-row-value">${d.value}</span>
-            </div>
-        `).join('');
-
         return `
-            <div class="result-title">${mainLabel}</div>
+            <div class="result-header">
+                <div class="result-title">${mainLabel}</div>
+                <button class="btn-copy-result" title="Copiar resultados" onclick="CalcComponents.copyResult(this)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
             <div class="result-value">${mainValue}</div>
             ${details.length ? `<div class="result-details">${detailsHTML}</div>` : ''}
             <div class="result-table-container">
@@ -291,6 +285,24 @@ const CalcComponents = (() => {
                 </table>
             </div>
         `;
+    }
+
+    /** Copia o texto do resultado para a área de transferência */
+    function copyResult(btn) {
+        const resultDiv = btn.closest('#calc-result');
+        if (!resultDiv) return;
+
+        // Clone to not copy the button itself
+        const clone = resultDiv.cloneNode(true);
+        const copyBtn = clone.querySelector('.btn-copy-result');
+        if (copyBtn) copyBtn.remove();
+
+        const text = clone.innerText.trim();
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Resultado copiado!', 'success');
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 2000);
+        });
     }
 
     // ---- Gerador de Página de Categoria ----
