@@ -250,6 +250,14 @@ const CalcComponents = (() => {
     // ---- Renderizadores de resultado ----
 
     /** Resultado simples com valor principal e detalhes */
+    function renderSimpleResult(mainLabel, mainValue, details = []) {
+        const detailsHTML = details.map(d => `
+            <div class="result-row">
+                <span class="result-row-label">${d.label}</span>
+                <span class="result-row-value">${d.value}</span>
+            </div>
+        `).join('');
+
         return `
             <div class="result-header">
                 <div class="result-title">${mainLabel}</div>
@@ -266,6 +274,20 @@ const CalcComponents = (() => {
     }
 
     /** Resultado com tabela */
+    function renderTableResult(mainLabel, mainValue, columns, rows, details = []) {
+        const headerHTML = columns.map(c => `<th>${c}</th>`).join('');
+        const rowsHTML = rows.map(row => {
+            const cells = row.map(cell => `<td>${cell}</td>`).join('');
+            return `<tr>${cells}</tr>`;
+        }).join('');
+
+        const detailsHTML = details.map(d => `
+            <div class="result-row">
+                <span class="result-row-label">${d.label}</span>
+                <span class="result-row-value">${d.value}</span>
+            </div>
+        `).join('');
+
         return `
             <div class="result-header">
                 <div class="result-title">${mainLabel}</div>
