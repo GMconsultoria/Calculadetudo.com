@@ -149,9 +149,13 @@ const CalcComponents = (() => {
                     </div>
                 </div>
 
+                ${renderAdSpace('calc-middle', 'horizontal')}
+
                 <div class="calc-result" id="calc-result">
                     <!-- result rendered here -->
                 </div>
+
+                ${renderAdSpace('calc-bottom', 'horizontal')}
             </div>
         `;
     }
@@ -354,6 +358,27 @@ const CalcComponents = (() => {
                 <div class="calc-list-grid">
                     ${itemsHTML}
                 </div>
+                ${renderAdSpace('cat-bottom', 'horizontal')}
+            </div>
+        `;
+    }
+
+    // ---- Ad Space ----
+    function renderAdSpace(id, type = 'horizontal') {
+        // Placeholder para AdSense. Quando em produção, substituir o conteúdo por <ins class="adsbygoogle">
+        // Por enquanto, renderiza um container que o Auto Ads pode usar ou que pode ser preenchido manualmente.
+        return `
+            <div class="ad-space ad-${type}" id="ad-${id}">
+                <div class="ad-label">Publicidade</div>
+                <div class="ad-placeholder">
+                    <!-- AdSense Unit -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-1426811176615814"
+                         data-ad-slot="auto"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                </div>
             </div>
         `;
     }
@@ -369,7 +394,8 @@ const CalcComponents = (() => {
         renderSimpleResult,
         renderTableResult,
         createCategoryPage,
-        createField
+        createField,
+        renderAdSpace
     };
 
 })();

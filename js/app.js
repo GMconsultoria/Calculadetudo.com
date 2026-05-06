@@ -60,9 +60,11 @@ const App = (() => {
                     ${renderCategoryCard('conversores', '🔄', 'Conversores', 'Moedas, medidas, volume e temperatura.', getCount('conversores'), '--cat-conversores', '#ede9fe')}
                     ${renderCategoryCard('datas', '📅', 'Datas', 'Diferenças, contagens e tempo vivido.', getCount('datas'), '--cat-datas', '#fee2e2')}
                     ${renderCategoryCard('saude', '❤️', 'Saúde', 'IMC, hidratação e necessidade proteica.', getCount('saude'), '--cat-saude', '#fce7f3')}
-                    ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e mais.', getCount('cientifica'), '--cat-cientifica', '#cffafe')}
+                    ${renderCategoryCard('cientifica', '🔬', 'Científica', 'Física, química, trigonometria, matrizes e more.', getCount('cientifica'), '--cat-cientifica', '#cffafe')}
                     ${renderCategoryCard('curiosidades', '🏛️', 'Curiosidades', 'Tempo entre fatos históricos e muito mais.', getCount('curiosidades'), '--cat-curiosidades', '#fef9c3')}
                 </div>
+
+                ${CalcComponents.renderAdSpace('home-middle', 'horizontal')}
             </section>
 
             <section class="popular-section" aria-label="Calculadoras populares">
@@ -115,13 +117,21 @@ const App = (() => {
                     <h2>1. Coleta de Dados</h2>
                     <p>O CalculaDeTudo é uma ferramenta de utilidade pública. Não solicitamos cadastro nem coletamos dados pessoais identificáveis (como nome, e-mail ou endereço) para a maioria das funcionalidades.</p>
                     
-                    <h2>2. Cookies e Tecnologias de Rastreamento</h2>
+                    <h2>2. Cookies e Publicidade</h2>
                     <p>Usamos cookies para:</p>
                     <ul>
-                        <li>Lembrar suas preferências de idioma e tema (claro/escuro).</li>
+                        <li>Lembrar suas preferências de idioma e tema.</li>
                         <li>Analisar o tráfego do site através do Google Analytics.</li>
-                        <li>Exibir anúncios relevantes através do Google AdSense.</li>
+                        <li>Exibir anúncios através do Google AdSense.</li>
                     </ul>
+                    <p><strong>Informações Importantes sobre o Google AdSense:</strong></p>
+                    <ul>
+                        <li>O Google, como fornecedor de terceiros, utiliza cookies para exibir anúncios neste site.</li>
+                        <li>Com o cookie DART, o Google pode exibir anúncios com base nas visitas que o usuário fez a este ou a outros sites na Internet.</li>
+                        <li>Os usuários podem desativar o cookie DART visitando a política de privacidade da rede de conteúdo e dos anúncios do Google.</li>
+                        <li>Terceiros podem usar cookies, web beacons e tecnologias semelhantes para coletar informações sobre suas atividades no site para fins de publicidade comportamental.</li>
+                    </ul>
+                    <p>Para gerenciar suas preferências de publicidade, visite <a href="https://adssettings.google.com/" target="_blank">Configurações de Anúncios do Google</a> ou <a href="http://www.aboutads.info/" target="_blank">www.aboutads.info</a>.</p>
                     
                     <h2>3. LGPD (Lei Geral de Proteção de Dados)</h2>
                     <p>Respeitamos integralmente a LGPD. Você tem o direito de:</p>
@@ -136,6 +146,19 @@ const App = (() => {
                 </div>
             </div>
         `;
+    }
+
+    // ---- AdSense Refresh ----
+    function refreshAds() {
+        try {
+            if (typeof adsbygoogle !== 'undefined') {
+                // Notifica o AdSense sobre a mudança de página no SPA
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                console.log('AdSense notified of route change');
+            }
+        } catch (e) {
+            console.warn('Error refreshing AdSense:', e);
+        }
     }
 
     function renderTerms() {
@@ -233,6 +256,8 @@ const App = (() => {
                 <a href="#/" class="btn btn-primary" style="margin-top: 24px; display: inline-flex;">Voltar ao Início</a>
             </div>
         `;
+
+        refreshAds();
     }
 
     // ---- Navbar ----
