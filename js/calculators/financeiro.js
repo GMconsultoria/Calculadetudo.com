@@ -22,6 +22,7 @@ const FinanceiroModule = (() => {
         { name: 'Financiamento (SAC/PRICE)', route: '/financeira/financiamento', keywords: ['financiamento', 'sac', 'price', 'parcela', 'amortização'] },
         { name: 'Ponto de Equilíbrio (Breakeven)', route: '/financeira/breakeven', keywords: ['breakeven', 'ponto', 'equilibrio', 'receita', 'custo'] },
         { name: 'Correção Monetária', route: '/financeira/correcao', keywords: ['correção', 'monetaria', 'ipca', 'igpm', 'inflação'] },
+        { name: 'Juros de Boletos', route: '/financeira/juros-boletos', keywords: ['juros', 'boleto', 'multa', 'atraso', 'dias', 'mora', 'cobrança', 'atrasado'] },
     ];
 
     calculadoras.forEach(c => {
@@ -700,6 +701,88 @@ const FinanceiroModule = (() => {
         };
     }
 
+    // ==========================================
+    // CALCULADORA DE JUROS DE BOLETOS
+    // ==========================================
+    function jurosBoletos() {
+        return {
+            html: createCalculatorPage({
+                title: 'Calculadora de Juros de Boletos',
+                description: 'Calcule o valor atualizado de um boleto em atraso informando o valor original, multa, dias corridos e taxa de juros (ao mês ou ao ano).',
+                category: 'Financeira',
+                categorySlug: 'financeira',
+                fields: [
+                    { id: 'valor', label: 'Valor do Boleto (R$)', placeholder: 'Ex: 1000', min: 0 },
+                    { id: 'taxa', label: 'Taxa de Juros (%)', placeholder: 'Ex: 1', min: 0 },
+                    { id: 'tipoTaxa', label: 'Periodicidade da Taxa', type: 'select', options: [
+                        { value: 'mensal', label: 'Ao mês' },
+                        { value: 'anual', label: 'Ao ano' }
+                    ]},
+                    { id: 'multa', label: 'Multa por Atraso (%)', placeholder: 'Ex: 2', min: 0 },
+                    { id: 'dias', label: 'Dias Corridos de Atraso', placeholder: 'Ex: 15', min: 0 }
+                ],
+                calculate: v => v,
+                renderResult: v => v,
+            }),
+            init: () => {
+                initCalculator({
+                    fields: [
+                        { id: 'valor' },
+                        { id: 'taxa' },
+                        { id: 'tipoTaxa', type: 'select' },
+                        { id: 'multa' },
+                        { id: 'dias' }
+                    ],
+                    calculate(v) {
+                        const valor = parseFloat(v.valor) || 0;
+                        const taxa = parseFloat(v.taxa) || 0;
+                        const multaPct = parseFloat(v.multa) || 0;
+                        const dias = parseInt(v.dias) || 0;
+                        const tipoTaxa = v.tipoTaxa;
+
+                        // Multa é cobrada uma única vez (flat rate)
+                        const multaValor = valor * (multaPct / 100);
+
+                        // Cálculo da taxa diária de juros de mora (juros simples por dia em atraso)
+                        let taxaDiaria = 0;
+                        if (tipoTaxa === 'mensal') {
+                            taxaDiaria = (taxa / 100) / 30;
+                        } else {
+                            taxaDiaria = (taxa / 100) / 365;
+                        }
+
+                        // Juros de mora simples: Valor * Taxa Diária * Dias
+                        const jurosValor = valor * taxaDiaria * dias;
+
+                        // Total a pagar
+                        const total = valor + multaValor + jurosValor;
+
+                        return {
+                            valor,
+                            taxa,
+                            tipoTaxa,
+                            multaPct,
+                            multaValor,
+                            dias,
+                            jurosValor,
+                            total,
+                            taxaDiariaPercent: taxaDiaria * 100
+                        };
+                    },
+                    renderResult(r) {
+                        return renderSimpleResult('Total Atualizado a Pagar', fmt.currency(r.total), [
+                            { label: 'Valor Original do Boleto', value: fmt.currency(r.valor) },
+                            { label: 'Multa por Atraso (' + fmt.number(r.multaPct, 2) + '%)', value: fmt.currency(r.multaValor) },
+                            { label: 'Juros de Mora (' + r.dias + ' dias)', value: fmt.currency(r.jurosValor) },
+                            { label: 'Taxa Diária de Juros', value: fmt.number(r.taxaDiariaPercent, 4) + '%' },
+                            { label: 'Atraso Total', value: `${r.dias} dias corridos` }
+                        ]);
+                    }
+                });
+            }
+        };
+    }
+
     // ---- Roteamento ----
     const routes = {
         '/financeira/juros-simples': jurosSimples,
@@ -714,6 +797,7 @@ const FinanceiroModule = (() => {
         '/financeira/financiamento': financiamento,
         '/financeira/breakeven': breakeven,
         '/financeira/correcao': correcao,
+        '/financeira/juros-boletos': jurosBoletos,
     };
 
     return { routes, renderCategory };

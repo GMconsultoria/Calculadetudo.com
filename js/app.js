@@ -17,6 +17,7 @@ const App = (() => {
         ...SaudeModule.routes,
         ...CientificaModule.routes,
         ...CuriosidadesModule.routes,
+        ...FormulaModule.routes,
     };
 
     // Category renderers
@@ -36,7 +37,6 @@ const App = (() => {
         const getCount = slug => typeof CalcSearch !== 'undefined' ? CalcSearch.calculadoras.filter(c => c.categorySlug === slug).length : 0;
         return `
             <section class="hero">
-                <div class="hero-badge">🧮 100% gratuito e aberto</div>
                 <h1>Todas as calculadoras que você precisa em um só lugar</h1>
                 <p>Financeira, investimentos, impostos, conversores, datas, saúde e científica. Rápido, simples e sem complicação.</p>
 
