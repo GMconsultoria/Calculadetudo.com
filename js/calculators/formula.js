@@ -97,6 +97,11 @@ const FormulaModule = (() => {
                             <span class="form-hint">Dica: Use letras ou palavras (ex: PV, taxa, x, y) como suas variáveis.</span>
                         </div>
 
+                        <!-- Results Output (Positioned premiumly below input bar, above keyboard) -->
+                        <div class="calc-result" id="calc-result" style="margin-top: var(--space-md); margin-bottom: var(--space-lg);">
+                            <!-- calculation results are rendered here -->
+                        </div>
+
                         <!-- Virtual Keyboards -->
                         <div class="calc-keyboard-container">
                             <div class="calc-keyboard-title">Teclado de Atalho Rápido</div>
@@ -165,16 +170,8 @@ const FormulaModule = (() => {
                             </div>
                         </div>
 
-                        <!-- Dynamic Variable Fields -->
-                        <div class="dynamic-variables-section">
-                            <h3 class="variables-title">Variáveis Detectadas</h3>
-                            <div id="variables-container">
-                                <div class="variables-empty">Nenhuma variável detectada. Digite letras no campo de fórmula acima para criar variáveis.</div>
-                            </div>
-                        </div>
-
-                        <!-- Buttons Group -->
-                        <div class="btn-group" style="margin-top: var(--space-xl);">
+                        <!-- Buttons Group (Positioned premiumly above variable fields) -->
+                        <div class="btn-group" style="margin-top: var(--space-xl); margin-bottom: var(--space-lg);">
                             <button type="button" class="btn btn-primary" id="btn-calculate" style="flex: 2;">
                                 Calcular Fórmula
                             </button>
@@ -182,14 +179,17 @@ const FormulaModule = (() => {
                                 Resetar
                             </button>
                         </div>
+
+                        <!-- Dynamic Variable Fields -->
+                        <div class="dynamic-variables-section">
+                            <h3 class="variables-title">Variáveis Detectadas</h3>
+                            <div id="variables-container">
+                                <div class="variables-empty">Nenhuma variável detectada. Digite letras no campo de fórmula acima para criar variáveis.</div>
+                            </div>
+                        </div>
                     </div>
 
                     ${CalcComponents.renderAdSpace('formula-middle', 'horizontal')}
-
-                    <!-- Results Output -->
-                    <div class="calc-result" id="calc-result">
-                        <!-- calculation results are rendered here -->
-                    </div>
 
                     <style>
                         /* Estilos exclusivos para a Super Calculadora de Fórmulas */
@@ -500,6 +500,14 @@ const FormulaModule = (() => {
 
                 // Escutar eventos de digitação no campo de fórmula
                 formulaInput.addEventListener('input', updateVariables);
+
+                // Permitir calcular ao pressionar Enter quando focado no campo da calculadora
+                formulaInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        btnCalculate.click();
+                    }
+                });
 
                 // 3. Teclado Virtual (Inserção de caracteres)
                 document.querySelectorAll('.calc-key[data-insert]').forEach(key => {
