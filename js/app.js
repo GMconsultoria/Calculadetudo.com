@@ -49,6 +49,11 @@ const App = (() => {
                 </div>
             </section>
 
+            <!-- Super Calculadora de Fórmulas Embutida na Home -->
+            <div class="container" style="margin-top: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div id="home-formula-calculator"></div>
+            </div>
+
             <section class="categories-section" aria-label="Categorias">
                 <div class="section-header">
                     <h2 class="section-title">Categorias</h2>
@@ -211,6 +216,11 @@ const App = (() => {
             mainContent.innerHTML = renderHome();
             CalcSearch.initSearchBar();
             document.title = 'CalculaDeTudo — Todas as calculadoras que você precisa';
+            
+            // Renderizar e inicializar a Super Calculadora de Fórmulas na Homepage
+            if (typeof FormulaModule !== 'undefined' && FormulaModule.embedHome) {
+                FormulaModule.embedHome('home-formula-calculator');
+            }
             return;
         }
 

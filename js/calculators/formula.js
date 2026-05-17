@@ -678,11 +678,37 @@ const FormulaModule = (() => {
         };
     }
 
-    const routes = {
-        '/cientifica/calculadora-formulas': formulaCalculator
-    };
+    function embedHome(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
 
-    return { routes };
+        // Obter objeto calculadora
+        const calc = formulaCalculator();
+
+        // Extrair o conteúdo a partir das Abas de Modalidade
+        const formHtml = calc.html.substring(calc.html.indexOf('<!-- ============ MODALITY TABS ============ -->'));
+
+        container.innerHTML = `
+            <div class="home-formula-card card" style="margin-bottom: var(--space-xl); background: var(--color-surface); padding: var(--space-xl); border-radius: var(--radius-lg); border: 1px solid var(--color-border); box-shadow: var(--shadow-md);">
+                <header class="calc-header" style="margin-bottom: var(--space-lg); text-align: center;">
+                    <h2 class="calc-title" style="font-size: 1.6rem; font-weight: 800; color: var(--color-text); margin-bottom: 8px;">Super Calculadora de Fórmulas</h2>
+                    <p class="calc-description" style="color: var(--color-text-secondary); max-width: 650px; margin: 0 auto; font-size: var(--font-size-sm);">
+                        Crie suas próprias fórmulas matemáticas! Selecione uma das modalidades abaixo, digite qualquer expressão com variáveis em letras e os campos numéricos de entrada serão gerados dinamicamente em tempo real.
+                    </p>
+                </header>
+                ${formHtml}
+            </div>
+        `;
+
+        // Inicializar listeners de eventos
+        requestAnimationFrame(() => {
+            calc.init();
+        });
+    }
+
+    const routes = {};
+
+    return { routes, embedHome };
 })();
 
 window.FormulaModule = FormulaModule;
