@@ -60,10 +60,7 @@ const FormulaModule = (() => {
                         <span>Super Calculadora de Fórmulas</span>
                     </nav>
 
-                    <header class="calc-header">
-                        <h1 class="calc-title">Super Calculadora de Fórmulas</h1>
-                        <p class="calc-description">Crie e execute suas próprias fórmulas matemáticas! Digite qualquer fórmula usando letras como variáveis e nosso sistema criará os campos de digitação dinamicamente em tempo real.</p>
-                    </header>
+
 
                     <!-- ============ MODALITY TABS ============ -->
                     <div class="calculator-tabs" role="tablist">
