@@ -204,6 +204,65 @@ const App = (() => {
         }
     }
 
+    // ---- SEO and Dynamic Meta Manager ----
+    function updateMeta(title, description, path) {
+        document.title = title;
+        
+        // 1. Meta Description
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.setAttribute('name', 'description');
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.setAttribute('content', description);
+
+        // 2. Open Graph Tags
+        let ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', title);
+        let ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', description);
+        
+        let ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.setAttribute('content', `https://calculadetudo.com/#${path}`);
+
+        // 3. Canonical Link
+        let canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+            canonical = document.createElement('link');
+            canonical.setAttribute('rel', 'canonical');
+            document.head.appendChild(canonical);
+        }
+        canonical.setAttribute('href', `https://calculadetudo.com/#${path}`);
+
+        // 4. JSON-LD Structured Data
+        const existingScript = document.getElementById('jsonld-seo');
+        if (existingScript) existingScript.remove();
+
+        const script = document.createElement('script');
+        script.id = 'jsonld-seo';
+        script.type = 'application/ld+json';
+
+        const schema = {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": title.replace(' | CalculaDeTudo', ''),
+            "description": description,
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "All",
+            "browserRequirements": "Requires JavaScript. Requires HTML5.",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "BRL"
+            },
+            "url": `https://calculadetudo.com/#${path}`
+        };
+
+        script.text = JSON.stringify(schema);
+        document.head.appendChild(script);
+    }
+
     // ---- Router ----
     function route() {
         let hash = window.location.hash.replace('#', '') || '/';
@@ -215,7 +274,11 @@ const App = (() => {
         if (hash === '/' || hash === '') {
             mainContent.innerHTML = renderHome();
             CalcSearch.initSearchBar();
-            document.title = 'CalculaDeTudo — Todas as calculadoras que você precisa';
+            updateMeta(
+                'CalculaDeTudo — Todas as calculadoras que você precisa',
+                'Todas as calculadoras que você precisa em um só lugar: Financeira, investimentos, impostos, conversores, datas, saúde e científica. Rápido, simples e 100% gratuito.',
+                '/'
+            );
             
             // Renderizar e inicializar a Super Calculadora de Fórmulas na Homepage
             if (typeof FormulaModule !== 'undefined' && FormulaModule.embedHome) {
@@ -227,12 +290,20 @@ const App = (() => {
         // Legal
         if (hash === '/privacidade') {
             mainContent.innerHTML = renderPrivacy();
-            document.title = 'Política de Privacidade | CalculaDeTudo';
+            updateMeta(
+                'Política de Privacidade | CalculaDeTudo',
+                'Consulte nossa política de privacidade e proteção de dados em conformidade com a LGPD.',
+                '/privacidade'
+            );
             return;
         }
         if (hash === '/termos') {
             mainContent.innerHTML = renderTerms();
-            document.title = 'Termos de Uso | CalculaDeTudo';
+            updateMeta(
+                'Termos de Uso | CalculaDeTudo',
+                'Termos de uso, isenções de responsabilidade e regras gerais do portal CalculaDeTudo.',
+                '/termos'
+            );
             return;
         }
 
@@ -241,7 +312,13 @@ const App = (() => {
             const cat = hash.replace('/categoria/', '');
             if (categoryRenderers[cat]) {
                 mainContent.innerHTML = categoryRenderers[cat]();
-                document.title = `${cat.charAt(0).toUpperCase() + cat.slice(1)} | CalculaDeTudo`;
+                const catTitle = mainContent.querySelector('.category-page-title')?.textContent || cat;
+                const catDesc = mainContent.querySelector('.category-page-desc')?.textContent || `Coleção de calculadoras e conversores da categoria ${cat}.`;
+                updateMeta(
+                    `${catTitle} | CalculaDeTudo`,
+                    catDesc,
+                    `/categoria/${cat}`
+                );
                 return;
             }
         }
@@ -250,7 +327,16 @@ const App = (() => {
         if (allRoutes[hash]) {
             const calc = allRoutes[hash]();
             mainContent.innerHTML = calc.html;
-            document.title = `${mainContent.querySelector('.calc-title')?.textContent || 'Calculadora'} | CalculaDeTudo`;
+            
+            const calcTitle = mainContent.querySelector('.calc-title')?.textContent || 'Calculadora';
+            const calcDesc = mainContent.querySelector('.calc-description')?.textContent || 'Use nossa calculadora gratuita, rápida e sem complicação.';
+            
+            updateMeta(
+                `${calcTitle} | CalculaDeTudo`,
+                calcDesc,
+                hash
+            );
+
             // Init calculator after DOM is updated
             requestAnimationFrame(() => {
                 if (calc.init) calc.init();
