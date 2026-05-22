@@ -28,7 +28,44 @@ const ConversoresModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>Facilitando o Seu Dia a Dia com Conversores Exatos</h2>
+                <p>Na era da globalização, lidamos diariamente com diferentes padrões de medidas, moedas e temperaturas. Seja para comprar um produto importado, seguir uma receita internacional ou planejar uma viagem de férias, a conversão rápida e precisa é fundamental para evitar erros custosos.</p>
+                <p>Nesta seção, agrupamos as calculadoras de conversão mais utilizadas do mercado, otimizadas para funcionar tanto offline (com valores de referência) quanto online (com dados reais do mercado financeiro mundial).</p>
+
+                <h3>Nossos Principais Conversores</h3>
+                <ul>
+                    <li><strong>Conversor de Moedas (Câmbio):</strong> Vai viajar ou comprar em dólar? Nossa ferramenta puxa a cotação oficial em <em>Tempo Real</em> para as principais moedas globais (Dólar, Euro, Libra, Peso, Iene) e até Criptomoedas como o Bitcoin (BTC). Sem atrasos, direto da fonte!</li>
+                    <li><strong>Conversor de Medidas (Sistema Imperial x Métrico):</strong> Um dos maiores desafios ao importar peças de carro, eletrônicos ou ler manuais americanos é a conversão do Sistema Imperial (Polegadas, Libras, Galões) para o Sistema Métrico Decimal (Centímetros, Quilos, Litros). Nossa calculadora faz essa conversão cruzada para Peso, Comprimento, Volume e Área.</li>
+                    <li><strong>Conversor de Temperatura:</strong> Traduza de forma instantânea temperaturas da escala Fahrenheit (°F) para Celsius (°C), essencial para cozinhar receitas gringas ou para meteorologia, além da escala Kelvin (K), muito usada em processos químicos e físicos na indústria.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo Prático: Compras Internacionais em Dólar</h4>
+                    <p>Ao realizar uma compra de US$ 100 em um site estrangeiro, o valor cobrado no seu cartão de crédito nacional não será simplesmente o valor da tela vezes a cotação comercial.</p>
+                    <p>Para calcular o custo real no Brasil, você precisa considerar:</p>
+                    <ul>
+                        <li>O <strong>Dólar PTAX</strong> (cotação oficial) + o <strong>Spread do Cartão</strong> (margem de lucro do banco, que varia de 2% a 7%).</li>
+                        <li>O <strong>IOF</strong> (Imposto sobre Operações Financeiras) de 4,38% (taxa de 2024 para compras internacionais).</li>
+                    </ul>
+                    <p>Por isso, ao usar nosso Conversor de Moedas, considere adicionar mentalmente cerca de 10% de margem de segurança ao valor convertido para cobrir essas taxas bancárias se for passar no cartão de crédito brasileiro.</p>
+                </div>
+
+                <h3>Fórmulas Frequentes de Conversão</h3>
+                <p>Para os estudantes e curiosos, estas são as fórmulas exatas que nossas calculadoras usam nos bastidores para garantir precisão cirúrgica:</p>
+                <div class="formula-box">
+                    <strong>Fahrenheit para Celsius:</strong> °C = (°F - 32) ÷ 1,8<br>
+                    <strong>Celsius para Fahrenheit:</strong> °F = (°C × 1,8) + 32
+                </div>
+                <div class="formula-box">
+                    <strong>Libras (lbs) para Quilos (kg):</strong> kg = lbs × 0,453592<br>
+                    <strong>Polegadas (in) para Centímetros (cm):</strong> cm = in × 2,54
+                </div>
+
+                <h3>Dica do Especialista em Importação</h3>
+                <p>Vai comprar roupas, sapatos ou eletrônicos nos Estados Unidos? Além de usar o conversor de moedas para avaliar o preço, use nosso <strong>Conversor de Medidas de Comprimento</strong>. Saber exatamente quantos centímetros tem um tênis "Size 10" (aprox. 28 cm) é o segredo para não perder dinheiro com devoluções impossíveis!</p>
+            `
         });
     }
 

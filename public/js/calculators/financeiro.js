@@ -41,7 +41,43 @@ const FinanceiroModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>O que é a Matemática Financeira e por que ela importa?</h2>
+                <p>A matemática financeira é a base para a tomada de decisões econômicas inteligentes. Ela nos permite entender o valor do dinheiro no tempo, calcular os custos reais de empréstimos, planejar investimentos e avaliar a viabilidade de projetos empresariais.</p>
+                <p>Nesta categoria, agrupamos todas as ferramentas necessárias para você realizar cálculos financeiros complexos de forma rápida e intuitiva, seja para uso pessoal (como organizar suas dívidas e reservas) ou profissional (como analisar o retorno de um projeto).</p>
+
+                <h3>Principais Ferramentas e Seus Casos de Uso</h3>
+                <ul>
+                    <li><strong>Calculadora de Juros Compostos:</strong> Ideal para simular o crescimento exponencial dos seus investimentos a longo prazo. Diferente dos juros simples, os juros compostos cobram "juros sobre juros".</li>
+                    <li><strong>Financiamento (SAC / PRICE):</strong> Vai comprar um imóvel ou veículo? Use esta calculadora para comparar as tabelas SAC (amortização constante, parcelas decrescentes) e PRICE (parcelas fixas). Descubra quanto de juros você realmente pagará no final do contrato.</li>
+                    <li><strong>VPL e TIR:</strong> Ferramentas indispensáveis para empreendedores. O Valor Presente Líquido (VPL) ajuda a entender se o lucro de um projeto no futuro compensa o investimento hoje. A Taxa Interna de Retorno (TIR) mostra a rentabilidade exata desse projeto.</li>
+                    <li><strong>Juros de Boleto:</strong> Esqueceu de pagar um boleto? Não precisa esperar o banco calcular a nova via. Informe o valor original, a multa (geralmente 2%) e os juros de mora (geralmente 1% ao mês pro rata die) para saber o valor exato atualizado.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo Prático: Comparando Juros Simples e Compostos</h4>
+                    <p>Imagine que você invista R$ 10.000,00 a uma taxa de 1% ao mês por 5 anos (60 meses).</p>
+                    <ul>
+                        <li><strong>No Juros Simples:</strong> Você ganharia R$ 100 por mês de forma linear. Ao final de 60 meses, o rendimento seria de R$ 6.000,00. Total: R$ 16.000,00.</li>
+                        <li><strong>Nos Juros Compostos:</strong> O rendimento do primeiro mês (R$ 100) é somado ao capital para o cálculo do mês seguinte, gerando o "efeito bola de neve". Ao final dos mesmos 60 meses, seu total seria de <strong>R$ 18.166,97</strong>.</li>
+                    </ul>
+                    <p>Isso prova por que os investimentos (Renda Fixa, CDBs) utilizam juros compostos, recompensando o investidor paciente.</p>
+                </div>
+
+                <h3>Fórmulas Importantes do Mercado</h3>
+                <p>Para quem deseja entender a matemática por trás dos nossos robôs, destacamos as fórmulas mais tradicionais utilizadas no mercado financeiro:</p>
+                <div class="formula-box">
+                    <strong>Juros Compostos:</strong> M = C × (1 + i)<sup>t</sup>
+                </div>
+                <div class="formula-box">
+                    <strong>Juros Simples:</strong> J = C × i × t
+                </div>
+                <p>Onde <strong>M</strong> é o Montante final, <strong>C</strong> é o Capital inicial, <strong>i</strong> é a taxa de juros (na forma decimal, ex: 1% = 0.01) e <strong>t</strong> é o tempo (período).</p>
+
+                <h3>Dica do Especialista</h3>
+                <p>Sempre preste atenção à <strong>equivalência de taxas</strong>. Uma taxa de 1% ao mês não é igual a 12% ao ano quando falamos de juros compostos. No regime composto, 1% ao mês equivale a aproximadamente <strong>12,68% ao ano</strong>. Utilize nossa <em>Calculadora de Taxas</em> para converter taxas nominais em efetivas e evitar armadilhas em empréstimos.</p>
+            `
         });
     }
 

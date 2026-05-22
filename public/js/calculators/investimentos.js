@@ -153,7 +153,44 @@ const InvestimentosModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>Por que simular seus Investimentos?</h2>
+                <p>O mundo dos investimentos pode parecer complexo com sopas de letrinhas como CDB, CDI, SELIC, LCI e LCA. No entanto, o princípio básico para multiplicar seu patrimônio é simples: aportar com consistência, entender o impacto do tempo e escolher a rentabilidade adequada ao seu perfil de risco.</p>
+                <p>Nesta seção, reunimos ferramentas avançadas e integradas com dados em <strong>tempo real</strong>. Ao acessar a maioria dessas calculadoras, você notará que buscamos automaticamente a taxa SELIC atual do Banco Central e as cotações da Bolsa de Valores (B3), garantindo que suas simulações reflitam o cenário econômico de hoje.</p>
+
+                <h3>Conheça Nossas Ferramentas de Investimento</h3>
+                <ul>
+                    <li><strong>Renda Fixa (CDB, Selic, Poupança):</strong> O porto seguro do investidor brasileiro. Insira um valor, um aporte mensal, e veja a mágica dos juros compostos trabalhando. Nossa calculadora já desconta o <em>Imposto de Renda (IR) regressivo</em> automaticamente para CDBs e Tesouro Selic, mostrando o rendimento líquido real.</li>
+                    <li><strong>Selic vs Poupança:</strong> A velha caderneta de poupança ainda vale a pena? Com as taxas de juros atuais, geralmente não. Esta ferramenta faz um "raio-x" do seu dinheiro, comparando centavo a centavo quanto você perde deixando-o na poupança em vez do Tesouro Selic.</li>
+                    <li><strong>Calculadora do Primeiro Milhão:</strong> O sonho de independência financeira. Ajuste os aportes mensais e a taxa de juros e descubra, em anos e meses, quando você atingirá seu primeiro milhão. A calculadora impede projeções absurdas e foca em cenários realistas de longo prazo.</li>
+                    <li><strong>Reserva de Emergência:</strong> Antes de pensar em ações, fundos imobiliários (FIIs) ou criptomoedas, você precisa de um "colchão de segurança". Informe seus custos fixos mensais e descubra quanto deve guardar em renda fixa com liquidez diária.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo Real: O Impacto da Taxa SELIC e do IR</h4>
+                    <p>Suponha que você tenha R$ 50.000,00 e precise resgatá-los em exatos 6 meses. Onde investir?</p>
+                    <ul>
+                        <li>Se investir na <strong>Poupança</strong>, seu dinheiro é isento de Imposto de Renda. Renderá aproximadamente 0,5% ao mês + TR, somando um valor modesto sem grandes surpresas.</li>
+                        <li>Se investir no <strong>Tesouro Selic</strong>, a rentabilidade bruta será maior. Porém, resgatando em 6 meses ou menos, você cai na <em>alíquota máxima de 22,5%</em> do Imposto de Renda sobre o lucro.</li>
+                    </ul>
+                    <p>Nossa calculadora de Renda Fixa faz essa conta líquida para você, revelando em segundos qual opção coloca mais dinheiro no seu bolso ao final do prazo estipulado.</p>
+                </div>
+
+                <h3>Regras de Ouro dos Investimentos no Brasil</h3>
+                <p>Abaixo estão algumas das regras tributárias que nossas calculadoras já aplicam automaticamente:</p>
+                <div class="formula-box">
+                    <strong>Tabela Regressiva de IR (Renda Fixa):</strong><br>
+                    Até 6 meses: 22,5%<br>
+                    6 a 12 meses: 20,0%<br>
+                    12 a 24 meses: 17,5%<br>
+                    Acima de 24 meses: 15,0%
+                </div>
+                <p>Vale lembrar que essa tributação incide <strong>apenas sobre o rendimento</strong> (lucro), e não sobre o capital total investido.</p>
+
+                <h3>Dica do Especialista</h3>
+                <p>Cuidado com a inflação! Ter R$ 1 Milhão daqui a 30 anos não terá o mesmo poder de compra de ter R$ 1 Milhão hoje. Ao simular aposentadoria na nossa <em>Calculadora do Primeiro Milhão</em>, utilize uma taxa de juros "real", ou seja, desconte a inflação média (IPCA) projetada para o período.</p>
+            `
         });
 
         // Inject ticker and selic badge at the top of the page

@@ -358,6 +358,13 @@ const CalcComponents = (() => {
                 <div class="calc-list-grid">
                     ${itemsHTML}
                 </div>
+                
+                ${config.editorialContent ? `
+                <article class="category-editorial">
+                    ${config.editorialContent}
+                </article>
+                ` : ''}
+
                 ${renderAdSpace('cat-bottom', 'horizontal')}
             </div>
         `;

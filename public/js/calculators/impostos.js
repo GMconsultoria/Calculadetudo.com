@@ -29,7 +29,42 @@ const ImpostosModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>Navegando no Sistema Tributário Brasileiro</h2>
+                <p>O Brasil possui um dos sistemas tributários mais complexos do mundo. Para empreendedores, autônomos e até trabalhadores CLT, entender quanto de imposto incide sobre sua renda ou faturamento é essencial para evitar surpresas com o Leão da Receita Federal e garantir a saúde financeira do seu negócio ou orçamento pessoal.</p>
+                <p>Nesta seção, oferecemos calculadoras atualizadas com as tabelas mais recentes (como a tabela progressiva do IRPF e os Anexos do Simples Nacional) para ajudar você a prever seus custos tributários com exatidão.</p>
+
+                <h3>Conheça Nossas Calculadoras de Impostos</h3>
+                <ul>
+                    <li><strong>Imposto de Renda Pessoa Física (IRPF):</strong> Descubra exatamente quanto será descontado do seu salário bruto. Nossa calculadora compara automaticamente o <em>Desconto Simplificado</em> com as <em>Deduções Legais</em> (dependentes, INSS) e avisa qual é a opção mais vantajosa para você.</li>
+                    <li><strong>Simples Nacional:</strong> Para MEIs e Microempresas. Insira seu faturamento anual (RBT12) e mensal, escolha o anexo da sua área de atuação (Comércio, Indústria ou Serviços) e descubra sua alíquota efetiva. <em>Dica: Já implementamos a regra do Fator R para o Anexo V.</em></li>
+                    <li><strong>Lucro Presumido:</strong> Planejamento tributário avançado. Calcule PIS e COFINS mensais, além de IRPJ e CSLL trimestrais, baseados na margem de presunção específica do seu setor (comércio ou serviços).</li>
+                    <li><strong>Lucro Real:</strong> O regime tributário mais justo, porém mais exigente. Insira faturamento, custos e despesas operacionais para descobrir os impostos incidentes apenas sobre o lucro líquido efetivo. Em caso de prejuízo fiscal, a calculadora já isenta IRPJ e CSLL.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo Prático: O "Fator R" no Simples Nacional</h4>
+                    <p>Muitas empresas prestadoras de serviço (como clínicas médicas, academias ou agências de TI) caem inicialmente no <strong>Anexo V</strong> do Simples Nacional, que começa com uma alíquota altíssima de 15,5%.</p>
+                    <p>No entanto, a legislação permite o uso do <strong>Fator R</strong>: se a sua folha de pagamento (incluindo o seu Pró-Labore) for igual ou superior a 28% do seu faturamento bruto, sua empresa é transferida automaticamente para o <strong>Anexo III</strong>, onde a alíquota inicial despenca para 6%.</p>
+                    <p>Nossa calculadora de Simples Nacional faz essa checagem para você. Basta preencher o campo "Folha Salarial Mensal" para saber se você tem direito a essa drástica redução de impostos.</p>
+                </div>
+
+                <h3>Estrutura das Alíquotas de IRPF Vigentes</h3>
+                <p>O Imposto de Renda no Brasil é progressivo. Isso significa que a alíquota não é cobrada sobre o salário inteiro, mas apenas sobre a parcela que ultrapassa cada faixa. Abaixo a tabela de referência atualizada:</p>
+                <div class="formula-box">
+                    <strong>Tabela Progressiva:</strong><br>
+                    Até R$ 2.259,20: Isento<br>
+                    De R$ 2.259,21 até 2.826,65: 7,5%<br>
+                    De R$ 2.826,66 até 3.751,05: 15,0%<br>
+                    De R$ 3.751,06 até 4.664,68: 22,5%<br>
+                    Acima de R$ 4.664,68: 27,5%
+                </div>
+                <p>Não se preocupe em fazer essas contas com a "parcela a deduzir". A nossa ferramenta aplica essa regra matemática instantaneamente, mostrando a sua <strong>Alíquota Efetiva</strong> (a porcentagem real que saiu do seu bolso).</p>
+
+                <h3>Dica do Especialista em Planejamento</h3>
+                <p>O Simples Nacional nem sempre é o regime mais barato. Uma empresa de serviços no Anexo IV ou V, com baixa folha salarial e alta margem de lucro, muitas vezes paga menos impostos se migrar para o <strong>Lucro Presumido</strong>. Utilize nossas calculadoras para simular o mesmo faturamento em ambos os regimes e apresente os dados ao seu contador!</p>
+            `
         });
     }
 
