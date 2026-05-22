@@ -238,8 +238,10 @@ img { max-width: 100%; display: block; }
     opacity: 0.5;
 }
 
-.dropdown.active .chevron {
+.nav-item.dropdown:hover .chevron,
+.nav-item.dropdown:focus-within .chevron {
     transform: rotate(180deg);
+    opacity: 1;
 }
 
 /* Dropdown Menu */
@@ -261,7 +263,8 @@ img { max-width: 100%; display: block; }
     z-index: 100;
 }
 
-.dropdown.active .dropdown-menu {
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown:focus-within .dropdown-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;

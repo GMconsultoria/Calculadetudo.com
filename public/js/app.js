@@ -362,55 +362,24 @@ const App = (() => {
         const toggle = document.getElementById('mobile-toggle');
         const overlay = document.getElementById('mobile-overlay');
 
-        // Dropdowns
-        document.querySelectorAll('.dropdown-toggle').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const item = btn.closest('.nav-item');
+        // On mobile, clicking the category link toggles the submenu
+        // On desktop this is handled entirely by CSS :hover
+        document.querySelectorAll('.nav-item.dropdown .dropdown-toggle').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const isMobile = window.innerWidth <= 768;
+                if (!isMobile) return; // desktop: let the href navigate normally
+                e.preventDefault();
+                const item = link.closest('.nav-item');
                 const isActive = item.classList.contains('active');
-                // Close all
-                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
-                    d.classList.remove('active');
-                    const t = d.querySelector('.dropdown-toggle');
-                    if (t) t.setAttribute('aria-expanded', 'false');
-                });
-                if (!isActive) {
-                    item.classList.add('active');
-                    btn.setAttribute('aria-expanded', 'true');
-                }
+                // Close all others
+                document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
             });
         });
 
-        // Close dropdowns on outside click
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.nav-item.dropdown').forEach(d => {
-                d.classList.remove('active');
-                const t = d.querySelector('.dropdown-toggle');
-                if (t) t.setAttribute('aria-expanded', 'false');
-            });
-        });
-
-        // Close dropdowns on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
-                    d.classList.remove('active');
-                    const t = d.querySelector('.dropdown-toggle');
-                    if (t) t.setAttribute('aria-expanded', 'false');
-                });
-                const langDropdown = document.getElementById('lang-dropdown');
-                if (langDropdown) langDropdown.classList.remove('active');
-            }
-        });
-
-        // Close dropdown and mobile nav on link click
+        // Close mobile nav when a link inside it is clicked
         document.addEventListener('click', (e) => {
             if (e.target.closest('.dropdown-item') || e.target.closest('.footer-links a')) {
-                document.querySelectorAll('.nav-item.dropdown').forEach(d => {
-                    d.classList.remove('active');
-                    const t = d.querySelector('.dropdown-toggle');
-                    if (t) t.setAttribute('aria-expanded', 'false');
-                });
                 nav.classList.remove('active');
                 toggle.classList.remove('active');
                 overlay.classList.remove('active');
@@ -426,11 +395,12 @@ const App = (() => {
             document.body.style.overflow = isActive ? 'hidden' : '';
         });
 
-        // Overlay click
+        // Overlay click closes everything
         overlay.addEventListener('click', () => {
             nav.classList.remove('active');
             toggle.classList.remove('active');
             overlay.classList.remove('active');
+            document.querySelectorAll('.nav-item.dropdown').forEach(d => d.classList.remove('active'));
             document.body.style.overflow = '';
         });
     }
