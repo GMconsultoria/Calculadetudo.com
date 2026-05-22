@@ -211,7 +211,7 @@ const FormulaModule = (() => {
                             align-items: center;
                             justify-content: center;
                             gap: var(--space-xs);
-                            padding: 14px 8px;
+                            padding: 9px 8px;
                             border-radius: var(--radius-md);
                             font-size: var(--font-size-sm);
                             font-weight: 600;

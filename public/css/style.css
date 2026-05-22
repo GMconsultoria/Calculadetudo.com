@@ -363,7 +363,7 @@ img { max-width: 100%; display: block; }
 .hero {
     text-align: center;
     padding: var(--space-xl) var(--space-lg) var(--space-sm);
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     position: relative;
 }
@@ -421,7 +421,7 @@ img { max-width: 100%; display: block; }
 /* Search Bar */
 .search-container {
     max-width: 560px;
-    margin: 0 auto var(--space-xl);
+    margin: 0 auto var(--space-sm);
     position: relative;
 }
 
