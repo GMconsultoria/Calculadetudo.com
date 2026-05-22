@@ -335,7 +335,7 @@ const CalcComponents = (() => {
 
     function createCategoryPage(config) {
         const itemsHTML = config.items.map(item => `
-            <a href="#${item.route}" class="calc-list-item">
+            <a href="${item.route}" class="calc-list-item">
                 <h3>${item.title}</h3>
                 <p>${item.description}</p>
             </a>

@@ -103,7 +103,7 @@ const App = (() => {
 
     function renderPopularItem(route, icon, name, bgColor, color) {
         return `
-            <a href="#${route}" class="popular-item">
+            <a href="${route}" class="popular-item">
                 <span class="popular-icon" style="background: ${bgColor}; color: ${color}">${icon}</span>
                 <span class="popular-name">${name}</span>
             </a>
