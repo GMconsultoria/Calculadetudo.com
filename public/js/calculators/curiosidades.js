@@ -62,7 +62,41 @@ const CuriosidadesModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>O Tempo da História: Perspectivas que Mudam Tudo</h2>
+                <p>A história é árida quando só envolve datas memorizadas. Mas se torna fascinante quando você percebe <em>o quanto de tempo realmente se passou</em>. Sabia que entre o nascimento de Cleópatra e o primeiro iPhone, o avanço tecnológico de Cleópatra é MAIS DISTANTE do nascimento de Jesus do que de nós hoje?</p>
+                <p>Nossa seção de Curiosidades foi criada para transformar a percepção da história com uma única ferramenta poderosa: a <strong>calculadora de Tempo entre Fatos Históricos</strong>. Mais de 30 marcos clássicos já estão pré-carregados, de antes de Cristo até a Pandemia de COVID-19.</p>
+
+                <h3>Por que calcular tempo histórico é fascinante?</h3>
+                <ul>
+                    <li><strong>Perspectiva Real:</strong> A 2ª Guerra Mundial terminou há menos de 80 anos. A chegada do homem à Lua aconteceu há menos de 60. Humanamente, isso é o tempo de vida de um único ser humano!</li>
+                    <li><strong>Comparações Surpreendentes:</strong> Use nossa ferramenta para comparar qualquer par de eventos: quantas gerações humanas se passaram da Inconfidência Mineira até hoje? Quantas Olimpíadas ocorreram desde a Independência do Brasil?</li>
+                    <li><strong>Fun Facts Automáticos:</strong> Ao calcular um período, exibimos além do número de dias, as estimativas de <em>batimentos cardíacos</em> que um coração humano teria dado nesse período. Uma forma visceral de entender a escala do tempo.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Curiosidade: Da Conquista da Lua ao ChatGPT</h4>
+                    <p>Entre a chegada do homem à Lua (20 de julho de 1969) e o lançamento do ChatGPT ao público (30 de novembro de 2022), passaram-se aproximadamente <strong>53 anos e 4 meses</strong>.</p>
+                    <p>Pense nisso: em pouco mais de 5 décadas, a humanidade foi da conquista do espaço sideral à criação de uma inteligência artificial que conversa como um humano. Use nossa calculadora para explorar e descobrir outros paríes de eventos marcantes da história!</p>
+                </div>
+
+                <h3>Como Funciona a Calculadora</h3>
+                <p>A ferramenta oferece dois modos de uso:</p>
+                <ol>
+                    <li>Selecione <strong>dois eventos pré-definidos</strong> da lista (do Nascimento de Jesus à Pandemia de COVID-19) e clique em Calcular.</li>
+                    <li>Use a opção <strong>"Data Personalizada"</strong> em qualquer um dos campos para inserir manualmente qualquer data, permitindo calcular o tempo até ou desde qualquer momento da história.</li>
+                </ol>
+                <p>O resultado inclui a diferença em <strong>anos, meses, dias, horas, minutos e segundos</strong>, além de dados curiosos como o número de gerações humanas e Olimpíadas realizadas nesse período.</p>
+
+                <h3>Inspire-se: Combinações que vai querer tentar</h3>
+                <p>Confira estas comparações que garantem revelarões chocantes:</p>
+                <ul>
+                    <li>Queda do Império Romano → Proclamação da República do Brasil</li>
+                    <li>Homem na Lua → Hoje</li>
+                    <li>1ª Guerra Mundial → 2ª Guerra Mundial (e compare com o quanto já estamos de paz...)</li>
+                </ul>
+            `
         });
     }
 

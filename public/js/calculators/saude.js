@@ -28,7 +28,38 @@ const SaudeModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>Saúde: O Ativo Mais Valioso que Você Possui</h2>
+                <p>Antes de pensar em investimentos financeiros, aposentadoria ou planejamento tributário, há um capital que nenhum dinheiro consegue recomprar se for completamente perdido: a sua saúde. E, assim como nas finanças, números e metas concretas são a base de qualquer jornada de transformação saudável.</p>
+                <p>Reunimos nesta seção ferramentas baseadas nas diretrizes da <strong>OMS (Organização Mundial da Saúde)</strong> e nas recomendações nutricionais científicas mais atuais para ajudar você a acompanhar os principais indicadores de bem-estar físico.</p>
+
+                <h3>Nossas Calculadoras de Saúde e Bem-Estar</h3>
+                <ul>
+                    <li><strong>IMC — Índice de Massa Corporal:</strong> A métrica mais utilizada no mundo para classificar o peso em relação à altura. Nossa calculadora vai além do número, indicando a <em>classificação visual colorida</em> (de Abaixo do Peso até Obesidade Grau III) e calculando a faixa de peso ideal para a sua estatura específica.</li>
+                    <li><strong>Consumo de Água Diário:</strong> A desidratação é responsável por cansaço, dores de cabeça e queda de concentração. A necessidade hídrica não é a mesma para todo mundo: ela varia conforme o seu peso e nível de atividade física. Nossa ferramenta calcula seu alvo personalizado em litros, mililitros e até em número de copos.</li>
+                    <li><strong>Necessidade de Proteína Diária:</strong> A proteína é o macronutriente essencial para a construção e reparo muscular, além de contribuir para a saciedade. Nossa calculadora define a sua meta diária em gramas com base no seu objetivo (emagrecimento, hipertrofia ou manutenção) e converte o resultado para equivalentes práticos do dia a dia como ovos, frango e doses de Whey Protein.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>IMC Elevado não é a única métrica — Entenda as Limitações</h4>
+                    <p>O IMC é uma excelente ferramenta de triagem populacional, mas não conta toda a história individual. Um atleta com alta massa muscular pode ter um IMC que o classifica como "Sobrepeso", enquanto um sedentário com IMC "Normal" pode ter um alto percentual de gordura visceral (o tipo mais perigoso para a saúde cardiovascular).</p>
+                    <p>Use o IMC como ponto de partida e um indicador de tendência, e sempre consulte um médico para avaliações mais completas como a bioimpedancia, cuja mede com precisão a gordura corporal e a massa magra.</p>
+                </div>
+
+                <h3>Fórmulas Utilizadas</h3>
+                <div class="formula-box">
+                    <strong>IMC:</strong> Peso (kg) ÷ Altura² (m)<br>
+                    <em>Exemplo: 80kg ÷ (1,75 × 1,75) = 80 ÷ 3,0625 = IMC de 26,1</em>
+                </div>
+                <div class="formula-box">
+                    <strong>Hidratação (OMS):</strong> Peso (kg) × 35ml (sedentário) a 50ml (atleta)<br>
+                    <em>Exemplo: 70kg × 40ml = 2.800ml = 2,8 litros/dia</em>
+                </div>
+
+                <h3>Dica do Especialista em Nutrição</h3>
+                <p>Ao calcular sua necessidade de proteína para <strong>hipertrofia</strong>, considere que a distribuição ao longo do dia importa tanto quanto o total. Estudos mostram que o corpo consegue utilizar de forma otimizada entre 20g e 40g de proteína por refeição. Por isso, distribua sua meta diária em 4 a 6 refeições ao invés de tentar ingerir tudo de uma vez.</p>
+            `
         });
     }
 

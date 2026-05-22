@@ -35,7 +35,40 @@ const CientificaModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>A Matemática e a Ciência que Movem o Mundo</h2>
+                <p>Por trás de toda tecnologia moderna — dos algoritmos que recomendam suas músicas até os foguetes da SpaceX — existe um conjunto de ferramentas matemáticas e científicas que um dia foram materia de prova. Nesta seção, reunimos as calculadoras que ajudam estudantes de Ensino Médio, universitários de exatas e profissionais da área a resolver equações com precisão e velocidade.</p>
+                <p>Todas as fórmulas exibem o <strong>passo a passo do cálculo</strong>, para que você possa entender o raciocínio e não apenas copiar o resultado — afinal, na prova você precisa entender!</p>
+
+                <h3>O que Você Encontra Aqui</h3>
+                <ul>
+                    <li><strong>Física (Cinemática):</strong> As equações fundamentais do MRU (Movimento Retilíneo Uniforme) e MRUV. Calcule velocidade média, posição no tempo, aplique a Equação de Torricelli e compute Energia Cinética e Potencial. Cada cálculo exibe a fórmula utilizada e o resultado com 4 casas decimais.</li>
+                    <li><strong>Química (Mol e Massa):</strong> Resolva rapidamente cálculos de estequiometria. Encontre o número de mols de uma substância (n = m/M), a Concentração Molar de uma solução (C = n/V) e o Volume Final após uma Diluição (C₁V₁ = C₂V₂), poupando minutos preciosos em provas de vestibular.</li>
+                    <li><strong>Progressões (PA e PG):</strong> Informe o primeiro termo e a razão da sequência e descubra qualquer termo "an", a soma de todos os termos e ainda visualize os primeiros 20 elementos da sequência listados lado a lado.</li>
+                    <li><strong>Trigonometria:</strong> A calculadora mais completa da seção. Insira qualquer ângulo em Graus ou Radianos e receba as seis funções trigonométricas (seno, cosseno, tangente e suas inversas) com 6 casas de precisão.</li>
+                    <li><strong>Matrizes e Determinantes:</strong> Calcule determinantes 2×2 e 3×3 pela Regra de Sarrus e descubra se a matriz é inversível (det ≠ 0).</li>
+                    <li><strong>Fatoração em Primos:</strong> Insira qualquer número inteiro e obtenha sua decomposição em fatores primos em notação exponencial (ex: 360 = 2³ × 3² × 5).</li>
+                    <li><strong>Números Complexos:</strong> Calcule Módulo, Argumento e Conjugado de um número complexo, ou realize operações de Soma e Multiplicação entre dois números complexos.</li>
+                    <li><strong>Derivadas e Integrais:</strong> Aplique as regras básicas de diferenciação e integração (Potência, Exponencial, Seno, Cosseno, Logarítmica) e veja o resultado simbólico formatado matematicamente.</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo: Equação de Torricelli em uma Prova de Física</h4>
+                    <p>Um carro parte do repouso (v₀ = 0) com aceleração de 3 m/s² e percorre 150 metros. Qual é sua velocidade final?</p>
+                    <div class="formula-box"><strong>v² = v₀² + 2a⋅ΔS</strong><br>v² = 0² + 2 × 3 × 150 = 900<br><strong>v = 30 m/s</strong></div>
+                    <p>Selecione "Equação de Torricelli" na calculadora de Física, insira v₀=0, a=3 e ΔS=150. O resultado aparece em segundos.</p>
+                </div>
+
+                <div class="formula-box">
+                    <strong>Termos gerais que você precisa saber de cor:</strong><br>
+                    PA: aₙ = a₁ + (n-1) × r<br>
+                    PG: aₙ = a₁ × q^(n-1)
+                </div>
+
+                <h3>Dica do Especialista Acadêmico</h3>
+                <p>Ao resolver problemas de Matrizes e Determinantes, lembre-se: se o determinante de uma matriz de coeficientes de um sistema linear for zero, o sistema é <strong>impossível ou indeterminado</strong> (não tem solução única). Essa é uma das relações mais cobradas nos vestibulares de engenharia!</p>
+            `
         });
     }
 

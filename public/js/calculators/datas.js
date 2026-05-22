@@ -28,7 +28,32 @@ const DatasModule = (() => {
                 title: c.name,
                 description: c.keywords.slice(0, 3).join(', '),
                 route: c.route
-            }))
+            })),
+            editorialContent: `
+                <h2>Por que calcular Datas e Tempos é tão difícil?</h2>
+                <p>Nossa mente foi treinada para pensar em base 10 (sistema decimal), mas o nosso calendário e os nossos relógios funcionam de maneira completamente diferente. Os meses têm durações variadas (28, 29, 30 ou 31 dias), os anos bissextos bagunçam as contas longas e as horas giram em base 60. É por isso que somar 45 dias a "18 de Agosto" de cabeça costuma gerar confusão e erros.</p>
+                <p>Nesta categoria de Datas e Tempo, reunimos ferramentas para acabar com a adivinhação e o uso do "dedo" no calendário. Nós cuidamos de todos os cálculos obscuros envolvendo o calendário Gregoriano para entregar a você respostas precisas em segundos.</p>
+
+                <h3>Nossas Calculadoras de Tempo</h3>
+                <ul>
+                    <li><strong>Somar ou Subtrair Datas:</strong> Tem um prazo legal, um vencimento de boleto ou um projeto para entregar em 120 dias? Insira a data inicial, adicione os dias, meses ou anos, e nossa calculadora informará não só a data exata de vencimento, mas também em qual <em>Dia da Semana</em> ele vai cair (ideal para evitar prazos em domingos e feriados).</li>
+                    <li><strong>Tempo Restante (Contagem Regressiva):</strong> Essencial para planejamento de eventos (casamentos, formaturas) e gestão de projetos. Informe uma data no futuro e saiba exatamente quantos anos, meses, semanas e dias faltam para o grande dia.</li>
+                    <li><strong>Tempo Vivido (Idade Exata):</strong> Muito mais do que apenas sua idade em anos. Descubra quantos meses, dias, horas e minutos você já viveu desde o seu nascimento. Uma ferramenta divertida que, inclusive, estima a quantidade de vezes que seu coração já bateu!</li>
+                </ul>
+
+                <div class="example-box">
+                    <h4>Exemplo Prático: Como os Anos Bissextos afetam os cálculos</h4>
+                    <p>Um erro comum ao somar 1 ano inteiro a uma data é esquecer o dia 29 de fevereiro. Se você assinar um contrato válido por 365 dias em 1º de Março de 2023, ele vence em 29 de Fevereiro de 2024 (ano bissexto), e não em 1º de Março.</p>
+                    <p>Nossas calculadoras usam as bibliotecas nativas de tempo da programação, que já embutem as regras de anos bissextos automaticamente, garantindo que seu prazo legal nunca falhe por um dia de diferença.</p>
+                </div>
+
+                <h3>Curiosidades sobre a Medição do Tempo</h3>
+                <p>Você sabia que um mês comercial tem sempre <strong>30 dias</strong> e um ano comercial tem <strong>360 dias</strong>? Esse formato padronizado foi criado pelo mercado financeiro justamente para evitar os cálculos malucos de meses com 31 e 28 dias na hora de cobrar juros.</p>
+                <p>Entretanto, nossas calculadoras de datas utilizam o formato <strong>Civil (Calendário Real)</strong>, que contabiliza a passagem exata dos dias no calendário que temos na parede da nossa casa.</p>
+
+                <h3>Dica do Especialista em Prazos</h3>
+                <p>Se você lida com recursos jurídicos ou prazos bancários, lembre-se: "Dias Úteis" são diferentes de "Dias Corridos". Atualmente, nossa ferramenta de soma e subtração lida com dias corridos. Se o prazo cair em um final de semana, a legislação brasileira geralmente prorroga o vencimento para o <strong>primeiro dia útil subsequente</strong>.</p>
+            `
         });
     }
 
