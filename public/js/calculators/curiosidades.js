@@ -77,9 +77,9 @@ const CuriosidadesModule = (() => {
         const html = `
             <div class="calc-page">
                 <nav class="calc-breadcrumb" aria-label="Breadcrumb">
-                    <a href="#/">Início</a>
+                    <a href="/">Início</a>
                     <span class="sep">›</span>
-                    <a href="#/categoria/curiosidades">Curiosidades</a>
+                    <a href="/categoria/curiosidades">Curiosidades</a>
                     <span class="sep">›</span>
                     <span>Tempo entre Fatos Históricos</span>
                 </nav>

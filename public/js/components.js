@@ -125,9 +125,9 @@ const CalcComponents = (() => {
         return `
             <div class="calc-page">
                 <nav class="calc-breadcrumb" aria-label="Breadcrumb">
-                    <a href="#/">Início</a>
+                    <a href="/">Início</a>
                     <span class="sep">›</span>
-                    <a href="#/categoria/${config.categorySlug}">${config.category}</a>
+                    <a href="/categoria/${config.categorySlug}">${config.category}</a>
                     <span class="sep">›</span>
                     <span>${config.title}</span>
                 </nav>
@@ -344,7 +344,7 @@ const CalcComponents = (() => {
         return `
             <div class="category-page">
                 <nav class="calc-breadcrumb" aria-label="Breadcrumb">
-                    <a href="#/">Início</a>
+                    <a href="/">Início</a>
                     <span class="sep">›</span>
                     <span>${config.title}</span>
                 </nav>

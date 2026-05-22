@@ -53,9 +53,9 @@ const FormulaModule = (() => {
             html: `
                 <div class="calc-page">
                     <nav class="calc-breadcrumb" aria-label="Breadcrumb">
-                        <a href="#/">Início</a>
+                        <a href="/">Início</a>
                         <span class="sep">›</span>
-                        <a href="#/categoria/cientifica">Científica</a>
+                        <a href="/categoria/cientifica">Científica</a>
                         <span class="sep">›</span>
                         <span>Super Calculadora de Fórmulas</span>
                     </nav>

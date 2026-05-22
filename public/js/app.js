@@ -92,7 +92,7 @@ const App = (() => {
 
     function renderCategoryCard(slug, icon, title, desc, count, colorVar, bgColor) {
         return `
-            <a href="#/categoria/${slug}" class="category-card" style="--card-color: var(${colorVar}); --card-color-light: ${bgColor}">
+            <a href="/categoria/${slug}" class="category-card" style="--card-color: var(${colorVar}); --card-color-light: ${bgColor}">
                 <div class="card-icon">${icon}</div>
                 <h3 class="card-title">${title}</h3>
                 <p class="card-desc">${desc}</p>
@@ -224,7 +224,7 @@ const App = (() => {
         if (ogDesc) ogDesc.setAttribute('content', description);
         
         let ogUrl = document.querySelector('meta[property="og:url"]');
-        if (ogUrl) ogUrl.setAttribute('content', `https://calculadetudo.com/#${path}`);
+        if (ogUrl) ogUrl.setAttribute('content', `https://calculadetudo.com${path === '/' ? '' : path}`);
 
         // 3. Canonical Link
         let canonical = document.querySelector('link[rel="canonical"]');
@@ -233,7 +233,7 @@ const App = (() => {
             canonical.setAttribute('rel', 'canonical');
             document.head.appendChild(canonical);
         }
-        canonical.setAttribute('href', `https://calculadetudo.com/#${path}`);
+        canonical.setAttribute('href', `https://calculadetudo.com${path === '/' ? '' : path}`);
 
         // 4. JSON-LD Structured Data
         const existingScript = document.getElementById('jsonld-seo');
@@ -256,7 +256,7 @@ const App = (() => {
                 "price": "0",
                 "priceCurrency": "BRL"
             },
-            "url": `https://calculadetudo.com/#${path}`
+            "url": `https://calculadetudo.com${path === '/' ? '' : path}`
         };
 
         script.text = JSON.stringify(schema);
@@ -265,7 +265,7 @@ const App = (() => {
 
     // ---- Router ----
     function route() {
-        let hash = window.location.hash.replace('#', '') || '/';
+        let hash = window.location.pathname || '/';
 
         // Scroll to top
         window.scrollTo(0, 0);
@@ -349,7 +349,7 @@ const App = (() => {
             <div class="calc-page" style="text-align: center; padding-top: 80px;">
                 <h1 class="calc-title">Página não encontrada</h1>
                 <p class="calc-description">A calculadora que você procura não existe.</p>
-                <a href="#/" class="btn btn-primary" style="margin-top: 24px; display: inline-flex;">Voltar ao Início</a>
+                <a href="/" class="btn btn-primary" style="margin-top: 24px; display: inline-flex;">Voltar ao Início</a>
             </div>
         `;
 
@@ -457,8 +457,19 @@ const App = (() => {
         initTheme();
         initCookieBanner();
         TranslateSystem.init();
+
+        // Intercept link clicks for SPA routing
+        document.body.addEventListener('click', e => {
+            const a = e.target.closest('a');
+            if (a && a.getAttribute('href') && a.getAttribute('href').startsWith('/')) {
+                e.preventDefault();
+                history.pushState(null, '', a.getAttribute('href'));
+                route();
+            }
+        });
+
         route();
-        window.addEventListener('hashchange', route);
+        window.addEventListener('popstate', route);
     }
 
     // Start when DOM is ready
