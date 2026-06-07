@@ -194,8 +194,6 @@ const App = (() => {
                     <h1>Sobre o CalculaDeTudo</h1>
                     <p>O <strong>CalculaDeTudo</strong> é um hub de calculadoras online gratuitas criado para simplificar cálculos do dia a dia — de finanças pessoais e impostos a saúde e matemática científica. Todas as ferramentas funcionam diretamente no navegador, sem necessidade de cadastro ou instalação.</p>
 
-                    <h2>Quem mantém este site</h2>
-                    <p>Este portal é desenvolvido e mantido por <strong>Guilherme Motta</strong>, profissional de Administração e Finanças com MBA em Gestão Financeira, MBA em Gestão de Projetos e especialização em LGPD. Com experiência prática em faturamento, contas a receber, conciliação bancária e folha de pagamento, o objetivo deste site é democratizar o acesso a ferramentas de cálculo confiáveis para pessoas físicas, empreendedores e profissionais.</p>
 
                     <h2>Nossa missão</h2>
                     <p>Oferecer calculadoras precisas, rápidas e gratuitas para todos os brasileiros — seja para calcular juros compostos antes de fechar um financiamento, simular o IRPF antes da declaração, ou simplesmente saber o IMC. Tudo em um só lugar, sem anúncios invasivos, sem paywall.</p>
@@ -203,8 +201,6 @@ const App = (() => {
                     <h2>Tecnologia</h2>
                     <p>O site é construído com tecnologias web modernas (HTML5, JavaScript, Vite), hospedado no GitHub Pages e atualizado regularmente com novas ferramentas e conteúdo educacional.</p>
 
-                    <h2>Contato</h2>
-                    <p>Para dúvidas, sugestões ou parcerias, entre em contato pelo e-mail: <a href="mailto:contato@calculadetudo.com">contato@calculadetudo.com</a></p>
 
                     <h2>Nomes alternativos</h2>
                     <p>O CalculaDeTudo também é encontrado por usuários que buscam por nomes parecidos como: <em>CalculaTudo</em>, <em>CalculeDeTudo</em>, <em>CalculeTudo</em>, <em>CalculaTodo</em>, <em>CalculeTodo</em>, <em>CalculadoraDeTudo</em>, <em>CalcDeTudo</em> e <em>CalcTudo</em>. Se você chegou aqui por um desses termos, está no lugar certo.</p>
